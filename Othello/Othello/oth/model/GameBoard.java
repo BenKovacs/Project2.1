@@ -1,15 +1,6 @@
 package oth.model;
 
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-
-import javax.swing.text.Position;
-
-
-
-
 public class GameBoard {
 	int width;
 	int height;

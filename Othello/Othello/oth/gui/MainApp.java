@@ -1,27 +1,17 @@
 package oth.gui;
 
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Point;
+import oth.model.GameBoard;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.LinkedList;
 import java.util.List;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JSplitPane;
-
-import oth.model.GameBoard;
-
-
 
 
 public class MainApp implements ActionListener {
@@ -119,9 +109,6 @@ public class MainApp implements ActionListener {
 //		mp.setDebugMode(debugMode);
 
 	}
-
-	
-		
 		
 		//placement
 		private Point randomPoint(List<Point> points)
