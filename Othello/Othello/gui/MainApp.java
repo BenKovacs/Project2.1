@@ -58,7 +58,7 @@ public class MainApp implements ActionListener {
 		rPanel = new RightPanel();
 
 		//create the gameBoard/panel
-		gameBoard = new GameBoard(10,10);
+		gameBoard = new GameBoard(8,8);
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1,0);
 
