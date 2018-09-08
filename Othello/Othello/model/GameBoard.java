@@ -1,10 +1,14 @@
 package model;
 
+import static model.Constants.*;
 
 public class GameBoard {
-	int width;
-	int height;
+	private int width;
+	private int height;
 	private int[][] bs;
+
+	//Game state
+	private int turn = WHITE;
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -19,13 +23,18 @@ public class GameBoard {
 		}
 	}
 
-	public void changeSquareType(int x, int y){
-		//default move as white
-		if(bs[x][y] == -1) bs[x][y] = 1;
-		else if(bs[x][y] == 1) bs[x][y] = 0;
-		else if(bs[x][y] == 0) bs[x][y] = 1;
+	public boolean flipDisc(int x, int y){
 
-		System.out.println("changes "+ x + " "+ y);
+		if(bs[x][y] == EMPTY){
+			// put the disc only if the place is empty
+			bs[x][y] = turn;
+			changeTurn();
+
+			return true;
+		} else{
+			System.out.println("Spot already selected");
+			return false;
+		}
 	}
 
 	public int getSquareType(int x, int y) { return bs[x][y]; }
@@ -38,6 +47,15 @@ public class GameBoard {
 
 	public int getWidth() {
 		return width;
+	}
+
+	public int getTurn(){
+		return turn;
+	}
+
+	public void changeTurn(){
+		if(turn == WHITE) turn = BLACK;
+		else turn = WHITE;
 	}
 }
 

@@ -9,9 +9,14 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+import static model.Constants.*;
+
 public class BoardPanel extends JPanel {
 
 	private GameBoard gameBoard;
+
+	//copy of the right panel
+	private RightPanel rightPanel;
 
 	private SquarePanel[][] sp;
 
@@ -19,8 +24,9 @@ public class BoardPanel extends JPanel {
 	 * Create the panel.
 	 * @param gameB
 	 */
-	public BoardPanel(GameBoard gameB) {
+	public BoardPanel(GameBoard gameB, RightPanel rPanel) {
 		this.gameBoard = gameB;
+		this.rightPanel = rPanel;
 		int h = gameBoard.getHeight(); int w = gameBoard.getWidth();
 		setLayout(new GridLayout(w, h, 0, 0));
 
@@ -61,10 +67,6 @@ public class BoardPanel extends JPanel {
 
 	//the square composing the grid panels
 	private class SquarePanel extends JPanel implements MouseListener {
-
-		public final int EMPTY = -1;
-		public final int BLACK = 0;
-		public final int WHITE = 1;
 
 		private int type;
 		private int x;
@@ -120,8 +122,14 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			gameBoard.changeSquareType(this.x,this.y);
-			setGameBoard(gameBoard);
+			//if the player can flip the disc
+			if(gameBoard.flipDisc(this.x, this.y)){
+				//update the gameBoard
+				setGameBoard(gameBoard);
+				//change the turn
+				//change the right panel label
+				rightPanel.changeTurn();
+			}
 		}
 
 		@Override

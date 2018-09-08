@@ -16,7 +16,7 @@ public class MainApp implements ActionListener {
 
 	//--PANELS
 	//right RightPanel
-	private SettingsPanel rPanel;
+	private RightPanel rPanel;
 	//left LeftPanel
 	private BoardPanel boardPanel;
 
@@ -55,15 +55,15 @@ public class MainApp implements ActionListener {
 		//set the layout
 		frame.getContentPane().setLayout(new GridLayout(1,2));
 
+		rPanel = new RightPanel();
+
 		//create the gameBoard/panel
 		gameBoard = new GameBoard(10,10);
-		boardPanel = new BoardPanel(gameBoard);
+		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1,0);
 
-		rPanel = new SettingsPanel();
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0,1);
-
 	}
 
 	@Override
