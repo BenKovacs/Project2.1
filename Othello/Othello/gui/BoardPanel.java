@@ -54,8 +54,8 @@ public class BoardPanel extends JPanel {
 
 		this.removeAll();
 
-		for (int y=0; y<8; y++) {
-			for (int x = 0; x < 8; x++) {
+		for (int y=0; y<gameBoard.getHeight(); y++) {
+			for (int x = 0; x < gameBoard.getWidth(); x++) {
 				//create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x,y, gameBoard.getSquareType(x,y));
 				add(sp[x][y]);
