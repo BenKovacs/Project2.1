@@ -1,4 +1,4 @@
-package oth.gui;
+package gui;
 
 
 
