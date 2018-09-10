@@ -101,13 +101,13 @@ public class BoardPanel extends JPanel {
 				//draw a black circle
 				c = new Color(255, 255, 255);
 				g2.setColor(c);
-				g2.fillOval(3,3,39, 39 );
+				g2.fillOval(5,5,45, 45 );
 
 			}else if (type == BLACK){
 				//draw a white circle
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
-				g2.fillOval(3,3,39, 39 );
+				g2.fillOval(5,5,45, 45 );
 
 			}
 		}
