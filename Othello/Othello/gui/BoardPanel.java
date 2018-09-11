@@ -46,7 +46,7 @@ public class BoardPanel extends JPanel {
 
 	public void showBoard() {
 		revalidate();
-		repaint();
+		//repaint();
 	}
 
 	public void setGameBoard(GameBoard gb) {

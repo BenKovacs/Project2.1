@@ -26,15 +26,11 @@ public class GameBoard {
 		}
 		turn = WHITE;
 		enemy = BLACK;
+		bs[3][3] = WHITE;
+		bs[3][4] = BLACK;
+		bs[4][3] = BLACK;
 		bs[4][4] = WHITE;
-		bs[4][5] = BLACK;
-		bs[5][4] = BLACK;
-		bs[5][5] = WHITE;
 		//starting game position
-				bs[3][3] = 1;
-				bs[4][4] = 1;
-				bs[4][3] = 0;
-				bs[3][4] = 0;
 	}
 
 
@@ -121,6 +117,9 @@ public class GameBoard {
 			turn = WHITE;
 			enemy = BLACK;
 		}
+		showValidMoves();
+	}
+	public void showValidMoves(){
 
 	}
 }
