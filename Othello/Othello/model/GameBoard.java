@@ -30,6 +30,11 @@ public class GameBoard {
 		bs[4][5] = BLACK;
 		bs[5][4] = BLACK;
 		bs[5][5] = WHITE;
+		//starting game position
+				bs[3][3] = 1;
+				bs[4][4] = 1;
+				bs[4][3] = 0;
+				bs[3][4] = 0;
 	}
 
 

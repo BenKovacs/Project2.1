@@ -54,8 +54,8 @@ public class BoardPanel extends JPanel {
 
 		this.removeAll();
 
-		for (int y=0; y<10; y++) {
-			for (int x = 0; x < 10; x++) {
+		for (int y=0; y<gameBoard.getHeight(); y++) {
+			for (int x = 0; x < gameBoard.getWidth(); x++) {
 				//create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x,y, gameBoard.getSquareType(x,y));
 				add(sp[x][y]);
@@ -101,13 +101,13 @@ public class BoardPanel extends JPanel {
 				//draw a black circle
 				c = new Color(255, 255, 255);
 				g2.setColor(c);
-				g2.fillOval(3,3,39, 39 );
+				g2.fillOval(5,5,45, 45 );
 
 			}else if (type == BLACK){
 				//draw a white circle
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
-				g2.fillOval(3,3,39, 39 );
+				g2.fillOval(5,5,45, 45 );
 
 			}
 		}
