@@ -52,35 +52,31 @@ public class GameBoard {
 		return x >= 0 && x <= width && y >= 0 && y <= height;
 	}
 
+
 	public boolean isValidMove(int x, int y) {
-		return bs[x][y] == EMPTY && hasEnemyNearby(x,y);
+		return bs[x][y] == EMPTY && checkFlip(x,y);
 	}
 
-	public boolean hasEnemyNearby(int x, int y) {
-		for (int i=x-1; i<=x+1; i++)
-			for (int j=y-1; j<=y+1; j++) {
-				if (isInsideBoard(i, j) && bs[i][j] == enemy)
-					System.out.println(i + " " + j + bs[i][j]);
-					return true;
-			}
-		return false;
+	public boolean checkFlip(int x, int y) {
+	    boolean valid = false;
+	    try{
+	        for (int i=x-1; i<=x+1; i++)
+                for (int j=y-1; j<=y+1; j++)
+                    if (isInsideBoard(i,j) && bs[i][j] == enemy)
+                        if(checkDirection(x,y,i,j)) {
+                            valid = true;
+                        }
+        } catch(Exception e){}
+	    return valid;
 	}
 
-	public void conquer(int x, int y) {
-		if (isValidMove(x,y))
-			for (int i=x-1; i<=x+1; i++)
-				for (int j=y-1; j<=y+1; j++)
-					if (isInsideBoard(i,j) && bs[i][j] == enemy)
-						attack(x,y,i,j);
-	}
-
-	public boolean attack(int x, int y, int i, int j) {
+	public boolean checkDirection(int x, int y, int i, int j) {
 		if (bs[x+(i-x)][y+(j-y)] == EMPTY)
 			return false;
 		else if (bs[x+(i-x)][y+(j-y)] == turn)
 			return true;
 		else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2))
-			if (attack(x+(i-x),y+(j-y),x+(i-x)*2,y+(j-y)*2)) {
+			if (checkDirection(x+(i-x),y+(j-y),x+(i-x)*2,y+(j-y)*2)) {
 				bs[x + (i - x)][y + (j - y)] = turn;
 				return true;
 			}
