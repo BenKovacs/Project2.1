@@ -59,14 +59,17 @@ public class GameBoard {
 
 	public boolean checkFlip(int x, int y) {
 	    boolean valid = false;
-	    try{
-	        for (int i=x-1; i<=x+1; i++)
-                for (int j=y-1; j<=y+1; j++)
-                    if (isInsideBoard(i,j) && bs[i][j] == enemy)
-                        if(checkDirection(x,y,i,j)) {
+
+	    for (int i=x-1; i<=x+1; i++){
+            for (int j=y-1; j<=y+1; j++) {
+                try {
+                    if (isInsideBoard(i, j) && bs[i][j] == enemy)
+                        if (checkDirection(x, y, i, j)) {
                             valid = true;
                         }
-        } catch(Exception e){}
+                } catch(Exception e) {}
+            }
+	    }
 	    return valid;
 	}
 
