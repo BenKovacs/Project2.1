@@ -2,7 +2,11 @@ package gui;
 
 
 
+import model.GameBoard;
+
 import javax.swing.*;
+
+import static model.Constants.WHITE;
 
 public class RightPanel extends JPanel {
 
@@ -95,7 +99,9 @@ public class RightPanel extends JPanel {
 	}
 
 	void changeTurn(){
-		if(playerTurn.getText().equals("White turn")) playerTurn.setText("Black turn");
-		else playerTurn.setText("White turn");
+//		if(playerTurn.getText().equals("White turn")) playerTurn.setText("Black turn");
+//		else playerTurn.setText("White turn");
+		if(GameBoard.turn == WHITE) playerTurn.setText("white turn");
+		else playerTurn.setText("black turn");
 	}
 }

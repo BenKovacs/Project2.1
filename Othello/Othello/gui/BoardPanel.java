@@ -123,13 +123,16 @@ public class BoardPanel extends JPanel {
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			//if the player can flip the disc
-			if(gameBoard.flipDisc(this.x, this.y)){
-				//update the gameBoard
-				setGameBoard(gameBoard);
-				//change the turn
-				//change the right panel label
-				rightPanel.changeTurn();
-			}
+//			if(gameBoard.flipDisc(this.x, this.y)){
+//				//update the gameBoard
+//				setGameBoard(gameBoard);
+//				//change the turn
+//				//change the right panel label
+//				rightPanel.changeTurn();
+//			}
+			gameBoard.flipDisc(this.x, this.y);
+			setGameBoard(gameBoard);
+			rightPanel.changeTurn();
 		}
 
 		@Override
