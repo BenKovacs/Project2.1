@@ -1,7 +1,6 @@
 package model;
 
 import gui.RightPanel;
-
 import static model.Constants.*;
 
 public class GameBoard {
@@ -9,7 +8,7 @@ public class GameBoard {
 	private static final boolean SIMULATE = false;
 	private int width;
 	private int height;
-	private int[][] bs;
+	private int[][] board;
 	private int enemy;
 	//Game state
 	public static int turn;
@@ -21,28 +20,26 @@ public class GameBoard {
 		this.width = width;
 		this.height = height;
 
-		bs = new int[width][height];
+		board = new int[width][height];
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				bs[x][y] = -1; // default gray
+				board[x][y] = -1; // default gray
 			}
 		}
 		turn = WHITE;
 		enemy = BLACK;
-		bs[3][3] = WHITE;
-		bs[3][4] = BLACK;
-		bs[4][3] = BLACK;
-		bs[4][4] = WHITE;
+		board[3][3] = WHITE;
+		board[3][4] = BLACK;
+		board[4][3] = BLACK;
+		board[4][4] = WHITE;
 		//starting game position
 		showValidMoves();
 	}
 
-
 	public void flipDisc(int x, int y){
-
-		if(isValidMove(x,y, EXECUTE)){
-			bs[x][y] = turn;
+	    if(isValidMove(x,y, EXECUTE)){
+            board[x][y] = turn;
 			countDiscs();
 			changeTurn();
 			//return true;
@@ -51,8 +48,6 @@ public class GameBoard {
 			//return false;
 		}
 	}
-
-
 
 	private void countDiscs() {
 		countWhite = 0;
@@ -77,10 +72,9 @@ public class GameBoard {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-
 	public boolean isValidMove(int x, int y, boolean executeMove) {
-//		return bs[x][y] == VALID;
-		return (bs[x][y] == EMPTY || bs[x][y] == VALID) && checkFlip(x,y, executeMove);
+//		return board[x][y] == VALID;
+		return (board[x][y] == EMPTY || board[x][y] == VALID) && checkFlip(x,y, executeMove);
 	}
 
 	public boolean checkFlip(int x, int y, boolean executeMove) {
@@ -88,40 +82,45 @@ public class GameBoard {
 
 	    for (int i=x-1; i<=x+1; i++){
             for (int j=y-1; j<=y+1; j++) {
-                try {
-                    if (isInsideBoard(i, j) && bs[i][j] == enemy)
-                        if (checkDirection(x, y, i, j, executeMove)) {
-                            valid = true;
-                        }
-                } catch(Exception e) {}
+                if (isInsideBoard(i, j)){
+                    if (board[i][j] == enemy) {
+						if (checkDirection(x, y, i, j, executeMove)) {
+							valid = true;
+						}
+					}
+                }
             }
 	    }
 	    return valid;
 	}
 
 	public boolean checkDirection(int x, int y, int i, int j, boolean executeMove) {
-		if (bs[x+(i-x)][y+(j-y)] == EMPTY)
-			return false;
-		else if (bs[x+(i-x)][y+(j-y)] == turn)
-			return true;
-		else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2))
-			if (checkDirection(x+(i-x),y+(j-y),x+(i-x)*2,y+(j-y)*2, executeMove)) {
-				if(executeMove){
-					bs[x + (i - x)][y + (j - y)] = turn;
-				}
-				return true;
-			}
-			else
-				return false;
-		else
-			return false;
+		if (board[x+(i-x)][y+(j-y)] == EMPTY) {
+            return false;
+        }
+		else if (board[x+(i-x)][y+(j-y)] == turn) {
+            return true;
+        }
+		else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2)) {
+            if (checkDirection(x + (i - x), y + (j - y), x + (i - x) * 2, y + (j - y) * 2, executeMove)) {
+                if (executeMove) {
+                    board[x + (i - x)][y + (j - y)] = turn;
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+		else {
+            return false;
+        }
 	}
 
+	public int getSquareType(int x, int y) { return board[x][y]; }
 
-
-	public int getSquareType(int x, int y) { return bs[x][y]; }
-
-	public int[][] getboard(){ return bs ; }
+	public int[][] getboard(){
+		return board ;
+	}
 
 	public int getHeight() {
 		return height;
@@ -136,7 +135,7 @@ public class GameBoard {
 	}
 
 	public void changeTurn(){
-		if(turn == WHITE) {
+		if (turn == WHITE) {
 			turn = BLACK;
 			enemy = WHITE;
 		}
@@ -146,13 +145,14 @@ public class GameBoard {
 		}
 		showValidMoves();
 	}
+
 	public void showValidMoves(){
 		// Reset possible moves
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				int current = bs[x][y];
+				int current = board[x][y];
 				if (current == VALID){
-					bs[x][y] = EMPTY;
+                    board[x][y] = EMPTY;
 				}
 			}
 		}
@@ -160,11 +160,11 @@ public class GameBoard {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (isValidMove(x, y, SIMULATE)){
-					bs[x][y] = VALID;
+                    board[x][y] = VALID;
 				}
 			}
 		}
-		
+
 	}
 
 
