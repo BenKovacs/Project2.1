@@ -108,7 +108,11 @@ public class BoardPanel extends JPanel {
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
 				g2.fillOval(5,5,45, 45 );
-
+			}else if (type == VALID){
+				//draw a white circle
+				c = new Color(0, 255, 0);
+				g2.setColor(c);
+				g2.fillOval(5,5,45, 45 );
 			}
 		}
 
