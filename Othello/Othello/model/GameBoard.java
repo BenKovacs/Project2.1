@@ -14,6 +14,8 @@ public class GameBoard {
 	//Game state
 	public static int turn;
 	private int INVERSE_COLOUR;
+	public static int countWhite;
+	public static int countBlack;
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -41,6 +43,7 @@ public class GameBoard {
 
 		if(isValidMove(x,y, EXECUTE)){
 			bs[x][y] = turn;
+			countDiscs();
 			changeTurn();
 			//return true;
 		} else{
@@ -49,6 +52,25 @@ public class GameBoard {
 		}
 	}
 
+
+
+	private void countDiscs() {
+		countWhite = 0;
+		countBlack = 0;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if(bs[x][y] == WHITE)
+				{
+					countWhite++;
+				}
+				if(bs[x][y] == BLACK)
+				{
+					countBlack++;
+				}
+			}
+		}
+	}
+	
 
 
 	public boolean isInsideBoard(int x, int y) {
@@ -144,5 +166,17 @@ public class GameBoard {
 		}
 		
 	}
+
+
+	public int getCountWhite() {
+		return countWhite;
+	}
+
+
+	public int getCountBlack() {
+		return countBlack;
+	}
+
+
 }
 

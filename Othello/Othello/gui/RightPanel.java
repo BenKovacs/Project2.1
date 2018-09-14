@@ -11,6 +11,8 @@ import static model.Constants.WHITE;
 public class RightPanel extends JPanel {
 
 	private JLabel playerTurn;
+	private JLabel whiteDiscs;
+	private JLabel blackDiscs;
 
 	public RightPanel() {
 			/*setBounds(100, 100, 450, 336);
@@ -21,6 +23,10 @@ public class RightPanel extends JPanel {
 			*/
 		playerTurn = new JLabel("White turn");
 		this.add(playerTurn);
+		whiteDiscs = new JLabel("White = 2");
+		this.add(whiteDiscs);
+		blackDiscs = new JLabel("Black = 2");
+		this.add(blackDiscs);
 			/*
 
 			JRadioButton rdbtnSmall = new JRadioButton("Small");
@@ -103,5 +109,7 @@ public class RightPanel extends JPanel {
 //		else playerTurn.setText("White turn");
 		if(GameBoard.turn == WHITE) playerTurn.setText("white turn");
 		else playerTurn.setText("black turn");
+		whiteDiscs.setText("White = "+ GameBoard.countWhite);
+		blackDiscs.setText("Black = "+ GameBoard.countBlack);
 	}
 }
