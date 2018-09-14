@@ -134,9 +134,13 @@ public class BoardPanel extends JPanel {
 //				//change the right panel label
 //				rightPanel.changeTurn();
 //			}
-			gameBoard.flipDisc(this.x, this.y);
-			setGameBoard(gameBoard);
-			rightPanel.changeTurn();
+			if (gameBoard.flipDisc(this.x, this.y)){
+				setGameBoard(gameBoard);
+				rightPanel.changeTurn();
+				if (gameBoard.isGameFinished()){
+					
+				}
+			}
 		}
 
 		@Override

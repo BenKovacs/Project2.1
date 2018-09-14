@@ -13,6 +13,7 @@ public class GameBoard {
 	//Game state
 	public static int turn;
 	private int INVERSE_COLOUR;
+	public int countValid;
 	public static int countWhite;
 	public static int countBlack;
 
@@ -37,15 +38,21 @@ public class GameBoard {
 		showValidMoves();
 	}
 
-	public void flipDisc(int x, int y){
+	/**
+	 * 
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public boolean flipDisc(int x, int y){
 	    if(isValidMove(x,y, EXECUTE)){
             board[x][y] = turn;
 			countDiscs();
 			changeTurn();
-			//return true;
+			return true;
 		} else{
 			System.out.println("invalid move");
-			//return false;
+			return false;
 		}
 	}
 
@@ -135,6 +142,11 @@ public class GameBoard {
 	}
 
 	public void changeTurn(){
+		swapPlayers();
+		showValidMoves();
+	}
+
+	private void swapPlayers() {
 		if (turn == WHITE) {
 			turn = BLACK;
 			enemy = WHITE;
@@ -143,11 +155,11 @@ public class GameBoard {
 			turn = WHITE;
 			enemy = BLACK;
 		}
-		showValidMoves();
 	}
 
 	public void showValidMoves(){
 		// Reset possible moves
+		countValid = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				int current = board[x][y];
@@ -161,12 +173,12 @@ public class GameBoard {
 			for (int y = 0; y < height; y++) {
 				if (isValidMove(x, y, SIMULATE)){
                     board[x][y] = VALID;
+                    countValid++;
 				}
 			}
 		}
 
 	}
-
 
 	public int getCountWhite() {
 		return countWhite;
@@ -175,6 +187,28 @@ public class GameBoard {
 
 	public int getCountBlack() {
 		return countBlack;
+	}
+
+	/**
+	 * This method checks to see if the games has finished.<br>
+	 * If it has it will return true.
+	 * The game is finished when ....
+	 * @return true or false
+	 */
+	public boolean isGameFinished() {
+		if(countWhite + countBlack == 64){
+			return true;
+		}
+		// CHeck for the current player valid moves
+		if(countValid == 0){
+			swapPlayers();
+			// check for the other player...
+			showValidMoves();
+			if (countValid == 0){
+				return true;
+			}
+		}
+		return false;
 	}
 
 
