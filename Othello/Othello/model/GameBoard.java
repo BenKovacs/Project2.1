@@ -4,6 +4,8 @@ import gui.RightPanel;
 import static model.Constants.*;
 
 public class GameBoard {
+	private static final boolean EXECUTE = true;
+	private static final boolean SIMULATE = false;
 	private int width;
 	private int height;
 	private int[][] board;
@@ -30,12 +32,12 @@ public class GameBoard {
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
 		//starting game position
+		showValidMoves();
 	}
 
 	public void flipDisc(int x, int y){
-
-		if(isValidMove(x,y)){
-			board[x][y] = turn;
+	    if(isValidMove(x,y, EXECUTE)){
+            board[x][y] = turn;
 			changeTurn();
 			//return true;
 		} else{
@@ -48,18 +50,19 @@ public class GameBoard {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-	public boolean isValidMove(int x, int y) {
-		return board[x][y] == EMPTY && checkFlips(x,y);
+	public boolean isValidMove(int x, int y, boolean executeMove) {
+//		return board[x][y] == VALID;
+		return (board[x][y] == EMPTY || board[x][y] == VALID) && checkFlip(x,y, executeMove);
 	}
 
-	public boolean checkFlips(int x, int y) {
+	public boolean checkFlip(int x, int y, boolean executeMove) {
 	    boolean valid = false;
 
 	    for (int i=x-1; i<=x+1; i++){
             for (int j=y-1; j<=y+1; j++) {
                 if (isInsideBoard(i, j)){
                     if (board[i][j] == enemy) {
-						if (checkDirection(x, y, i, j)) {
+						if (checkDirection(x, y, i, j, executeMove)) {
 							valid = true;
 						}
 					}
@@ -69,20 +72,26 @@ public class GameBoard {
 	    return valid;
 	}
 
-	public boolean checkDirection(int x, int y, int i, int j) {
+	public boolean checkDirection(int x, int y, int i, int j, boolean executeMove) {
 		if (board[x+(i-x)][y+(j-y)] == EMPTY) {
-			return false;
-		}
+            return false;
+        }
 		else if (board[x+(i-x)][y+(j-y)] == turn) {
-			return true;
-		}
+            return true;
+        }
 		else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2)) {
-			if (checkDirection(x + (i - x), y + (j - y), x + (i - x) * 2, y + (j - y) * 2)) {
-				board[x + (i - x)][y + (j - y)] = turn;
-				return true;
-			} else {return false;}
-		}
-		else {return false;}
+            if (checkDirection(x + (i - x), y + (j - y), x + (i - x) * 2, y + (j - y) * 2, executeMove)) {
+                if (executeMove) {
+                    board[x + (i - x)][y + (j - y)] = turn;
+                }
+                return true;
+            } else {
+                return false;
+            }
+        }
+		else {
+            return false;
+        }
 	}
 
 	public int getSquareType(int x, int y) { return board[x][y]; }
@@ -116,6 +125,23 @@ public class GameBoard {
 	}
 
 	public void showValidMoves(){
+		// Reset possible moves
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				int current = board[x][y];
+				if (current == VALID){
+                    board[x][y] = EMPTY;
+				}
+			}
+		}
+		// Find possible moves for new player turn
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if (isValidMove(x, y, SIMULATE)){
+                    board[x][y] = VALID;
+				}
+			}
+		}
 
 	}
 }
