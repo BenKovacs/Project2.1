@@ -31,9 +31,9 @@ public class BoardPanel extends JPanel {
 		setLayout(new GridLayout(w, h, 0, 0));
 
 		sp = new SquarePanel[w][h];
-		
-		for (int y=0; y<h; y++){
-			for (int x=0; x<w; x++){
+
+		for (int x = 0; x < w; x++){
+			for (int y = 0; y < h; y++){
 				//create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x,y, gameBoard.getSquareType(x,y));
 				add(sp[x][y]);
@@ -46,16 +46,14 @@ public class BoardPanel extends JPanel {
 
 	public void showBoard() {
 		revalidate();
-		//repaint();
 	}
 
 	public void setGameBoard(GameBoard gb) {
 		this.gameBoard = gb;
 
 		this.removeAll();
-
-		for (int y=0; y<gameBoard.getHeight(); y++) {
 			for (int x = 0; x < gameBoard.getWidth(); x++) {
+				for (int y=0; y<gameBoard.getHeight(); y++) {
 				//create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x,y, gameBoard.getSquareType(x,y));
 				add(sp[x][y]);
@@ -78,41 +76,50 @@ public class BoardPanel extends JPanel {
 			this.type = type;
 			this.x = x;
 			this.y = y;
+
 			setLayout(new BorderLayout());
 			setBorder(new LineBorder(Color.lightGray));
 
-			addMouseListener(this);
+			//set background color to dark green
+			Color backgroundColor = new Color(0, 120, 0);
+			setBackground(backgroundColor);
 
-			w = this.getWidth();
-			h = this.getHeight();
+			addMouseListener(this);
 		}
 
 		@Override
 		public void paint(Graphics g) {
+			w = this.getWidth();
+			h = this.getHeight();
+
 			super.paint(g);
 
-			//set background to gray
+			//initiate tile color
 			Color c;
 
 			Graphics2D g2 = (Graphics2D) g;
+
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
 			if(type == WHITE){
-				//draw a black circle
+				//draw a white circle
 				c = new Color(255, 255, 255);
 				g2.setColor(c);
-				g2.fillOval(5,5,45, 45 );
-
+				g2.fillOval(5,5,w-10, h-10 );
 			}else if (type == BLACK){
-				//draw a white circle
+				//draw a black circle
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
-				g2.fillOval(5,5,45, 45 );
-			}else if (type == VALID){
-				//draw a white circle
+				g2.fillOval(5,5,w-10, h-10 );
+			}else if (type < EMPTY) {
+				String flips = Integer.toString(-type);
+				//change background color to light green and draw number
 				c = new Color(0, 255, 0);
+				setBackground(c);
+				c = new Color(0, 0, 0);
+				g2.setFont(new Font("Arial", Font.BOLD, h/2));
 				g2.setColor(c);
-				g2.fillOval(5,5,45, 45 );
+				g2.drawString(flips,w/2-g2.getFontMetrics().stringWidth(flips)/2,h/2+g2.getFontMetrics().getHeight()/4);
 			}
 		}
 

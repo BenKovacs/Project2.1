@@ -25,7 +25,7 @@ public class GameBoard {
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				board[x][y] = -1; // default gray
+				board[x][y] = 0; // default gray
 			}
 		}
 		turn = WHITE;
@@ -50,7 +50,7 @@ public class GameBoard {
 			countDiscs();
 			changeTurn();
 			return true;
-		} else{
+		} else {
 			System.out.println("invalid move");
 			return false;
 		}
@@ -80,50 +80,60 @@ public class GameBoard {
 	}
 
 	public boolean isValidMove(int x, int y, boolean executeMove) {
-//		return board[x][y] == VALID;
-		return (board[x][y] == EMPTY || board[x][y] == VALID) && checkFlip(x,y, executeMove);
+		return (board[x][y] == EMPTY || board[x][y] < 0) && checkFlip(x,y, executeMove) > 0;
 	}
 
-	public boolean checkFlip(int x, int y, boolean executeMove) {
-	    boolean valid = false;
+	public int countFlips(int x, int y){
+		if(board[x][y] == EMPTY || board[x][y] < 0){
+			return checkFlip(x,y, SIMULATE);
+		} else {
+			return 0;
+		}
+	}
+
+	public int checkFlip(int x, int y, boolean executeMove) {
+	    int flips = 0;
 
 	    for (int i=x-1; i<=x+1; i++){
             for (int j=y-1; j<=y+1; j++) {
                 if (isInsideBoard(i, j)){
                     if (board[i][j] == enemy) {
-						if (checkDirection(x, y, i, j, executeMove)) {
-							valid = true;
+						int flipsDirection = checkDirection(x, y, i, j, executeMove);
+						if (flipsDirection > 0) {
+							flips += flipsDirection;
 						}
 					}
                 }
             }
 	    }
-	    return valid;
+	    return flips;
 	}
 
-	public boolean checkDirection(int x, int y, int i, int j, boolean executeMove) {
+	//returns -1 if no flips in that direction, otherwise return the number of flips
+	public int checkDirection(int x, int y, int i, int j, boolean executeMove) {
+		int flips;
 		if (board[x+(i-x)][y+(j-y)] == EMPTY) {
-            return false;
-        }
-		else if (board[x+(i-x)][y+(j-y)] == turn) {
-            return true;
-        }
-		else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2)) {
-            if (checkDirection(x + (i - x), y + (j - y), x + (i - x) * 2, y + (j - y) * 2, executeMove)) {
+            return -1;
+        } else if (board[x+(i-x)][y+(j-y)] == turn) {
+            return 0;
+        } else if (isInsideBoard(x+(i-x)*2,y+(j-y)*2)) {
+			flips = checkDirection(x+(i-x), y+(j-y), x+(i-x)*2, y+(j-y)*2, executeMove);
+            if (flips >= 0) {
                 if (executeMove) {
-                    board[x + (i - x)][y + (j - y)] = turn;
+                    board[x+(i-x)][y+(j-y)] = turn;
                 }
-                return true;
+                return flips+1;
             } else {
-                return false;
+                return -1;
             }
-        }
-		else {
-            return false;
+        } else {
+            return -1;
         }
 	}
 
-	public int getSquareType(int x, int y) { return board[x][y]; }
+	public int getSquareType(int x, int y) {
+	    return board[x][y];
+	}
 
 	public int[][] getboard(){
 		return board ;
@@ -163,7 +173,7 @@ public class GameBoard {
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				int current = board[x][y];
-				if (current == VALID){
+				if (current < 0){
                     board[x][y] = EMPTY;
 				}
 			}
@@ -171,13 +181,17 @@ public class GameBoard {
 		// Find possible moves for new player turn
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if (isValidMove(x, y, SIMULATE)){
-                    board[x][y] = VALID;
+
+				int flips = countFlips(x, y);
+				if (flips > 0){
+                    board[x][y] = -flips;
                     countValid++;
 				}
+				System.out.print("	" + board[x][y]);
 			}
+			System.out.println(" ");
 		}
-
+		System.out.println(" ");
 	}
 
 	public int getCountWhite() {
