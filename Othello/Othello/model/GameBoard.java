@@ -61,14 +61,9 @@ public class GameBoard {
 		countBlack = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if(board[x][y] == WHITE)
-				{
-					countWhite++;
-				}
-				if(board[x][y] == BLACK)
-				{
-					countBlack++;
-				}
+				if(board[x][y] == WHITE)countWhite++;
+			
+				if(board[x][y] == BLACK)countBlack++;
 			}
 		}
 	}
