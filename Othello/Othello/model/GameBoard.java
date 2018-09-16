@@ -78,6 +78,7 @@ public class GameBoard {
 		return (board[x][y] == EMPTY || board[x][y] < 0) && checkFlip(x,y, executeMove) > 0;
 	}
 
+    //returns -1 if no flips from that position that direction, otherwise return the number of flips from that position
 	public int countFlips(int x, int y){
 		if(board[x][y] == EMPTY || board[x][y] < 0){
 			return checkFlip(x,y, SIMULATE);
@@ -86,7 +87,7 @@ public class GameBoard {
 		}
 	}
 
-    //returns -1 if no flips from that position that direction, otherwise return the number of flips from that position
+    //returns -1 if no flips in that direction, otherwise return the number of flips in that direction
 	public int checkFlip(int x, int y, boolean executeMove) {
 	    int flips = 0;
 
@@ -163,11 +164,11 @@ public class GameBoard {
                     board[x][y] = -flips;
                     countValid++;
 				}
-				System.out.print("	" + board[x][y]);
+				//System.out.print("	" + board[x][y]);
 			}
-			System.out.println(" ");
+			//System.out.println(" ");
 		}
-		System.out.println(" ");
+		//System.out.println(" ");
 	}
 
 	/**
