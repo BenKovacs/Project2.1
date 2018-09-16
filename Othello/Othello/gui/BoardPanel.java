@@ -149,13 +149,19 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
+		
+
 
 		@Override
 		public void mouseEntered(MouseEvent e) {
+			this.setBackground(Color.CYAN);
 		}
 
 		@Override
 		public void mouseExited(MouseEvent e) {
+			Color backgroundColor = new Color(0, 120, 0);
+			setBackground(backgroundColor);
+			
 		}
 	}
 }
