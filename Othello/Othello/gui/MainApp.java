@@ -45,6 +45,13 @@ public class MainApp implements ActionListener {
 		frame.setBounds(100, 100, 927, 473);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+		Settings settings = new Settings();
+		// The settings Dialog is Modal so this thread will pause after setting it to be visible until it is set invisible by the dialog.
+		settings.setVisible(true);
+		if (settings.isCancelSelected()){
+			System.exit(0);
+		}
+
 		initialize();
 	}
 
@@ -52,6 +59,7 @@ public class MainApp implements ActionListener {
 	 * Initialize the contents.
 	 */
 	private void initialize() {
+
 		//set the layout
 		frame.getContentPane().setLayout(new GridLayout(1,2));
 
