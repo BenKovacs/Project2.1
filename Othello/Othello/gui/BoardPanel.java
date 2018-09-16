@@ -115,11 +115,11 @@ public class BoardPanel extends JPanel {
 				String flips = Integer.toString(-type);
 				//change background color to light green and draw number
 				c = new Color(0, 0, 0);
+                g2.setColor(c);
 				g2.setStroke(new BasicStroke(3.5f));
 				g2.drawOval(5,5,w-10, h-10);
 
 				g2.setFont(new Font("Arial", Font.BOLD, h/2));
-				g2.setColor(c);
 				g2.drawString(flips,w/2-g2.getFontMetrics().stringWidth(flips)/2,h/2+g2.getFontMetrics().getHeight()/4);
 			}
 		}
