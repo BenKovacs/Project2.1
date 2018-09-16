@@ -131,26 +131,6 @@ public class GameBoard {
         }
 	}
 
-	public int getSquareType(int x, int y) {
-	    return board[x][y];
-	}
-
-	public int[][] getboard(){
-		return board ;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
-
-	public int getTurn(){
-		return turn;
-	}
-
 	public void changeTurn(){
 		swapPlayers();
 		showValidMoves();
@@ -194,15 +174,6 @@ public class GameBoard {
 		System.out.println(" ");
 	}
 
-	public int getCountWhite() {
-		return countWhite;
-	}
-
-
-	public int getCountBlack() {
-		return countBlack;
-	}
-
 	/**
 	 * This method checks to see if the games has finished.<br>
 	 * If it has it will return true.
@@ -224,7 +195,33 @@ public class GameBoard {
 		}
 		return false;
 	}
+	
+	public int getCountWhite() {
+		return countWhite;
+	}
 
 
+	public int getCountBlack() {
+		return countBlack;
+	}
+	
+	public int getSquareType(int x, int y) {
+	    return board[x][y];
+	}
+
+	public int[][] getboard(){
+		return board ;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getTurn(){
+		return turn;
+	}
 }
-
