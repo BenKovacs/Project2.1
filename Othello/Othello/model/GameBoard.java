@@ -1,14 +1,15 @@
 package model;
 
-import gui.RightPanel;
 import static model.Constants.*;
 
 public class GameBoard {
 	private static final boolean EXECUTE = true;
 	private static final boolean SIMULATE = false;
+
 	private int width;
 	private int height;
 	private int[][] board;
+
 	private int enemy;
 	//Game state
 	public static int turn;
@@ -67,7 +68,6 @@ public class GameBoard {
 			}
 		}
 	}
-	
 
 
 	public boolean isInsideBoard(int x, int y) {
