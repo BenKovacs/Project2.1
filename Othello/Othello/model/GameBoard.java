@@ -91,6 +91,7 @@ public class GameBoard {
 		}
 	}
 
+    //returns -1 if no flips from that position that direction, otherwise return the number of flips from that position
 	public int checkFlip(int x, int y, boolean executeMove) {
 	    int flips = 0;
 
@@ -109,10 +110,10 @@ public class GameBoard {
 	    return flips;
 	}
 
-	//returns -1 if no flips in that direction, otherwise return the number of flips
+	//returns -1 if no flips in that direction, otherwise return the number of flips in that direction
 	public int checkDirection(int x, int y, int i, int j, boolean executeMove) {
 		int flips;
-		if (board[x+(i-x)][y+(j-y)] == EMPTY) {
+		if (board[x+(i-x)][y+(j-y)] == EMPTY || board[x+(i-x)][y+(j-y)] < 0) {
             return -1;
         } else if (board[x+(i-x)][y+(j-y)] == turn) {
             return 0;
