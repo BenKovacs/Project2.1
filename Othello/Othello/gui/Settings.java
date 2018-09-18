@@ -63,7 +63,7 @@ public class Settings extends JDialog {
 			
 			tfHumanPlayers = new JTextField();
 			tfHumanPlayers.setHorizontalAlignment(SwingConstants.RIGHT);
-			tfHumanPlayers.setText("0");
+			tfHumanPlayers.setText("1");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, tfHumanPlayers, 6, SpringLayout.SOUTH, rdbtnLarge);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, tfHumanPlayers, 0, SpringLayout.WEST, rdbtnSmall);
 			contentPanel.add(tfHumanPlayers);
@@ -71,7 +71,7 @@ public class Settings extends JDialog {
 			
 			tfAiPlayers = new JTextField();
 			tfAiPlayers.setHorizontalAlignment(SwingConstants.RIGHT);
-			tfAiPlayers.setText("2");
+			tfAiPlayers.setText("1");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, tfAiPlayers, 6, SpringLayout.SOUTH, tfHumanPlayers);
 			sl_contentPanel.putConstraint(SpringLayout.EAST, tfAiPlayers, 0, SpringLayout.EAST, tfHumanPlayers);
 			contentPanel.add(tfAiPlayers);
@@ -86,7 +86,7 @@ public class Settings extends JDialog {
 			sl_contentPanel.putConstraint(SpringLayout.SOUTH, lblNoHumans, -12, SpringLayout.NORTH, lblNoAi);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, lblNoAi, 0, SpringLayout.WEST, lblBoardSiye);
 			contentPanel.add(lblNoAi);
-			
+
 			tfKangaroos = new JTextField();
 			tfKangaroos.setHorizontalAlignment(SwingConstants.RIGHT);
 			tfKangaroos.setText("5");
@@ -94,14 +94,14 @@ public class Settings extends JDialog {
 			sl_contentPanel.putConstraint(SpringLayout.WEST, tfKangaroos, 0, SpringLayout.WEST, rdbtnSmall);
 			contentPanel.add(tfKangaroos);
 			tfKangaroos.setColumns(10);
-			
+
 			JLabel lblNoKangasPer = new JLabel("No. Kangas per player");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNoKangasPer, 18, SpringLayout.SOUTH, lblNoAi);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, rdbtnSmall, 18, SpringLayout.EAST, lblNoKangasPer);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, tfAiPlayers, 18, SpringLayout.EAST, lblNoKangasPer);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, lblNoKangasPer, 0, SpringLayout.WEST, lblBoardSiye);
 			contentPanel.add(lblNoKangasPer);
-			
+
 			JLabel lblDepthLevel = new JLabel("Depth Level");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblDepthLevel, 16, SpringLayout.SOUTH, lblNoKangasPer);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, lblDepthLevel, 0, SpringLayout.WEST, lblBoardSiye);

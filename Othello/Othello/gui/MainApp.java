@@ -2,6 +2,7 @@ package gui;
 
 
 import model.GameBoard;
+import model.player.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,6 +20,7 @@ public class MainApp implements ActionListener {
 	private RightPanel rPanel;
 	//left LeftPanel
 	private BoardPanel boardPanel;
+	private Settings settings;
 
 	/**
 	 * Launch the application.
@@ -45,7 +47,7 @@ public class MainApp implements ActionListener {
 		frame.setBounds(100, 100, 927, 473);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		Settings settings = new Settings();
+		settings = new Settings();
 		// The settings Dialog is Modal so this thread will pause after setting it to be visible until it is set invisible by the dialog.
 		settings.setVisible(true);
 		if (settings.isCancelSelected()){
@@ -59,19 +61,33 @@ public class MainApp implements ActionListener {
 	 * Initialize the contents.
 	 */
 	private void initialize() {
+		//create the gameBoard/panel
+		gameBoard = new GameBoard(8,8);
+
+		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
+		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
+			playerArray[i] = new HumanPlayer(gameBoard);
+		}
+		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
+			playerArray[i] = new AIPlayer(gameBoard);
+		}
+
+		gameBoard.setPlayers(playerArray);
 
 		//set the layout
 		frame.getContentPane().setLayout(new GridLayout(1,2));
 
 		rPanel = new RightPanel();
 
-		//create the gameBoard/panel
-		gameBoard = new GameBoard(8,8);
+
+
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1,0);
 
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0,1);
+
+
 	}
 
 	@Override
