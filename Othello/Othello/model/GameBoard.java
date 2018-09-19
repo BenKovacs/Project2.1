@@ -25,7 +25,7 @@ public class GameBoard {
 
 	private Player[] playerList;
 	private Player player;
-	private ArrayList<Point> validMoves = new ArrayList<Point>();
+	private ArrayList<Point> validMoves = new ArrayList<>();
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -72,9 +72,10 @@ public class GameBoard {
 		countBlack = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				if(board[x][y] == WHITE)countWhite++;
-			
-				if(board[x][y] == BLACK)countBlack++;
+				if(board[x][y] == WHITE)
+					countWhite++;
+				if(board[x][y] == BLACK)
+					countBlack++;
 			}
 		}
 	}
@@ -140,7 +141,9 @@ public class GameBoard {
 
 	public void changeTurn(){
 		swapPlayers();
+
 		showValidMoves();
+
 		if(player.getPlayerType() == "bot"){
 			player.play();
 		}
@@ -218,7 +221,7 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point> getValidMoves(){
-		showValidMoves();
+		//showValidMoves();
 		return validMoves;
 	}
 

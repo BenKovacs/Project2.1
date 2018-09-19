@@ -12,7 +12,7 @@ import static model.Constants.*;
 
 public class BoardPanel extends JPanel {
 
-	private GameBoard gameBoard;
+	private static GameBoard gameBoard;
 
 	// copy of the right panel
 	private RightPanel rightPanel;
@@ -35,8 +35,7 @@ public class BoardPanel extends JPanel {
 
 		for (int x = 0; x < w; x++) {
 			for (int y = 0; y < h; y++) {
-				// create a new squarePanel panel and add to the array and the
-				// gridLayout
+				// create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x, y, gameBoard.getSquareType(x, y));
 				add(sp[x][y]);
 			}
@@ -58,14 +57,30 @@ public class BoardPanel extends JPanel {
 		this.removeAll();
 		for (int x = 0; x < gameBoard.getWidth(); x++) {
 			for (int y = 0; y < gameBoard.getHeight(); y++) {
-				// create a new squarePanel panel and add to the array and the
-				// gridLayout
+				// create a new squarePanel panel and add to the array and the gridLayout
 				sp[x][y] = new SquarePanel(x, y, gameBoard.getSquareType(x, y));
 				add(sp[x][y]);
 			}
 		}
 
 		showBoard();
+	}
+
+	public void play(int x, int y){
+		if (gameBoard.flipDisc(x, y)) {
+			setGameBoard(gameBoard);
+			rightPanel.changeTurn();
+
+			if (gameBoard.isGameFinished()) {
+				int dialogButton = JOptionPane.YES_NO_OPTION;
+				int dialogResult = JOptionPane.showConfirmDialog(this, "You've won! Would you like to play again?", "Game Ended", dialogButton);
+				if(dialogResult == 0) {
+					MainApp.getSingleton().reset();
+				} else {
+					System.exit(-1);
+				}
+			}
+		}
 	}
 
 	// the square composing the grid panels
@@ -150,20 +165,9 @@ public class BoardPanel extends JPanel {
 			// //change the right panel label
 			// rightPanel.changeTurn();
 			// }
-			if(gameBoard.getPlayer().getPlayerType() == "human")
-				if (gameBoard.flipDisc(this.x, this.y)) {
-					setGameBoard(gameBoard);
-					rightPanel.changeTurn();
-					if (gameBoard.isGameFinished()) {
-						int dialogButton = JOptionPane.YES_NO_OPTION;
-						int dialogResult = JOptionPane.showConfirmDialog(this, "You've won! Would you like to play again?", "Game Ended", dialogButton);
-						if(dialogResult == 0) {
-							MainApp.getSingleton().reset();
-						} else {
-							System.exit(-1);
-						} 
-					}
-				}
+			if (gameBoard.getPlayer().getPlayerType() == "human") {
+				play(this.x, this.y);
+			}
 		}
 
 		@Override
@@ -175,7 +179,10 @@ public class BoardPanel extends JPanel {
 		public void mouseExited(MouseEvent e) {
 			Color backgroundColor = new Color(0, 120, 0);
 			setBackground(backgroundColor);
-
 		}
+	}
+
+	public GameBoard getGameBoard(){
+		return gameBoard;
 	}
 }

@@ -87,25 +87,23 @@ public class MainApp implements ActionListener {
 		//create the gameBoard/panel
 		gameBoard = new GameBoard(8,8);
 
-		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
-		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
-			playerArray[i] = new HumanPlayer(gameBoard);
-		}
-		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
-			playerArray[i] = new AIPlayer(gameBoard);
-		}
-
-		gameBoard.setPlayers(playerArray);
-
 		//set the layout
 		frame.getContentPane().setLayout(new GridLayout(1,2));
 
 		rPanel = new RightPanel();
 
-
-
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1,0);
+
+		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
+		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
+			playerArray[i] = new HumanPlayer(boardPanel);
+		}
+		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
+			playerArray[i] = new AIPlayer(boardPanel);
+		}
+
+		gameBoard.setPlayers(playerArray);
 
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0,1);
@@ -117,8 +115,5 @@ public class MainApp implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 	}
-	
-	
-
 }
 
