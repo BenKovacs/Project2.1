@@ -1,31 +1,42 @@
 package model;
 
-import gui.RightPanel;
+import model.player.*;
+
+import java.awt.*;
+import java.util.ArrayList;
+
 import static model.Constants.*;
 
 public class GameBoard {
 	private static final boolean EXECUTE = true;
 	private static final boolean SIMULATE = false;
+
 	private int width;
 	private int height;
 	private int[][] board;
+
 	private int enemy;
 	//Game state
 	public static int turn;
 	private int INVERSE_COLOUR;
-	public int countValid;
+	private int countValid;
 	public static int countWhite;
 	public static int countBlack;
+
+	private Player[] playerList;
+	private Player player;
+	private ArrayList<Point> validMoves = new ArrayList<Point>();
 
 	public GameBoard(int width, int height) {
 		this.width = width;
 		this.height = height;
 
+
 		board = new int[width][height];
 
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
-				board[x][y] = 0; // default gray
+				board[x][y] = EMPTY; // default empty
 			}
 		}
 		turn = WHITE;
@@ -67,7 +78,6 @@ public class GameBoard {
 			}
 		}
 	}
-	
 
 
 	public boolean isInsideBoard(int x, int y) {
@@ -88,7 +98,7 @@ public class GameBoard {
 	}
 
     //returns -1 if no flips in that direction, otherwise return the number of flips in that direction
-	public int checkFlip(int x, int y, boolean executeMove) {
+	private int checkFlip(int x, int y, boolean executeMove) {
 	    int flips = 0;
 
 	    for (int i=x-1; i<=x+1; i++){
@@ -107,7 +117,7 @@ public class GameBoard {
 	}
 
 	//returns -1 if no flips in that direction, otherwise return the number of flips in that direction
-	public int checkDirection(int x, int y, int i, int j, boolean executeMove) {
+	private int checkDirection(int x, int y, int i, int j, boolean executeMove) {
 		int flips;
 		if (board[x+(i-x)][y+(j-y)] == EMPTY || board[x+(i-x)][y+(j-y)] < 0) {
             return -1;
@@ -131,6 +141,9 @@ public class GameBoard {
 	public void changeTurn(){
 		swapPlayers();
 		showValidMoves();
+		if(player.getPlayerType() == "bot"){
+			player.play();
+		}
 	}
 
 	private void swapPlayers() {
@@ -142,9 +155,11 @@ public class GameBoard {
 			turn = WHITE;
 			enemy = BLACK;
 		}
+		player = playerList[turn];
 	}
 
-	public void showValidMoves(){
+	private void showValidMoves(){
+		validMoves.clear();
 		// Reset possible moves
 		countValid = 0;
 		for (int x = 0; x < width; x++) {
@@ -155,6 +170,7 @@ public class GameBoard {
 				}
 			}
 		}
+
 		// Find possible moves for new player turn
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
@@ -162,6 +178,7 @@ public class GameBoard {
 				int flips = countFlips(x, y);
 				if (flips > 0){
                     board[x][y] = -flips;
+                    validMoves.add(new Point(x, y));
                     countValid++;
 				}
 				//System.out.print("	" + board[x][y]);
@@ -183,20 +200,35 @@ public class GameBoard {
 		}
 		// CHeck for the current player valid moves
 		if(countValid == 0){
-			swapPlayers();
+			changeTurn();
 			// check for the other player...
-			showValidMoves();
 			if (countValid == 0){
 				return true;
 			}
 		}
 		return false;
 	}
+
+	public void setPlayers(Player[] playerList){
+		this.playerList = playerList;
+		player = playerList[turn];
+		if (player.getPlayerType() == "bot") {
+			player.play();
+		}
+	}
+
+	public ArrayList<Point> getValidMoves(){
+		showValidMoves();
+		return validMoves;
+	}
+
+	public Player getPlayer(){
+		return player;
+	}
 	
 	public int getCountWhite() {
 		return countWhite;
 	}
-
 
 	public int getCountBlack() {
 		return countBlack;

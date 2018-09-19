@@ -116,14 +116,16 @@ public class BoardPanel extends JPanel {
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
-			} else if (type < EMPTY) {
+			} else if (type < 0) {
 				String flips = Integer.toString(-type);
 				// change background color to light green and draw number
-				c = new Color(0, 255, 0);
-				setBackground(c);
+
 				c = new Color(0, 0, 0);
-				g2.setFont(new Font("Arial", Font.BOLD, h / 2));
 				g2.setColor(c);
+				g2.setStroke(new BasicStroke(3.5f));
+				g2.drawOval(5,5,w-10, h-10);
+
+				g2.setFont(new Font("Arial", Font.BOLD, h / 2));
 				g2.drawString(flips, w / 2 - g2.getFontMetrics().stringWidth(flips) / 2,
 						h / 2 + g2.getFontMetrics().getHeight() / 4);
 
@@ -148,6 +150,7 @@ public class BoardPanel extends JPanel {
 			// //change the right panel label
 			// rightPanel.changeTurn();
 			// }
+<<<<<<< HEAD
 			if (gameBoard.flipDisc(this.x, this.y)) {
 				setGameBoard(gameBoard);
 				rightPanel.changeTurn();
@@ -159,8 +162,16 @@ public class BoardPanel extends JPanel {
 					} else {
 						System.exit(-1);
 					} 
+=======
+			if(gameBoard.getPlayer().getPlayerType() == "human")
+				if (gameBoard.flipDisc(this.x, this.y)) {
+					setGameBoard(gameBoard);
+					rightPanel.changeTurn();
+					if (gameBoard.isGameFinished()) {
+
+					}
+>>>>>>> origin/master
 				}
-			}
 		}
 
 		@Override

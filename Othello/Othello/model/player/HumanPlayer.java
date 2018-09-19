@@ -1,5 +1,17 @@
 package model.player;
 
-public class HumanPlayer {
+import model.GameBoard;
 
+public class HumanPlayer implements Player{
+    public HumanPlayer(GameBoard gameBoard){
+
+    }
+
+    public void play(){
+
+    }
+
+    public String getPlayerType(){
+        return "human";
+    }
 }
