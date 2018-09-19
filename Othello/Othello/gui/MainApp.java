@@ -10,9 +10,19 @@ import java.awt.event.ActionListener;
 
 
 public class MainApp implements ActionListener {
+	
+	private static MainApp mainApp;
+	
+	public static MainApp getSingleton() {
+		return mainApp;
+	}
 
 	private JFrame frame;
 	private GameBoard gameBoard;
+	
+	public JFrame getFrame() {
+		return frame;
+	}
 
 	//--PANELS
 	//right RightPanel
@@ -29,6 +39,7 @@ public class MainApp implements ActionListener {
 				try {
 					MainApp window = new MainApp();
 					window.frame.setVisible(true);
+					mainApp = window;
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,7 +50,7 @@ public class MainApp implements ActionListener {
 	/**
 	 * Create the application.
 	 */
-	public MainApp(){
+	private MainApp(){
 
 		frame = new JFrame();
 		frame.setBounds(100, 100, 927, 473);
@@ -47,11 +58,20 @@ public class MainApp implements ActionListener {
 
 		initialize();
 	}
+	
+	public void reset() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 927, 473);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		initialize();
+		frame.setVisible(true);
+	}
 
 	/**
 	 * Initialize the contents.
 	 */
-	private void initialize() {
+	public void initialize() {
 		//set the layout
 		frame.getContentPane().setLayout(new GridLayout(1,2));
 
@@ -70,6 +90,8 @@ public class MainApp implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
 	}
+	
+	
 
 }
 

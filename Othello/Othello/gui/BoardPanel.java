@@ -152,7 +152,13 @@ public class BoardPanel extends JPanel {
 				setGameBoard(gameBoard);
 				rightPanel.changeTurn();
 				if (gameBoard.isGameFinished()) {
-
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog(this, "You've won! Would you like to play again?", "Game Ended", dialogButton);
+					if(dialogResult == 0) {
+						MainApp.getSingleton().reset();
+					} else {
+						System.exit(-1);
+					} 
 				}
 			}
 		}
