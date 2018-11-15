@@ -17,6 +17,7 @@ public class GameBoard {
 
 	private int enemy;
 	//Game state
+	//test
 	public static int turn;
 	private int INVERSE_COLOUR;
 	private int countValid;
