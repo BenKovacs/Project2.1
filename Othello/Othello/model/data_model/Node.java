@@ -5,10 +5,9 @@ import java.util.List;
 
 public class Node<T> {
 
-    private T data = null;
-    private double id;
+    private T data;
 
-    private List<Node<T>> children = new ArrayList<>();
+    private List<Node<T>> children;
 
     private Node<T> parent = null;
 
@@ -16,6 +15,7 @@ public class Node<T> {
 
     public Node(T data) {
         this.data = data;
+        this.children = new ArrayList<>();
     }
 
     public Node getRoot() {
@@ -27,34 +27,18 @@ public class Node<T> {
         return root;
     }
 
-    public Node<T> addChild(Node<T> child) {
+    public void addChild(Node<T> child) {
         //add the node to the ArrayList
-        children.add(child);
-        child.setParent(this);
-        child.setDepth(depth+1);
-
-        return child;
-    }
-
-    public void addChildren(List<Node<T>> children) {
-        //add multiple child
-        for(Node<T> n: children){
-            this.children.add(n);
-        }
+        //child.setParent(this);
+        this.children.add(child);
     }
 
     public List<Node<T>> getChildren() {return this.children;}
 
     public T getData() {return this.data;}
 
-    public void setData(T data) {this.data = data;}
-
-    private void setParent(Node<T> parent) {this.parent = parent;}
-
-    public Node<T> getParent() {return this.parent;}
-
     public int getDepth(){return depth;}
-    public void setDepth(int depth){this.depth = depth;}
 
+    public void setDepth(int depth){this.depth = depth;}
 }
 

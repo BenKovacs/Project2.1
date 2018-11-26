@@ -95,14 +95,19 @@ public class MainApp implements ActionListener {
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1,0);
 
+		//Create AIs or human players
 		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
 		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
 			playerArray[i] = new HumanPlayer(boardPanel);
 		}
+
 		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
-			playerArray[i] = new AIPlayer(boardPanel);
+			playerArray[i] = new MinMaxPlayer(boardPanel);
 		}
 
+		for(int i = 0; i < playerArray.length; i++) {
+			System.out.println("Player " + i + " is: " + playerArray[i]);
+		}
 		gameBoard.setPlayers(playerArray);
 
 		rPanel.setPreferredSize(new Dimension(10, 30));

@@ -12,7 +12,7 @@ public class HumanPlayer implements Player{
 
     }
 
-    public String getPlayerType(){
-        return "human";
+    public int getPlayerType(){
+        return Player.TYPE_HUMAN;
     }
 }

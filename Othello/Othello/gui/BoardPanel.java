@@ -1,6 +1,7 @@
 package gui;
 
 import model.GameBoard;
+import model.player.Player;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -157,15 +158,7 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			// if the player can flip the disc
-			// if(gameBoard.flipDisc(this.x, this.y)){
-			// //update the gameBoard
-			// setGameBoard(gameBoard);
-			// //change the turn
-			// //change the right panel label
-			// rightPanel.changeTurn();
-			// }
-			if (gameBoard.getPlayer().getPlayerType() == "human") {
+			if (gameBoard.getPlayer().getPlayerType() == Player.TYPE_HUMAN) {
 				play(this.x, this.y);
 			}
 		}

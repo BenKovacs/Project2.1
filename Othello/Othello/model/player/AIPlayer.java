@@ -1,13 +1,9 @@
 package model.player;
 
 import gui.BoardPanel;
-import model.GameBoard;
-
-import java.awt.*;
-import java.util.Random;
+import javafx.geometry.Point3D;
 import java.util.ArrayList;
-
-import static model.Constants.*;
+import java.util.Random;
 
 
 
@@ -20,7 +16,7 @@ public class AIPlayer implements Player{
 
     }
     public void play(){
-        ArrayList<Point> validMoves = boardPanel.getGameBoard().getValidMoves();
+        ArrayList<Point3D> validMoves = boardPanel.getGameBoard().getValidMoves();
         if(validMoves.size() > 0){
             int randInt = random.nextInt(validMoves.size());
             //try {Thread.sleep(300);}catch(Exception e){}
@@ -29,7 +25,8 @@ public class AIPlayer implements Player{
         }
 
     }
-    public String getPlayerType(){
-        return "bot";
+
+    public int getPlayerType() {
+        return Player.TYPE_BOT;
     }
 }

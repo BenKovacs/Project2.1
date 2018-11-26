@@ -1,13 +1,9 @@
 package model.player;
 
 import gui.BoardPanel;
-import model.GameBoard;
-
-import java.awt.*;
-import java.util.Random;
+import javafx.geometry.Point3D;
 import java.util.ArrayList;
-
-import static model.Constants.*;
+import java.util.Random;
 
 
 
@@ -20,14 +16,14 @@ public class GreedyPlayer implements Player{
 
     }
     public void play(){
-        ArrayList<Point> validMoves = boardPanel.getGameBoard().getValidMoves();
+        ArrayList<Point3D> validMoves = boardPanel.getGameBoard().getValidMoves();
         if(validMoves.size() > 0){
             
-        	Point max = null;
+        	Point3D max = null;
         	int maxFlips = 0;
         	for(int i = 0; i < validMoves.size(); i++) {
-        		Point p = validMoves.get(i);
-        		int type = boardPanel.getGameBoard().getSquareType(p.x, p.y);
+        		Point3D p = validMoves.get(i);
+        		int type = boardPanel.getGameBoard().getSquareType((int)p.getX(), (int)p.getY());
         		if(type < 0) {
         			int flips = -type;
         			if(flips > maxFlips || max == null) {
@@ -37,12 +33,13 @@ public class GreedyPlayer implements Player{
         		}
         	}
             //try {Thread.sleep(300);}catch(Exception e){}
-            boardPanel.play(max.x , max.y);
+            boardPanel.play((int)max.getX() , (int)max.getY());
             //boardPanel.getGameBoard().flipDisc((int)validMoves.get(randInt).getX() , (int)validMoves.get(randInt).getY());
         }
 
     }
-    public String getPlayerType(){
-        return "bot";
+
+    public int getPlayerType() {
+        return Player.TYPE_BOT;
     }
 }
