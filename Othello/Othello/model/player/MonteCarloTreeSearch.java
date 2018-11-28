@@ -21,7 +21,7 @@ public class MonteCarloTreeSearch implements Player {
         this.boardPanel = boardPanel;
     }
 
-    //Done, perfect!
+    //ok...
     public Point getMove(OthelloBoard board, long runtime) {
         initialization(board);
 
@@ -62,7 +62,7 @@ public class MonteCarloTreeSearch implements Player {
         return getBoard(bestMove).getLastMove();
     }
 
-    //Done perf!
+    //ok...
     private void initialization(OthelloBoard board) {
         HashMap<String,Object> data = new HashMap<String, Object>();
         data.put("BOARD", board);
@@ -86,7 +86,7 @@ public class MonteCarloTreeSearch implements Player {
         }
     }
 
-    //Done perf!
+    //ok...
     private void selection(){
         System.out.println("selection");
         //What happen here is that the children of root all has 0 wins for some reason, so no child get choosen
@@ -132,7 +132,7 @@ public class MonteCarloTreeSearch implements Player {
         }
     }
 
-    //DOne perf!
+    //ok...
     private void expansion() {
         ArrayList<Point> validMoves = getBoard(currentNode).getValidMoves();
         for (Point move : validMoves) {
@@ -151,7 +151,7 @@ public class MonteCarloTreeSearch implements Player {
         simulation();
     }
 
-    //Done, Perf.
+    //ok...
     private void simulation(){
         OthelloBoard clonedBoard = (OthelloBoard) getBoard(currentNode).clone();
         //just to test what is going on. Ok so there is valid moves
@@ -168,7 +168,7 @@ public class MonteCarloTreeSearch implements Player {
         backpropagation();
     }
 
-    //DONE! perhaps change var names.
+    //ok... perhaps change var names.
     private void updateResult(OthelloBoard simulatedBoard) {
         OthelloBoard currentBoard = getBoard(currentNode);
         Point currentLastMove = currentBoard.getLastMove();
@@ -195,7 +195,7 @@ public class MonteCarloTreeSearch implements Player {
         currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
     }
 
-    //DONE! Perf!
+    //ok...
     private void backpropagation(){
         double result;
         if (getWins(currentNode) == getPlayouts(currentNode)) {
@@ -219,7 +219,7 @@ public class MonteCarloTreeSearch implements Player {
         }
     }
 
-    //DONE
+    //ok...
     private double uct(Node<HashMap<String,Object>> node) {
         int c = 2;
         double uct;
@@ -231,24 +231,24 @@ public class MonteCarloTreeSearch implements Player {
         return uct;
     }
 
-    //Done
+    //ok...
     private OthelloBoard getBoard(Node<HashMap<String,Object>> node) {
         if (node.getData() == null)
             System.out.println("getBoard null");
         return (OthelloBoard) node.getData().get("BOARD");
     }
 
-    //Done
+    //ok...
     private double getWins(Node<HashMap<String,Object>> node) {
         return (double) node.getData().get("WINS");
     }
 
-    //Done
+    //ok...
     private int getPlayouts(Node<HashMap<String,Object>> node) {
         return (int) node.getData().get("PLAYOUTS");
     }
 
-    //Done
+    //ok...
     //maybe change method name
     private boolean isSamePlayer(Node<HashMap<String,Object>> node1, Node<HashMap<String,Object>> node2) {
         OthelloBoard board1 = getBoard(node1);
@@ -280,7 +280,7 @@ public class MonteCarloTreeSearch implements Player {
         }
     }
 
-    //Done perf!
+    //ok...
     private int countChildren(Node<HashMap<String,Object>> node) {
         ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) node.getChildren();
         int total = 0;
