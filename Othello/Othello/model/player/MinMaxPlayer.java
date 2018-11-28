@@ -25,7 +25,7 @@ public class MinMaxPlayer implements Player {
 
 		//get the minimax move
 		//Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), false);
-		/*Node<Point3D> bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, false);
+		Node<Point3D> bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, false);
 		System.out.println(bestmove.getData().toString());
 
 		//select the move and play
@@ -36,7 +36,7 @@ public class MinMaxPlayer implements Player {
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 	/**
