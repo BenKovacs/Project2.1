@@ -42,26 +42,26 @@ public class OthelloBoard implements Cloneable {
     }
 
     //play using a board from a GameBoard
-    public void useGameBoard(GameBoard gameBoard){
-        this.width = gameBoard.getWidth();
-        this.height = gameBoard.getHeight();
-        board = new int[height][width];
-        for (int row = 0; row < height; row++) {
-            for (int column = 0; column < width; column++) {
-                if (gameBoard.getboard()[row][column] == Constants.BLACK)
-                    board[row][column] = BLACK;
-                if (gameBoard.getboard()[row][column] == Constants.EMPTY)
-                    board[row][column] = EMPTY;
-                if (gameBoard.getboard()[row][column] == Constants.WHITE)
-                    board[row][column] = WHITE;
-            }
-        }
-        if (gameBoard.getTurn() == Constants.BLACK)
-            turn = BLACK;
-        if (gameBoard.getTurn() == Constants.WHITE)
-            turn = WHITE;
-        lastMove = gameBoard.getLastMove();
-    }
+//    public void useGameBoard(GameBoard gameBoard){
+//        this.width = gameBoard.getWidth();
+//        this.height = gameBoard.getHeight();
+//        board = new int[height][width];
+//        for (int row = 0; row < height; row++) {
+//            for (int column = 0; column < width; column++) {
+//                if (gameBoard.getboard()[row][column] == Constants.BLACK)
+//                    board[row][column] = BLACK;
+//                if (gameBoard.getboard()[row][column] == Constants.EMPTY)
+//                    board[row][column] = EMPTY;
+//                if (gameBoard.getboard()[row][column] == Constants.WHITE)
+//                    board[row][column] = WHITE;
+//            }
+//        }
+//        if (gameBoard.getTurn() == Constants.BLACK)
+//            turn = BLACK;
+//        if (gameBoard.getTurn() == Constants.WHITE)
+//            turn = WHITE;
+//        lastMove = gameBoard.getLastMove();
+//    }
 
     //return an list of valid moves as points.
     public ArrayList<Point> getValidMoves() {

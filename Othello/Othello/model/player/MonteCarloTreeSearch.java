@@ -322,7 +322,7 @@ public class MonteCarloTreeSearch implements Player {
 
     public void play() {
         OthelloBoard board = new OthelloBoard(8,8);
-        board.useGameBoard(boardPanel.getGameBoard());
+        //board.useGameBoard(boardPanel.getGameBoard());
         Point bestMove = getMove(board, 3000000);
         boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
     }
