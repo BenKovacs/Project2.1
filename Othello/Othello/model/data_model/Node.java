@@ -8,7 +8,7 @@ public class Node<T> {
     private T data = null;
     private double id;
 
-    private List<Node<T>> children = new ArrayList<>();
+    private List<Node<T>> children = new ArrayList<Node<T>>();
 
     private Node<T> parent = null;
 
@@ -49,7 +49,7 @@ public class Node<T> {
 
     public void setData(T data) {this.data = data;}
 
-    private void setParent(Node<T> parent) {this.parent = parent;}
+    public void setParent(Node<T> parent) {this.parent = parent;}
 
     public Node<T> getParent() {return this.parent;}
 
