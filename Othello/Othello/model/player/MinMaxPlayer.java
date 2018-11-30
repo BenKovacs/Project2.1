@@ -21,7 +21,7 @@ public class MinMaxPlayer implements Player {
 	public void play() {
 
 		//construct the tree
-		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), 3);
+		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), 5);
 
 		//get the minimax move
 		//Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), false);
