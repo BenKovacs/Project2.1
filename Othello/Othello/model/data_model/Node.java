@@ -28,9 +28,8 @@ public class Node<T> {
     }
 
     public void addChild(Node<T> child) {
-        //add the node to the ArrayList
-        //child.setParent(this);
         this.children.add(child);
+        child.setParent(this); //Hong: Need this for mcts
     }
 
     public List<Node<T>> getChildren() {return this.children;}
@@ -40,5 +39,10 @@ public class Node<T> {
     public int getDepth(){return depth;}
 
     public void setDepth(int depth){this.depth = depth;}
+
+    public void setParent(Node<T> parent) {this.parent = parent;} //Hong: Need this for mcts
+
+    public Node<T> getParent() {return this.parent;} //Hong: Need this for mcts
+
 }
 

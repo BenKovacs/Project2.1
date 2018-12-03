@@ -99,6 +99,7 @@ public class MainApp implements ActionListener {
 		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
 		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
 			playerArray[i] = new HumanPlayer(boardPanel);
+//			playerArray[i] = new MonteCarloTreeSearch(boardPanel);
 		}
 
 		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
