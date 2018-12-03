@@ -19,7 +19,7 @@ public class MainApp implements ActionListener {
 	}
 
 	private JFrame frame;
-	private GameBoard gameBoard;
+	public GameBoard gameBoard;
 	
 	public JFrame getFrame() {
 		return frame;
@@ -102,7 +102,9 @@ public class MainApp implements ActionListener {
 		}
 
 		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
-			playerArray[i] = new MinMaxPlayer(boardPanel);
+			AIPlayer ai = new AIPlayer(boardPanel);
+			playerArray[i] = ai;
+			ai.start();
 		}
 
 		for(int i = 0; i < playerArray.length; i++) {

@@ -145,7 +145,7 @@ public class GameBoard {
 		showValidMoves();
 
 		if (player.getPlayerType() == Player.TYPE_BOT) {
-			player.play();
+			//player.play();
 		}
 	}
 
@@ -222,7 +222,7 @@ public class GameBoard {
 		this.playerList = playerList;
 		player = playerList[turn];
 		if (player.getPlayerType() == Player.TYPE_BOT) {
-			player.play();
+			//player.play();
 		}
 	}
 
