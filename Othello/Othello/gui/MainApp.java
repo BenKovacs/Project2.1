@@ -19,7 +19,7 @@ public class MainApp implements ActionListener {
 	}
 
 	private JFrame frame;
-	private GameBoard gameBoard;
+	public GameBoard gameBoard;
 	
 	public JFrame getFrame() {
 		return frame;
@@ -96,6 +96,7 @@ public class MainApp implements ActionListener {
 		frame.getContentPane().add(boardPanel, 1,0);
 
 		//Create AIs or human players
+
 		Player[] playerArray = new Player[settings.getNumPlayers()];
 		if (settings.getPlayer1().equalsIgnoreCase("human")){
 			playerArray[0] = new HumanPlayer(boardPanel);
@@ -107,7 +108,8 @@ public class MainApp implements ActionListener {
 			playerArray[0] = new AIPlayer(boardPanel);
 		}else if(settings.getPlayer1().equalsIgnoreCase("mcts")){
 	//		playerArray[0]; //= new TODO add correct code : MCTS(boardPanel);
-		}
+			}
+
 
 		if (settings.getPlayer2().equalsIgnoreCase("human")){
 			playerArray[1] = new HumanPlayer(boardPanel);

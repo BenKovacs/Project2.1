@@ -2,6 +2,8 @@ package model;
 
 import javafx.geometry.Point3D;
 import model.player.Player;
+
+import java.awt.*;
 import java.util.ArrayList;
 
 import static model.Constants.*;
@@ -17,6 +19,7 @@ public class GameBoard {
 	private int enemy;
 	// Game state
 	public static int turn;
+	private Point lastMove;
 	private int INVERSE_COLOUR;
 	private int countValid;
 	public static int countWhite;
@@ -38,6 +41,7 @@ public class GameBoard {
 			}
 		}
 		turn = WHITE;
+		lastMove = null;
 		enemy = BLACK;
 		board[3][3] = WHITE;
 		board[3][4] = BLACK;
@@ -53,6 +57,7 @@ public class GameBoard {
 	public boolean flipDisc(int x, int y) {
 		if (isValidMove(x, y, EXECUTE)) {
 			board[x][y] = turn;
+			lastMove = new Point(x, y);
 			countDiscs();
 			changeTurn();
 			return true;
@@ -145,7 +150,7 @@ public class GameBoard {
 		showValidMoves();
 
 		if (player.getPlayerType() == Player.TYPE_BOT) {
-			player.play();
+			//player.play();
 		}
 	}
 
@@ -222,7 +227,7 @@ public class GameBoard {
 		this.playerList = playerList;
 		player = playerList[turn];
 		if (player.getPlayerType() == Player.TYPE_BOT) {
-			player.play();
+			//player.play();
 		}
 	}
 
@@ -265,4 +270,6 @@ public class GameBoard {
 	public int getTurn() {
 		return turn;
 	}
+
+	public Point getLastMove() { return lastMove; }
 }

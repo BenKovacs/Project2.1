@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class BoardTree {
 
     private Node<Point3D> rootT;
-    private boolean debug = true;
+    private boolean debug = false;
     private int depth;
 
     public BoardTree(int[][] board, int turn, int depth ){
