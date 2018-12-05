@@ -2,6 +2,7 @@ package gui;
 
 
 import model.GameBoard;
+import model.Constants;
 import model.player.*;
 
 import javax.swing.*;
@@ -96,16 +97,28 @@ public class MainApp implements ActionListener {
 		frame.getContentPane().add(boardPanel, 1,0);
 
 		//Create AIs or human players
+		int turn = Constants.WHITE;
 		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
 		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
-			playerArray[i] = new HumanPlayer(boardPanel);
+			playerArray[i] = new HumanPlayer(boardPanel, turn);
+			//Change color
+			if(turn == Constants.WHITE) {
+				turn = Constants.BLACK;
+			} else {
+				turn = Constants.WHITE;
+			}
 //			playerArray[i] = new MonteCarloTreeSearch(boardPanel);
 		}
 
-		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
-			AIPlayer ai = new AIPlayer(boardPanel);
+		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++) {
+			AIPlayer ai = new AIPlayer(boardPanel,turn);
 			playerArray[i] = ai;
 			ai.start();
+			if(turn == Constants.WHITE) {
+				turn = Constants.BLACK;
+			} else {
+				turn = Constants.WHITE;
+			}
 		}
 
 		for(int i = 0; i < playerArray.length; i++) {

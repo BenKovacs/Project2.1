@@ -244,7 +244,7 @@ public class OthelloBoard implements Cloneable {
 
     public static void main(String[] args) {
         OthelloBoard game = new OthelloBoard(8,8);
-        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch(new BoardPanel(new GameBoard(8,8),new RightPanel()));
+        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch(new BoardPanel(new GameBoard(8,8),new RightPanel()), Constants.BLACK);
         Random random = new Random();
         while (true) {
 //            if (game.getTurn() == BLACK) {

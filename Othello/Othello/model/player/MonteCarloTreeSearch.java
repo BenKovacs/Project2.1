@@ -8,14 +8,17 @@ import java.awt.*;
 import java.util.*;
 
 public class MonteCarloTreeSearch implements Player {
+	
+	private int color;
 
     private Node<HashMap<String,Object>> rootNode;
     private Node<HashMap<String,Object>> currentNode;
 
     private BoardPanel boardPanel;
 
-    public MonteCarloTreeSearch(BoardPanel boardPanel) {
+    public MonteCarloTreeSearch(BoardPanel boardPanel, int color) {
         this.boardPanel = boardPanel;
+        this.color = color;
     }
 
     public Point getMove(OthelloBoard board, long runtime) {
@@ -267,5 +270,9 @@ public class MonteCarloTreeSearch implements Player {
     public int getPlayerType() {
         return Player.TYPE_BOT;
     }
-
+    
+    public int getColor() {
+    	return color;
+    }
+    
 }

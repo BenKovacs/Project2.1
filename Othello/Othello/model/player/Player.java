@@ -8,4 +8,6 @@ public interface Player{
     void play();
     int getPlayerType();
     
+    int getColor();
+    
 }

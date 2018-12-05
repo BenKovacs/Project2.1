@@ -13,9 +13,13 @@ import java.util.Random;
 public class AIPlayer  extends Thread implements Player {
     private BoardPanel boardPanel;
     private Random random = new Random();
+    
+    private int color;
+    
 
-    public AIPlayer(BoardPanel boardPanel){
+    public AIPlayer(BoardPanel boardPanel, int color){
        this.boardPanel = boardPanel;
+       this.color = color;
        setName("AIBot");
 
     }
@@ -49,7 +53,7 @@ public class AIPlayer  extends Thread implements Player {
         	//System.out.println("GB not null");
         	//System.out.println(Player.TYPE_BOT);
         	//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
-        	if(Player.TYPE_BOT == boardPanel.getGameBoard().getPlayer().getPlayerType()) {
+        	if(getColor() == boardPanel.getGameBoard().getTurn()) {
         		try {
         			sleep(2000);
         		} catch (InterruptedException e) {
@@ -65,5 +69,9 @@ public class AIPlayer  extends Thread implements Player {
 
     public int getPlayerType() {
         return Player.TYPE_BOT;
+    }
+    
+    public int getColor() {
+    	return color;
     }
 }

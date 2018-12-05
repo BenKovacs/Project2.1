@@ -4,8 +4,11 @@ import gui.BoardPanel;
 import model.GameBoard;
 
 public class HumanPlayer implements Player{
-    public HumanPlayer(BoardPanel boardPanel){
-
+	
+	private int color;
+	
+    public HumanPlayer(BoardPanel boardPanel, int color){
+    	this.color = color;
     }
 
     public void play(){
@@ -14,5 +17,9 @@ public class HumanPlayer implements Player{
 
     public int getPlayerType(){
         return Player.TYPE_HUMAN;
+    }
+    
+    public int getColor() {
+    	return color;
     }
 }

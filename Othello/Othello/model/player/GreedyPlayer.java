@@ -10,9 +10,12 @@ import java.util.Random;
 public class GreedyPlayer implements Player{
     private BoardPanel boardPanel;
     private Random random = new Random();
+    
+    private int color;
 
-    public GreedyPlayer(BoardPanel boardPanel){
+    public GreedyPlayer(BoardPanel boardPanel, int color) {
        this.boardPanel = boardPanel;
+       this.color = color;
 
     }
     public void play(){
@@ -41,5 +44,9 @@ public class GreedyPlayer implements Player{
 
     public int getPlayerType() {
         return Player.TYPE_BOT;
+    }
+    
+    public int getColor() {
+    	return color;
     }
 }

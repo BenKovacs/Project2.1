@@ -14,8 +14,11 @@ public class MinMaxPlayer implements Player {
 
 	private BoardTree bTree;
 
-	public MinMaxPlayer(BoardPanel boardPanel) {
+	private int color;
+	
+	public MinMaxPlayer(BoardPanel boardPanel, int color) {
 		this.boardPanel = boardPanel;
+		this.color = color;
 	}
 
 	public void play() {
@@ -102,5 +105,9 @@ public class MinMaxPlayer implements Player {
 
 	public int getPlayerType() {
 		return Player.TYPE_BOT;
+	}
+	
+	public int getColor() {
+		return color;
 	}
 }
