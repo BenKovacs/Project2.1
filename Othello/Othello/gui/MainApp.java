@@ -96,14 +96,31 @@ public class MainApp implements ActionListener {
 		frame.getContentPane().add(boardPanel, 1,0);
 
 		//Create AIs or human players
-		Player[] playerArray = new Player[settings.getNumberOfAIPlayers()+settings.getNumberOfHumanPlayers()];
-		for (int i = 0; i < settings.getNumberOfHumanPlayers(); i++){
-			playerArray[i] = new HumanPlayer(boardPanel);
+		Player[] playerArray = new Player[settings.getNumPlayers()];
+		if (settings.getPlayer1().equalsIgnoreCase("human")){
+			playerArray[0] = new HumanPlayer(boardPanel);
+		}else if(settings.getPlayer1().equalsIgnoreCase("minmax")){
+			playerArray[0] = new MinMaxPlayer(boardPanel);
+		}else if(settings.getPlayer1().equalsIgnoreCase("greedy")){
+			playerArray[0] = new GreedyPlayer(boardPanel);
+		}else if(settings.getPlayer1().equalsIgnoreCase("random")){
+			playerArray[0] = new AIPlayer(boardPanel);
+		}else if(settings.getPlayer1().equalsIgnoreCase("mcts")){
+	//		playerArray[0]; //= new TODO add correct code : MCTS(boardPanel);
 		}
 
-		for (int i = settings.getNumberOfHumanPlayers(); i < playerArray.length; i++){
-			playerArray[i] = new MinMaxPlayer(boardPanel);
+		if (settings.getPlayer2().equalsIgnoreCase("human")){
+			playerArray[1] = new HumanPlayer(boardPanel);
+		}else if(settings.getPlayer2().equalsIgnoreCase("minmax")){
+			playerArray[1] = new MinMaxPlayer(boardPanel);
+		}else if(settings.getPlayer2().equalsIgnoreCase("greedy")){
+			playerArray[1] = new GreedyPlayer(boardPanel);
+		}else if(settings.getPlayer2().equalsIgnoreCase("random")){
+			playerArray[1] = new AIPlayer(boardPanel);
+		}else if(settings.getPlayer2().equalsIgnoreCase("mcts")){
+			//playerArray[1] //= new TODO add correct code : MCTS(boardPanel);
 		}
+
 
 		for(int i = 0; i < playerArray.length; i++) {
 			System.out.println("Player " + i + " is: " + playerArray[i]);
