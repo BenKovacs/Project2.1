@@ -112,7 +112,9 @@ public class MainApp implements ActionListener {
 			ai.start();
 			playerArray[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			// playerArray[0]; //= new TODO add correct code : MCTS(boardPanel);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			playerArray[0] = ai;
+			ai.start();
 		}
 
 		turn = Constants.BLACK;
@@ -127,8 +129,11 @@ public class MainApp implements ActionListener {
 			playerArray[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
-			// playerArray[1] //= new TODO add correct code : MCTS(boardPanel);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			playerArray[1] = ai;
+			ai.start();
 		}
+
 
 		for (int i = 0; i < playerArray.length; i++) {
 			System.out.println("Player " + i + " is: " + playerArray[i]);
