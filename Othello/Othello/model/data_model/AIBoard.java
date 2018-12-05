@@ -38,7 +38,7 @@ public class AIBoard{
             for (int y = 0; y < board[0].length; y++) {
 
                 int flips = countFlips(x, y);
-                if (flips > 0) validMoves.add(new Point3D(x, y, heuristic1(x,y) + flips));
+                if (flips > 0) validMoves.add(new Point3D(x, y, heuristicPosition(x,y) + flips));
 
             }
         }
@@ -138,8 +138,10 @@ public class AIBoard{
         }
         System.out.println();
     }
+    
+    
 
-    private int heuristic1(int x, int y){
+    private int heuristicPosition(int x, int y){
         //heuristic that gives amount based on the position of the flipped disks on the table
         if(x>=3 && x<= 4 && y>=3 && y<= 4) return 1;
         else{
@@ -152,6 +154,11 @@ public class AIBoard{
             }
         }
         return 1;
+    }
+    
+    
+    private int stabilityHeuristic() {
+    	return 0;
     }
 }
 
