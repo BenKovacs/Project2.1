@@ -100,22 +100,18 @@ public class MinMaxPlayer extends Thread implements Player {
 	public void run() {
 		while(true) {
 			try {
-
 				sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			//System.out.println("AI Tick");
+
 			if(MainApp.getSingleton() == null)
 				continue;
-			//System.out.println("Check 2");
-			//System.out.println("GB:" + boardPanel.getGameBoard());
+
 			if(boardPanel.getGameBoard() == null)
 				continue;
-			//System.out.println("GB not null");
-			//System.out.println(Player.TYPE_BOT);
-			//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
+
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				this.play();
 			}
