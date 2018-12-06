@@ -35,12 +35,6 @@ public class MinMaxPlayer extends Thread implements Player {
 		//select the move and play
 		boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
 
-		try {
-			Thread.sleep(300);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -106,13 +100,6 @@ public class MinMaxPlayer extends Thread implements Player {
 
 	public void run() {
 		while(true) {
-			try {
-
-				sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 			//System.out.println("AI Tick");
 			if(MainApp.getSingleton() == null)
 				continue;
@@ -125,12 +112,12 @@ public class MinMaxPlayer extends Thread implements Player {
 			//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				try {
-					sleep(2000);
+					sleep(100);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				play();
+				this.play();
 			}
 
 		}
