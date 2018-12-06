@@ -1,13 +1,14 @@
 package model.player;
 
 import gui.BoardPanel;
+import gui.MainApp;
 import model.OthelloBoard;
 import model.data_model.Node;
 
 import java.awt.*;
 import java.util.*;
 
-public class MonteCarloTreeSearch implements Player {
+public class MonteCarloTreeSearch extends Thread implements Player {
 	
 	private int color;
 
@@ -259,6 +260,32 @@ public class MonteCarloTreeSearch implements Player {
 //        System.out.println("TREE HEIGHT: " + Node.rootHeight);
 //        System.out.println();
 //    }
+
+    public void run() {
+        while(true) {
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            //System.out.println("AI Tick");
+            if(MainApp.getSingleton() == null)
+                continue;
+            //System.out.println("Check 2");
+            //System.out.println("GB:" + boardPanel.getGameBoard());
+            if(boardPanel.getGameBoard() == null)
+                continue;
+            //System.out.println("GB not null");
+            //System.out.println(Player.TYPE_BOT);
+            //System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
+            if(getColor() == boardPanel.getGameBoard().getTurn()) {
+                play();
+            }
+
+        }
+
+    }
 
     public void play() {
         OthelloBoard board = new OthelloBoard(8,8);
