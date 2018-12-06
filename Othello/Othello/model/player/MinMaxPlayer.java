@@ -1,6 +1,7 @@
 package model.player;
 
 import gui.BoardPanel;
+import gui.MainApp;
 import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
 import model.data_model.Node;
@@ -9,7 +10,7 @@ import model.data_model.Node;
 /**
  * This class need to be reviewed but the tree building works
  */
-public class MinMaxPlayer implements Player {
+public class MinMaxPlayer extends Thread implements Player {
 	private BoardPanel boardPanel;
 
 	private BoardTree bTree;
@@ -34,12 +35,6 @@ public class MinMaxPlayer implements Player {
 		//select the move and play
 		boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
 
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -101,6 +96,32 @@ public class MinMaxPlayer implements Player {
 			}
 			return minEval;
 		}
+	}
+
+	public void run() {
+		while(true) {
+			//System.out.println("AI Tick");
+			if(MainApp.getSingleton() == null)
+				continue;
+			//System.out.println("Check 2");
+			//System.out.println("GB:" + boardPanel.getGameBoard());
+			if(boardPanel.getGameBoard() == null)
+				continue;
+			//System.out.println("GB not null");
+			//System.out.println(Player.TYPE_BOT);
+			//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
+			if(getColor() == boardPanel.getGameBoard().getTurn()) {
+				try {
+					sleep(100);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				this.play();
+			}
+
+		}
+
 	}
 
 	public int getPlayerType() {
