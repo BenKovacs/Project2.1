@@ -7,7 +7,7 @@ import java.util.Random;
 
 
 
-public class GreedyPlayer implements Player{
+public class GreedyPlayer extends Thread implements Player{
     private BoardPanel boardPanel;
     private Random random = new Random();
     

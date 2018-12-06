@@ -103,14 +103,17 @@ public class MainApp implements ActionListener {
 		} else if (settings.getPlayer1().equalsIgnoreCase("minmax")) {
 			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn);
 			playerArray[0] = ai;
+			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("greedy")) {
 			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+			ai.start();
 			playerArray[0] = ai;
 			
 		} else if (settings.getPlayer1().equalsIgnoreCase("random")) {
 			AIPlayer ai = new AIPlayer(boardPanel, turn);
 			ai.start();
 			playerArray[0] = ai;
+
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
 			playerArray[0] = ai;
@@ -121,17 +124,21 @@ public class MainApp implements ActionListener {
 		if (settings.getPlayer2().equalsIgnoreCase("human")) {
 			playerArray[1] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer2().equalsIgnoreCase("minmax")) {
-			playerArray[1] = new MinMaxPlayer(boardPanel, turn);
+			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn);
+			playerArray[1] = ai;
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("greedy")) {
-			playerArray[1] = new GreedyPlayer(boardPanel, turn);
+			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+			playerArray[1]  = ai;
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("random")) {
 			AIPlayer ai = new AIPlayer(boardPanel, turn);
 			playerArray[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
-			playerArray[1] = ai;
 			ai.start();
+			playerArray[1] = ai;
 		}
 
 

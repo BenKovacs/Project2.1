@@ -152,7 +152,11 @@ public class Settings extends JDialog {
 		public String getPlayer2() {
 			return (String)(cbPlayers2.getSelectedItem());
 		}
-	}
+
+    public void  getNumberOfHumanPlayers() {
+    }
+
+}
 
 
 
