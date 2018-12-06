@@ -220,46 +220,33 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         }
     }
 
-//    private int countChildren(Node<HashMap<String,Object>> node) {
-//        ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) node.getChildren();
-//        int total = 0;
-//        for (Node<HashMap<String,Object>> child : children) {
-//            total++;
-//            total += countChildren(child);
-//        }
-//        return total;
-//    }
+    private int countChildren(Node<HashMap<String,Object>> node) {
+        ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) node.getChildren();
+        int total = 0;
+        for (Node<HashMap<String,Object>> child : children) {
+            total++;
+            total += countChildren(child);
+        }
+        return total;
+    }
 
-//    public void printData() {
-//        getBoard(gameTree.getRoot()).printBoard();
-//        if (getBoard(gameTree.getRoot()).getTurn() == OthelloBoard.BLACK)
-//            System.out.println("CURRENT PLAYER: BLACK");
-//        else
-//            System.out.println("CURRENT PLAYER: WHITE");
-//        ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) gameTree.getRoot().getChildren();
-//        Node<HashMap<String,Object>> bestMove = null;
-//        double highestWinRate = 0;
-//        for (Node<HashMap<String,Object>> move : validMoves) {
-//            System.out.println("[Coord: " + getBoard(move).getLastMove().getX() + ", " + getBoard(move).getLastMove().getY() + "] "
-//                    + "[Wins/Playouts: " + move.getData().get("WINS") + "/" + move.getData().get("PLAYOUTS") + "] "
-//                    + "[Wins%: " + String.format("%.2f", (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS") * 100) + "%]");
-//            double moveWinRate = (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS");
-//            if (moveWinRate > highestWinRate) {
-//                highestWinRate = moveWinRate;
-//                bestMove = move;
-//            }
-//            if (highestWinRate == 0.0 && !validMoves.isEmpty())
-//                bestMove = validMoves.get(0);
-//        }
-//        System.out.println("Best Move: " + "[Coord: " + getBoard(bestMove).getLastMove().getX() + ", " + getBoard(bestMove).getLastMove().getY() + "] "
-//                + "[Wins%: " + String.format("%.2f", (double) bestMove.getData().get("WINS") / (int) bestMove.getData().get("PLAYOUTS") * 100) + "%]");
-//        System.out.println("Total Iterations Completed: " + gameTree.getRoot().getData().get("PLAYOUTS"));
-//        System.out.println("Total Nodes: " + countChildren(gameTree.getRoot()) + 1);
-//        System.out.println("BLACK: " + getBoard(gameTree.getRoot()).countCellState(OthelloBoard.BLACK));
-//        System.out.println("WHITE: " + getBoard(gameTree.getRoot()).countCellState(OthelloBoard.WHITE));
-//        System.out.println("TREE HEIGHT: " + Node.rootHeight);
-//        System.out.println();
-//    }
+    public void printData() {
+        if (getBoard(rootNode).getTurn() == OthelloBoard.BLACK)
+            System.out.println("MCTS PLAYER: BLACK");
+        else
+            System.out.println("MCTS PLAYER: WHITE");
+        ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
+        for (Node<HashMap<String,Object>> move : validMoves) {
+            System.out.println("[COORD: " + getBoard(move).getLastMove().getX() + ", " + getBoard(move).getLastMove().getY() + "] "
+                    + "[WINS/PLAYOUTS: " + move.getData().get("WINS") + "/" + move.getData().get("PLAYOUTS") + "] "
+                    + "[WINS%: " + String.format("%.2f", (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS") * 100) + "%]");
+        }
+        System.out.println("TOTAL ITERATIONS: " + rootNode.getData().get("PLAYOUTS"));
+        System.out.println("TOTAL NODES EXPANDED: " + countChildren(rootNode) + 1);
+        System.out.println("BLACK COUNTS: " + getBoard(rootNode).countCellState(OthelloBoard.BLACK));
+        System.out.println("WHITE COUNTS: " + getBoard(rootNode).countCellState(OthelloBoard.WHITE));
+        System.out.println();
+    }
 
     public void run() {
         while(true) {
@@ -291,7 +278,9 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         OthelloBoard board = new OthelloBoard(8,8);
         board.useGameBoard(boardPanel.getGameBoard());
         Point bestMove = getMove(board, 3000);
-        boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
+        printData();
+        if (bestMove != null)
+            boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
     }
 
     public int getPlayerType() {

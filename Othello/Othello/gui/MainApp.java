@@ -113,7 +113,6 @@ public class MainApp implements ActionListener {
 			AIPlayer ai = new AIPlayer(boardPanel, turn);
 			ai.start();
 			playerArray[0] = ai;
-
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
 			playerArray[0] = ai;

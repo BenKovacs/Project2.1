@@ -38,7 +38,8 @@ public class MinMaxPlayer extends Thread implements Player {
 		try {
 			Thread.sleep(300);
 		} catch (InterruptedException e) {
- 			e.printStackTrace();
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 
@@ -129,7 +130,7 @@ public class MinMaxPlayer extends Thread implements Player {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				play();
+				this.play();
 			}
 
 		}
