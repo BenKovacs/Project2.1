@@ -25,10 +25,13 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     public Point getMove(OthelloBoard board, long runtime) {
         initialization(board);
 
-        long endTime = System.currentTimeMillis() + runtime;
-        while (System.currentTimeMillis() < endTime) {
+//        long endTime = System.currentTimeMillis() + runtime;
+//        while (System.currentTimeMillis() < endTime) {
+//            selection();
+//        }
+
+        for (int i = 0; i < 10000; i++)
             selection();
-        }
 
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         if (!validMoves.isEmpty()) {
