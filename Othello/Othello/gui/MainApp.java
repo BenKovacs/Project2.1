@@ -61,6 +61,7 @@ public class MainApp implements ActionListener {
 	}
 
 	public void reset() {
+	    frame.dispose();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 927, 473);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,10 +102,12 @@ public class MainApp implements ActionListener {
 		if (settings.getPlayer1().equalsIgnoreCase("human")) {
 			playerArray[0] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer1().equalsIgnoreCase("minmax")) {
-			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn);
+			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 			playerArray[0] = ai;
+			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("greedy")) {
 			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+			ai.start();
 			playerArray[0] = ai;
 			
 		} else if (settings.getPlayer1().equalsIgnoreCase("random")) {
@@ -112,23 +115,32 @@ public class MainApp implements ActionListener {
 			ai.start();
 			playerArray[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			// playerArray[0]; //= new TODO add correct code : MCTS(boardPanel);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			playerArray[0] = ai;
+			ai.start();
 		}
 
 		turn = Constants.BLACK;
 		if (settings.getPlayer2().equalsIgnoreCase("human")) {
 			playerArray[1] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer2().equalsIgnoreCase("minmax")) {
-			playerArray[1] = new MinMaxPlayer(boardPanel, turn);
+			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
+			playerArray[1] = ai;
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("greedy")) {
-			playerArray[1] = new GreedyPlayer(boardPanel, turn);
+			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+			playerArray[1]  = ai;
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("random")) {
 			AIPlayer ai = new AIPlayer(boardPanel, turn);
 			playerArray[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
-			// playerArray[1] //= new TODO add correct code : MCTS(boardPanel);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			ai.start();
+			playerArray[1] = ai;
 		}
+
 
 		for (int i = 0; i < playerArray.length; i++) {
 			System.out.println("Player " + i + " is: " + playerArray[i]);

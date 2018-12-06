@@ -73,9 +73,17 @@ public class BoardPanel extends JPanel {
 			setGameBoard(gameBoard);
 			rightPanel.changeTurn();
 
+			String message;
 			if (gameBoard.isGameFinished()) {
+				if (gameBoard.getCountWhite() - gameBoard.getCountBlack() > 0){
+					message = "White wins!";
+				} else if (gameBoard.getCountWhite() - gameBoard.getCountBlack() < 0){
+					message = "Black wins!";
+				} else {
+					message = "It's a Tie!";
+				}
 				int dialogButton = JOptionPane.YES_NO_OPTION;
-				int dialogResult = JOptionPane.showConfirmDialog(this, "You've won! Would you like to play again?", "Game Ended", dialogButton);
+				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
 				if(dialogResult == 0) {
 					MainApp.getSingleton().reset();
 				} else {

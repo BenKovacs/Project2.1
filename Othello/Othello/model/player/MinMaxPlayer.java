@@ -1,6 +1,7 @@
 package model.player;
 
 import gui.BoardPanel;
+import gui.MainApp;
 import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
 import model.data_model.Node;
@@ -9,22 +10,24 @@ import model.data_model.Node;
 /**
  * This class need to be reviewed but the tree building works
  */
-public class MinMaxPlayer implements Player {
+public class MinMaxPlayer extends Thread implements Player {
 	private BoardPanel boardPanel;
 
 	private BoardTree bTree;
+	private int depth;
 
 	private int color;
 	
-	public MinMaxPlayer(BoardPanel boardPanel, int color) {
+	public MinMaxPlayer(BoardPanel boardPanel, int color, int depth) {
 		this.boardPanel = boardPanel;
 		this.color = color;
+		this.depth = depth;
 	}
 
 	public void play() {
 
 		//construct the tree
-		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), 5);
+		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), depth);
 
 		//get the minimax move
 		//Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), false);
@@ -33,13 +36,6 @@ public class MinMaxPlayer implements Player {
 
 		//select the move and play
 		boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
-
-		try {
-			Thread.sleep(500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -101,6 +97,29 @@ public class MinMaxPlayer implements Player {
 			}
 			return minEval;
 		}
+	}
+
+	public void run() {
+		while(true) {
+			try {
+				sleep(100);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if(MainApp.getSingleton() == null)
+				continue;
+
+			if(boardPanel.getGameBoard() == null)
+				continue;
+
+			if(getColor() == boardPanel.getGameBoard().getTurn()) {
+				this.play();
+			}
+
+		}
+
 	}
 
 	public int getPlayerType() {

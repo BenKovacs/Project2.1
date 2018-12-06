@@ -12,3 +12,6 @@
 
 ###### Wanna be the next othello world champion ?
 > [Play me](https://othello-reversi.com/play/index.html)
+
+###### Tests
+- [Excel tests results](https://docs.google.com/spreadsheets/d/1pXybnGwGhhuSN087dJm58Au2sot1wuJ691OrMpN5ELM/edit#gid=0)

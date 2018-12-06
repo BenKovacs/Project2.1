@@ -1,16 +1,15 @@
 package model.player;
 
 import gui.BoardPanel;
+import gui.MainApp;
 import javafx.geometry.Point3D;
 import java.util.ArrayList;
-import java.util.Random;
 
 
 
-public class GreedyPlayer implements Player{
+public class GreedyPlayer extends Thread implements Player{
     private BoardPanel boardPanel;
-    private Random random = new Random();
-    
+
     private int color;
 
     public GreedyPlayer(BoardPanel boardPanel, int color) {
@@ -35,9 +34,30 @@ public class GreedyPlayer implements Player{
         			}
         		}
         	}
-            //try {Thread.sleep(300);}catch(Exception e){}
+
             boardPanel.play((int)max.getX() , (int)max.getY());
-            //boardPanel.getGameBoard().flipDisc((int)validMoves.get(randInt).getX() , (int)validMoves.get(randInt).getY());
+        }
+    }
+
+    public void run() {
+        while(true) {
+            try {
+                sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            if(MainApp.getSingleton() == null)
+                continue;
+
+            if(boardPanel.getGameBoard() == null)
+                continue;
+
+            if(getColor() == boardPanel.getGameBoard().getTurn()) {
+                this.play();
+            }
+
         }
 
     }
