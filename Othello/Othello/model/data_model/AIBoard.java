@@ -3,6 +3,9 @@ package model.data_model;
 import javafx.geometry.Point3D;
 import model.Constants;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Random;
+
 import static model.Constants.EMPTY;
 
 /**
@@ -157,8 +160,117 @@ public class AIBoard{
     }
     
     
-    private int stabilityHeuristic() {
-    	return 0;
+    public static boolean isStable(int x, int y, int[][] board) {
+    	LinkedList<String> list = new LinkedList<String>();
+    	int uniqId = new Random().nextInt(100000);
+    	int color = board[y][x];
+    	
+    	if(color == Constants.EMPTY) {
+    		//System.out.println("Empty square");
+    		return false;
+    	}
+    	//check horizontal
+    	/*
+    	int operatingX = x;
+    	//go left
+    	
+    	boolean leftOpposite = false;
+    	boolean leftEmpty = false;
+    	while(operatingX > 0) {
+    		operatingX--;
+    		if(board[y][operatingX] == Constants.EMPTY) {
+    			//if empty on the left -> try to find opposite or empty on the right side
+    			leftEmpty = true;
+    			break;
+    		} else if(board[y][operatingX] != color) {
+    			//if opposite color on the left -> try to find empty on the right side
+    			leftOpposite = true;
+    			break;
+    		}
+    	}
+    	
+    	//go right
+    	boolean rightOpposite = false;
+    	boolean rightEmpty = false;
+    	operatingX = x;
+    	while(operatingX < board[0].length - 1) {
+    		operatingX++;
+    		if(board[y][operatingX] == Constants.EMPTY) {
+    			rightEmpty = true;
+    			list.add(uniqId + " Found right square: " + operatingA);
+    			break;
+    		} else if(board[y][operatingX] != color) {
+    			rightOpposite = true;
+    			break;
+    		}
+    	}
+    	if(leftOpposite && rightEmpty) {
+    		return false;
+    	}
+    	if(rightOpposite && leftEmpty) {
+    		return false;
+    	}
+    	if(leftEmpty && rightEmpty) {
+    		return false;
+    	}
+    	*/
+    	//check vertical
+    	int operatingY = y;
+    	//go top
+    	boolean topOpposite = false;
+    	boolean topEmpty = false;
+    	while(operatingY > 0) {
+    		operatingY--;
+    		if(board[operatingY][x] == Constants.EMPTY) {
+    			//if empty on the left -> try to find opposite or empty on the right side
+    			list.add(uniqId + " top -> empty at Y:" + operatingY + " ");
+    			topEmpty = true;
+    			break;
+    		} else if(board[operatingY][x] != color) {
+    			//if opposite color on the left -> try to find empty on the right side
+    			list.add(uniqId + " top -> opposite at Y:" + operatingY + " ");
+    			topOpposite = true;
+    			break;
+    		}
+    	}
+    	list.add(uniqId + " top -> stopping at Y:" + operatingY + " ");
+    	//go right
+    	boolean bottomOpposite = false;
+    	boolean bottomEmpty = false;
+    	operatingY = y;
+    	while(operatingY < board[0].length - 1) {
+    		operatingY++;
+    		if(board[operatingY][x] == Constants.EMPTY) {
+    			bottomEmpty = true;
+    			//System.out.println(uniqId + " Found right square: " + operatingA);
+    			list.add(uniqId + " bottom -> empty at Y:" + operatingY + " ");
+    			break;
+    		} else if(board[operatingY][x] != color) {
+    			bottomOpposite = true;
+    			list.add(uniqId + " bottom -> opposite at Y:" + operatingY + " ");
+    			break;
+    		}
+    	}
+    	list.add(uniqId + " bottom -> stopping at Y:" + operatingY);
+    	
+    	if(topOpposite && bottomEmpty) {
+    		return false;
+    	}
+    	if(bottomOpposite && topEmpty) {
+    		return false;
+    	}
+    	if(topEmpty && bottomEmpty) {
+    		return false;
+    	}
+    	//check diagonal increase
+    	
+    	//check diagonal decrease
+    	System.out.println(uniqId + ": checking " + x + "," + y);
+    	for(String s: list) {
+    		System.out.println(s);
+    	}
+    	System.out.println(uniqId + " Found a stable square on: " + x + "," + y);
+    	return true;
     }
 }
 
