@@ -13,23 +13,8 @@ public class Settings extends JDialog {
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
-		private JCheckBox chckbxDebugMode;
 		private JComboBox cbPlayers1;
 		private JComboBox cbPlayers2;
-		
-
-//		/**
-//		 * Launch the application.
-//		 */
-//		public static void main(String[] args) {
-//			try {
-//				Settings dialog = new Settings();
-//				dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-//				dialog.setVisible(true);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-//		}
 
 		/**
 		 * Create the dialog.
@@ -77,7 +62,7 @@ public class Settings extends JDialog {
 			
 			tfDepth = new JTextField();
 			tfDepth.setHorizontalAlignment(SwingConstants.RIGHT);
-			tfDepth.setText(" 2 ");
+			tfDepth.setText("4");
 			sl_contentPanel.putConstraint(SpringLayout.SOUTH, tfDepth, 5, SpringLayout.SOUTH, lblDepthLevel);
 			sl_contentPanel.putConstraint(SpringLayout.EAST, tfDepth, 210, SpringLayout.EAST, lblPlayer2);
 			contentPanel.add(tfDepth);
@@ -128,15 +113,12 @@ public class Settings extends JDialog {
 			this.cancelSelected = cancelSelected;
 		}
 		
-		public boolean isDebugMode() {
-			return chckbxDebugMode.isSelected();
-		}
 
 		public int getDepthLevel() {
 			try{
 				return Integer.parseInt(tfDepth.getText());
 			}catch(Exception e){
-				
+				e.printStackTrace();
 			}
 			return 0;
 		}
@@ -152,9 +134,6 @@ public class Settings extends JDialog {
 		public String getPlayer2() {
 			return (String)(cbPlayers2.getSelectedItem());
 		}
-
-    public void  getNumberOfHumanPlayers() {
-    }
 
 }
 
