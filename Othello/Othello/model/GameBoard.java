@@ -17,7 +17,7 @@ public class GameBoard {
 	private int[][] board;
 
 	private int enemy;
-	// Game state
+	// Game staten
 	public static int turn;
 	private Point lastMove;
 	private int INVERSE_COLOUR;

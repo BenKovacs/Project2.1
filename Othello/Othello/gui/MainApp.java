@@ -61,6 +61,7 @@ public class MainApp implements ActionListener {
 	}
 
 	public void reset() {
+	    frame.dispose();
 		frame = new JFrame();
 		frame.setBounds(100, 100, 927, 473);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

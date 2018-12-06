@@ -251,7 +251,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     public void run() {
         while(true) {
             try {
-                sleep(100);
+                sleep(200);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
