@@ -142,8 +142,6 @@ public class AIBoard{
         }
         System.out.println();
     }
-<<<<<<< HEAD
-    
     
 
     private int heuristicPosition(int x, int y){
@@ -274,9 +272,6 @@ public class AIBoard{
     	System.out.println(uniqId + " Found a stable square on: " + x + "," + y);
     	return true;
     }
-=======
-
->>>>>>> origin/master
 }
 
 
