@@ -102,7 +102,7 @@ public class MainApp implements ActionListener {
 		if (settings.getPlayer1().equalsIgnoreCase("human")) {
 			playerArray[0] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer1().equalsIgnoreCase("minmax")) {
-			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn);
+			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 			playerArray[0] = ai;
 			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("greedy")) {
@@ -124,7 +124,7 @@ public class MainApp implements ActionListener {
 		if (settings.getPlayer2().equalsIgnoreCase("human")) {
 			playerArray[1] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer2().equalsIgnoreCase("minmax")) {
-			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn);
+			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 			playerArray[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("greedy")) {

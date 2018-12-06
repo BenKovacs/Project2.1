@@ -14,18 +14,20 @@ public class MinMaxPlayer extends Thread implements Player {
 	private BoardPanel boardPanel;
 
 	private BoardTree bTree;
+	private int depth;
 
 	private int color;
 	
-	public MinMaxPlayer(BoardPanel boardPanel, int color) {
+	public MinMaxPlayer(BoardPanel boardPanel, int color, int depth) {
 		this.boardPanel = boardPanel;
 		this.color = color;
+		this.depth = depth;
 	}
 
 	public void play() {
 
 		//construct the tree
-		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), 5);
+		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), depth);
 
 		//get the minimax move
 		//Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), false);
