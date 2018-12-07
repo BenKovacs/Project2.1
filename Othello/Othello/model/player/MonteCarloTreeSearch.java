@@ -9,29 +9,34 @@ import java.awt.*;
 import java.util.*;
 
 public class MonteCarloTreeSearch extends Thread implements Player {
-	
-	private int color;
 
     private Node<HashMap<String,Object>> rootNode;
     private Node<HashMap<String,Object>> currentNode;
 
-    private BoardPanel boardPanel;
+    private int runtime;
+    private int iterations;
+    private int exploreParam;
 
-    public MonteCarloTreeSearch(BoardPanel boardPanel, int color) {
+    private BoardPanel boardPanel;
+    private int color;
+
+    public MonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
         this.boardPanel = boardPanel;
         this.color = color;
+        this.runtime = runtime;
+        this.iterations = iterations;
+        this.exploreParam = 2;
     }
 
-    public Point getMove(OthelloBoard board, long runtime) {
+    public Point getMove(OthelloBoard board) {
         initialization(board);
 
-//        long endTime = System.currentTimeMillis() + runtime;
-//        while (System.currentTimeMillis() < endTime) {
-//            selection();
-//        }
-
-        for (int i = 0; i < 10000; i++)
+        long endTime = System.currentTimeMillis() + runtime;
+        int iterationCount = 0;
+        while (System.currentTimeMillis() < endTime || iterationCount < iterations) {
             selection();
+            iterationCount++;
+        }
 
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         if (!validMoves.isEmpty()) {
@@ -167,12 +172,11 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     private double uct(Node<HashMap<String,Object>> node) {
-        int c = 2;
         double uct;
         if (getBoard(node.getParent()).getTurn() == getBoard(rootNode).getTurn()) {
-            uct = getWins(node) / getPlayouts(node) + Math.sqrt(c * Math.log(getPlayouts(rootNode)) / getPlayouts(node));
+            uct = getWins(node) / getPlayouts(node) + Math.sqrt(exploreParam * Math.log(getPlayouts(rootNode)) / getPlayouts(node));
         } else {
-            uct = (getPlayouts(node) - getWins(node)) / getPlayouts(node) + Math.sqrt(c * Math.log(getPlayouts(rootNode)) / getPlayouts(node));
+            uct = (getPlayouts(node) - getWins(node)) / getPlayouts(node) + Math.sqrt(exploreParam * Math.log(getPlayouts(rootNode)) / getPlayouts(node));
         }
         return uct;
     }
@@ -223,6 +227,14 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         }
     }
 
+    public int getRuntime() { return runtime; }
+    public int getIterations() { return iterations; }
+    public int getExploreParam() { return this.exploreParam; }
+
+    public void setRuntime(int runtime) { this.runtime = runtime; }
+    public void setIterations(int iterations) { this.iterations = iterations; }
+    public void setExploreParam(int exploreParam) { this.exploreParam = exploreParam; }
+
     private int countChildren(Node<HashMap<String,Object>> node) {
         ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) node.getChildren();
         int total = 0;
@@ -245,7 +257,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
                     + "[WINS%: " + String.format("%.2f", (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS") * 100) + "%]");
         }
         System.out.println("TOTAL ITERATIONS: " + rootNode.getData().get("PLAYOUTS"));
-        System.out.println("TOTAL NODES EXPANDED: " + countChildren(rootNode) + 1);
+        System.out.println("TOTAL NODES EXPANDED: " + (countChildren(rootNode) + 1));
         System.out.println("BLACK COUNTS: " + getBoard(rootNode).countCellState(OthelloBoard.BLACK));
         System.out.println("WHITE COUNTS: " + getBoard(rootNode).countCellState(OthelloBoard.WHITE));
         System.out.println();
@@ -280,10 +292,11 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     public void play() {
         OthelloBoard board = new OthelloBoard(8,8);
         board.useGameBoard(boardPanel.getGameBoard());
-        Point bestMove = getMove(board, 3000);
-        printData();
-        if (bestMove != null)
+        Point bestMove = getMove(board);
+        if (bestMove != null) {
+            printData();
             boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
+        }
     }
 
     public int getPlayerType() {

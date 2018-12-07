@@ -4,6 +4,8 @@ import gui.BoardPanel;
 import gui.RightPanel;
 import model.data_model.Node;
 import model.player.MonteCarloTreeSearch;
+import model.player.SuperMonteCarloTreeSearch;
+import model.player.SuperMonteCarloTreeSearch2;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -23,22 +25,34 @@ public class OthelloBoard implements Cloneable {
     private int[][] board;
 
     private int turn;
+    private ArrayList<Point> previousMoves; //Maybe change the var name.
     private Point lastMove;
 
     public OthelloBoard(int width, int height) {
         this.width = width;
         this.height = height;
         board = new int[height][width];
+        previousMoves = new ArrayList<Point>();
         restart();
     }
 
     public void restart() {
+        clearBoard();
         board[(int)Math.floor((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = WHITE;
         board[(int)Math.floor((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = BLACK;
         board[(int)Math.ceil((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = BLACK;
         board[(int)Math.ceil((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = WHITE;
         turn = BLACK;
+        previousMoves.clear();
         lastMove = null;
+    }
+
+    public void clearBoard() {
+        for (int row = 0; row < height; row++) {
+            for (int column = 0; column < width; column++) {
+                board[row][column] = EMPTY;
+            }
+        }
     }
 
     //play using a board from a GameBoard
@@ -111,6 +125,7 @@ public class OthelloBoard implements Cloneable {
         if (isValidMove(targetRow,targetColumn)) {
             board[targetRow][targetColumn] = turn;
             lastMove = new Point(targetRow, targetColumn);
+            previousMoves.add(lastMove);
             for (int row = targetRow-1; row <= targetRow+1; row++) {
                 for (int column = targetColumn-1; column <= targetColumn+1; column++) {
                     if (isInsideBoard(row, column) && board[row][column] == -turn) {
@@ -167,21 +182,40 @@ public class OthelloBoard implements Cloneable {
         return counter;
     }
 
-    //return the winner, empty means no one win = draw
-//    public int getWinner(){
-//        if (isGameOver()) {
-//            if (countCellState(BLACK) > countCellState(WHITE)) {
-//                return BLACK;
-//            } else if (countCellState(BLACK) < countCellState(WHITE)) {
-//                return WHITE;
-//            } else {
-//                return EMPTY;
-//            }
-//        } else {
-//            return -999999999;
-//        }
-//    }
+    public String gameResult(){
+        if (isGameOver()) {
+            if (countCellState(BLACK) > countCellState(WHITE)) {
+                return "BLACK WIN";
+            } else if (countCellState(BLACK) < countCellState(WHITE)) {
+                return "WHITE WIN";
+            } else {
+                return "DRAW";
+            }
+        } else {
+            return "GAME NOT OVER";
+        }
+    }
 
+    public String playerResult(int player){
+        if (isGameOver()) {
+            if (countCellState(player) > countCellState(-player)) {
+                return "WON";
+            } else if (countCellState(player) < countCellState(-player)) {
+                return "LOSE";
+            } else {
+                return "DRAW";
+            }
+        } else {
+            return "GAME NOT OVER";
+        }
+    }
+
+    public boolean isGameOver() {
+        if (getValidMoves().isEmpty())
+            return true;
+        else
+            return false;
+    }
 
     //NEED A BETTER WAY TO COPY THE ARRAY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public Object clone() {
@@ -195,6 +229,7 @@ public class OthelloBoard implements Cloneable {
                 }
             }
             clone.setBoard(cloneBoard);
+            clone.setPreviousMoves(new ArrayList<Point>(previousMoves));
             if (lastMove != null)
                 clone.setLastMove(new Point((int) lastMove.getX(), (int) lastMove.getY())); //TRY remove this line and see what happen
         } catch (CloneNotSupportedException e) {
@@ -234,39 +269,14 @@ public class OthelloBoard implements Cloneable {
     public int getHeight() { return height; }
     public int[][] getBoard() { return board; }
     public int getTurn() { return turn; }
+    public ArrayList<Point> getPreviousMoves() { return previousMoves; }
     public Point getLastMove() { return lastMove; }
 
     public void setWidth(int width) { this.width = width; }
     public void setHeight(int height) { this.height = height; }
     public void setBoard(int[][] board) { this.board = board; }
     public void setTurn(int turn) { this.turn = turn; }
+    public void setPreviousMoves(ArrayList<Point> previousMoves) { this.previousMoves = previousMoves; }
     public void setLastMove(Point lastMove) { this.lastMove = lastMove; }
-
-    public static void main(String[] args) {
-        OthelloBoard game = new OthelloBoard(8,8);
-        MonteCarloTreeSearch mcts = new MonteCarloTreeSearch(new BoardPanel(new GameBoard(8,8),new RightPanel()), Constants.BLACK);
-        Random random = new Random();
-        while (true) {
-//            if (game.getTurn() == BLACK) {
-                game.printBoard();
-                Point move = mcts.getMove(game, 3000);
-                if (move != null) {
-                    game.play((int) move.getX(), (int) move.getY());
-                } else {
-                    break;
-                }
-//            } else {
-//                game.printBoard();
-//                ArrayList<Point> validMoves = game.getValidMoves();
-//                if (!validMoves.isEmpty()) {
-//                    Point move = validMoves.get(random.nextInt(validMoves.size()));
-//                    game.play((int) move.getX(), (int) move.getY());
-//                } else {
-//                    break;
-//                }
-//            }
-        }
-
-    }
 
 }
