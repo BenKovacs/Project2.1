@@ -115,7 +115,9 @@ public class MainApp implements ActionListener {
 			ai.start();
 			playerArray[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			int runtime = 3000; //min runtime in millisecs
+			int iterations = 10000; //min iterations
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerArray[0] = ai;
 			ai.start();
 		}
@@ -136,7 +138,9 @@ public class MainApp implements ActionListener {
 			playerArray[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
-			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn);
+			int runtime = 3000; //min runtime in millisecs
+			int iterations = 10000; //min iterations
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			ai.start();
 			playerArray[1] = ai;
 		}
