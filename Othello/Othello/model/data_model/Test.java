@@ -19,7 +19,7 @@ public class Test {
     public static void main(String[] args) {
 //        MCTSvsMCTS();
 
-        ArrayList<String> testData = MCTS1(20);
+        ArrayList<String> testData = MCTS1(30);
         for (String s : testData)
             System.out.println(s);
     }
@@ -65,7 +65,7 @@ public class Test {
         BoardPanel boardPanel = new BoardPanel(new GameBoard(8,8), new RightPanel());
 
         int runtime = 0; //Min runtime in milliseconds
-        int iterations = 1000; //Min iterations
+        int iterations = 10000; //Min iterations
 
         MonteCarloTreeSearch mcts = new MonteCarloTreeSearch(boardPanel, Constants.BLACK, runtime, iterations);
         MonteCarloTreeSearch mcts2 = new MonteCarloTreeSearch(boardPanel, Constants.WHITE, runtime, iterations);
