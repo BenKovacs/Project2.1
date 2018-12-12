@@ -9,7 +9,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MainApp implements ActionListener {
+public class MainApp{
 
 	private static MainApp mainApp;
 
@@ -155,10 +155,5 @@ public class MainApp implements ActionListener {
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0, 1);
 
-	}
-
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 }

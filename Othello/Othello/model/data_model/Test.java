@@ -6,7 +6,7 @@ import model.Constants;
 import model.GameBoard;
 import model.OthelloBoard;
 import model.player.MonteCarloTreeSearch;
-import model.player.SuperMonteCarloTreeSearch2;
+//import model.player.SuperMonteCarloTreeSearch2;
 
 import java.awt.*;
 import java.util.ArrayList;

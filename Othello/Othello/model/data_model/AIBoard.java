@@ -265,11 +265,11 @@ public class AIBoard{
     	//check diagonal increase
     	
     	//check diagonal decrease
-    	System.out.println(uniqId + ": checking " + x + "," + y);
-    	for(String s: list) {
-    		System.out.println(s);
-    	}
-    	System.out.println(uniqId + " Found a stable square on: " + x + "," + y);
+//    	System.out.println(uniqId + ": checking " + x + "," + y);
+//    	for(String s: list) {
+//            System.out.println(s);
+//        }
+//    	System.out.println(uniqId + " Found a stable square on: " + x + "," + y);
     	return true;
     }
 }

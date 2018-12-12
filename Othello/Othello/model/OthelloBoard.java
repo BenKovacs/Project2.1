@@ -4,8 +4,8 @@ import gui.BoardPanel;
 import gui.RightPanel;
 import model.data_model.Node;
 import model.player.MonteCarloTreeSearch;
-import model.player.SuperMonteCarloTreeSearch;
-import model.player.SuperMonteCarloTreeSearch2;
+//import model.player.SuperMonteCarloTreeSearch;
+//import model.player.SuperMonteCarloTreeSearch2;
 
 import java.awt.*;
 import java.util.ArrayList;
