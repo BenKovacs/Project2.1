@@ -55,6 +55,12 @@ public class GreedyPlayer extends Thread implements Player{
                 continue;
 
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
+                try {
+                    sleep(150);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 this.play();
             }
 

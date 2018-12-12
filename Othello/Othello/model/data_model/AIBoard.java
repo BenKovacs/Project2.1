@@ -7,7 +7,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 import static model.Constants.EMPTY;
-import static model.data_model.Evaluation.stabilityHeuristic;
+import static model.data_model.Evaluation.*;
 
 /**
  * Encapsulate some of the features of the board but easier to manage for AI
@@ -42,8 +42,12 @@ public class AIBoard{
             for (int y = 0; y < board[0].length; y++) {
 
                 int flips = countFlips(x, y);
-                if (flips > 0) validMoves.add(new Point3D(x, y, stabilityHeuristic(x,y) + flips));
 
+                if (flips > 0){
+                    AIBoard testBoard = new AIBoard(board, turn);
+                    testBoard.flipDisc(x,y);
+                    validMoves.add(new Point3D(x, y, StaticWeightsHeuristic(x,y,/*testBoard.getBoard()*/board, turn) + flips));
+                }
             }
         }
         return validMoves;
