@@ -20,7 +20,7 @@ public class AIPlayer  extends Thread implements Player {
     public AIPlayer(BoardPanel boardPanel, int color){
        this.boardPanel = boardPanel;
        this.color = color;
-       setName("AIBot");
+       setName("Random Bot");
 
     }
     public void play(){
@@ -62,6 +62,10 @@ public class AIPlayer  extends Thread implements Player {
         		}
         		play();
         	}
+            if (boardPanel.getGameBoard().isGameFinished()){
+                System.out.println("breaking");
+                break;
+            }
         	
     	}
     	
