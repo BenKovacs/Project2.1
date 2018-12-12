@@ -7,7 +7,7 @@ import static model.Constants.WHITE;
 public class Evaluation {
 
 
-    public static int stabilityHeuristic(int x, int y, int[][] board, int turn){
+    public static int ringWeightsHeuristic(int x, int y, int[][] board, int turn){
         //heuristic that gives amount based on the position of the flipped disks on the table
         if(x>=3 && x<= 4 && y>=3 && y<= 4) return 1;
         else{
@@ -22,7 +22,7 @@ public class Evaluation {
         return 1;
     }
 
-    public static int StaticWeightsHeuristic(int x, int y, int[][] board, int turn){
+    public static int staticWeightsHeuristic(int x, int y, int[][] board, int turn){
         int[][] weights = {{4, -3, 2, 2, 2, 2, -3, 4},
                 {-3, -4, -1, -1, -1, -1, -4, -3},
                 {2, -1, 1, 0, 0, 1, -1, 2},
