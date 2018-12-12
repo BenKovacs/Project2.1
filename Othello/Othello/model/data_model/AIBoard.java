@@ -169,6 +169,18 @@ public class AIBoard {
 		}
 		return 1;
 	}
+	
+	public static double stabilityHeuristic(int[][] board) {
+		double counter = 0;
+		for(int i = 0; i < board.length; i++) {
+			for(int j = 0; j < board[i].length; j++) {
+				if(isStable(j,i, board)) {
+					counter++;
+				}
+			}
+		}
+		return counter/64.0;
+	}
 
 	public static boolean isStable(final int x, final int y, int[][] board) {
 		LinkedList<String> list = new LinkedList<String>();
