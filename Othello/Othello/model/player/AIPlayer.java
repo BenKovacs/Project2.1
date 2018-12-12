@@ -38,7 +38,7 @@ public class AIPlayer  extends Thread implements Player {
     	while(true) {
     		try {
         		
-    			sleep(200);
+    			sleep(100);
     		} catch (InterruptedException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
@@ -55,7 +55,7 @@ public class AIPlayer  extends Thread implements Player {
         	//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
         	if(getColor() == boardPanel.getGameBoard().getTurn()) {
         		try {
-        			sleep(250);
+        			sleep(150);
         		} catch (InterruptedException e) {
         			// TODO Auto-generated catch block
         			e.printStackTrace();
@@ -68,7 +68,6 @@ public class AIPlayer  extends Thread implements Player {
             }
         	
     	}
-    	
     }
 
     public int getPlayerType() {

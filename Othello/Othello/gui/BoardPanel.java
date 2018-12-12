@@ -91,6 +91,7 @@ public class BoardPanel extends JPanel {
 				}
 			}
 		}
+		//System.out.println("About to check if stable");
 		for(int i= 0;  i < 8; i++) {
 			for(int j = 0; j < 8; j++) {
 				AIBoard.isStable(i, j, gameBoard.getboard());
