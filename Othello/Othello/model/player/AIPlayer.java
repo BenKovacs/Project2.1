@@ -68,7 +68,6 @@ public class AIPlayer  extends Thread implements Player {
             }
         	
     	}
-    	
     }
 
     public int getPlayerType() {
