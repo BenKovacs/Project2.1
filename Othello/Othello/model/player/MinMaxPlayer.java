@@ -22,6 +22,7 @@ public class MinMaxPlayer extends Thread implements Player {
 		this.boardPanel = boardPanel;
 		this.color = color;
 		this.depth = depth;
+		setName("MinMax/AlphaBeta Bot");
 	}
 
 	public void play() {

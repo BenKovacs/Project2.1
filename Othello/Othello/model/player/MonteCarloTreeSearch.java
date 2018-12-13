@@ -26,6 +26,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         this.runtime = runtime;
         this.iterations = iterations;
         this.exploreParam = 2;
+        setName("MCTS Bot");
     }
 
     public Point getMove(OthelloBoard board) {

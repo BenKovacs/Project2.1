@@ -46,10 +46,11 @@ public class AIBoard {
                 if (flips > 0){
                     AIBoard testBoard = new AIBoard(board, turn);
                     testBoard.flipDisc(x,y);
-                    validMoves.add(new Point3D(x, y, ringWeightsHeuristic(x,y,/*testBoard.getBoard()*/board, turn) + flips));
+                    validMoves.add(new Point3D(x, y, staticWeightsHeuristic(x, y, testBoard.getBoard(), turn) + flips));
                 }
             }
         }
+
         return validMoves;
     }
 
