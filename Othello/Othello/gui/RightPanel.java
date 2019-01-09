@@ -44,7 +44,7 @@ public class RightPanel extends JPanel {
 			
 		
 
-		whiteDiscs.setText("White = "+ GameBoard.countWhite);
-		blackDiscs.setText("Black = "+ GameBoard.countBlack);
+		whiteDiscs.setText("White = "+ GameBoard.count1);
+		blackDiscs.setText("Black = "+ GameBoard.count1);
 	}
 }

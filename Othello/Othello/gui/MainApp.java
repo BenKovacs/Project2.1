@@ -96,9 +96,15 @@ public class MainApp{
 		frame.getContentPane().add(boardPanel, 1, 0);
 
 		// Create AIs or human players
-		int turn = Constants.WHITE;
+		int playerCount = settings.getNumPlayers();
+		Player[] playerArray = new Player[playerCount];
 
-		Player[] playerArray = new Player[settings.getNumPlayers()];
+		int turn;
+		if (playerCount == 2){
+			turn = Constants.WHITE;
+		} else {
+			turn = Constants.RED;
+		}
 		if (settings.getPlayer1().equalsIgnoreCase("human")) {
 			playerArray[0] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer1().equalsIgnoreCase("minmax")) {
@@ -122,7 +128,11 @@ public class MainApp{
 			ai.start();
 		}
 
-		turn = Constants.BLACK;
+		if (playerCount == 2){
+			turn = Constants.BLACK;
+		} else {
+			turn = Constants.GREEN;
+		}
 		if (settings.getPlayer2().equalsIgnoreCase("human")) {
 			playerArray[1] = new HumanPlayer(boardPanel, turn);
 		} else if (settings.getPlayer2().equalsIgnoreCase("minmax")) {
@@ -145,6 +155,53 @@ public class MainApp{
 			playerArray[1] = ai;
 		}
 
+		if (playerCount >= 3){
+			if (settings.getPlayer3().equalsIgnoreCase("human")) {
+				playerArray[2] = new HumanPlayer(boardPanel, turn);
+			} else if (settings.getPlayer3().equalsIgnoreCase("minmax")) {
+				MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
+				playerArray[2] = ai;
+				ai.start();
+			} else if (settings.getPlayer3().equalsIgnoreCase("greedy")) {
+				GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+				playerArray[2]  = ai;
+				ai.start();
+			} else if (settings.getPlayer3().equalsIgnoreCase("random")) {
+				AIPlayer ai = new AIPlayer(boardPanel, turn);
+				playerArray[2] = ai;
+				ai.start();
+			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
+				int runtime = 3000; //min runtime in millisecs
+				int iterations = 10000; //min iterations
+				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				ai.start();
+				playerArray[2] = ai;
+			}
+		}
+
+		if (playerCount >= 3){
+			if (settings.getPlayer4().equalsIgnoreCase("human")) {
+				playerArray[3] = new HumanPlayer(boardPanel, turn);
+			} else if (settings.getPlayer4().equalsIgnoreCase("minmax")) {
+				MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
+				playerArray[3] = ai;
+				ai.start();
+			} else if (settings.getPlayer4().equalsIgnoreCase("greedy")) {
+				GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
+				playerArray[3]  = ai;
+				ai.start();
+			} else if (settings.getPlayer4().equalsIgnoreCase("random")) {
+				AIPlayer ai = new AIPlayer(boardPanel, turn);
+				playerArray[3] = ai;
+				ai.start();
+			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
+				int runtime = 3000; //min runtime in millisecs
+				int iterations = 10000; //min iterations
+				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				ai.start();
+				playerArray[3] = ai;
+			}
+		}
 
 		for (int i = 0; i < playerArray.length; i++) {
 			System.out.println("Player " + i + " is: " + playerArray[i]);

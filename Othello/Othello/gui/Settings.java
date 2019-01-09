@@ -174,9 +174,9 @@ public class Settings extends JDialog {
 
 		public String getPlayer2() { return (String)(cbPlayers2.getSelectedItem()); }
 
-		public  String getPlayer3() { return  (String)(cbPlayers3.getSelectedItem());}
+		public String getPlayer3() { return  (String)(cbPlayers3.getSelectedItem());}
 
-		public  String getPlayer4() { return  (String)(cbPlayers4.getSelectedItem());}
+		public String getPlayer4() { return  (String)(cbPlayers4.getSelectedItem());}
 
 
 }
