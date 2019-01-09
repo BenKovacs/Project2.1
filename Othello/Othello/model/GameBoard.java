@@ -99,7 +99,37 @@ public class GameBoard {
 	}
 
 	public boolean isValidMove(int x, int y, boolean executeMove) {
-		return (board[x][y] == EMPTY || board[x][y] < 0) && checkFlip(x, y, executeMove) > 0;
+		if (!(board[x][y] == EMPTY || board[x][y] < 0)){
+			return false;
+		} else if (checkFlip(x, y, executeMove) > 0){
+			return true;
+		} else if (!checkForValidMoves() && checkForNeighbours(x,y)){
+			return true;
+		}
+		return false;
+	}
+
+	public boolean checkForValidMoves(){
+		for(int i = 0; i < width; i++){
+			for(int j = 0; j < height; j++) {
+				if ((board[i][j] == EMPTY || board[i][j] < 0) && (checkFlip(i, j, false) > 0)){
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	public boolean checkForNeighbours(int x, int y){
+		for(int i = -1; i <= 1; i++){
+			for(int j = -1; j <= 1; j++) {
+				if (isInsideBoard(x+i, y+j)){
+					if(board[x+i][y+j] != EMPTY && board[x+i][y+j] >= 0){
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 
 	// returns -1 if no flips from that position that direction, otherwise return
@@ -228,12 +258,14 @@ public class GameBoard {
 		if (count1 + count2 + count3 + count4 == 64) {
 			return true;
 		}
-		// CHeck for the current player valid moves
-		if (countValid == 0) {
-			changeTurn();
-			// check for the other player...
+		if(playerList.length == 2){
+			// Check for the current player valid moves
 			if (countValid == 0) {
-				return true;
+				changeTurn();
+				// check for the other player...
+				if (countValid == 0) {
+					return true;
+				}
 			}
 		}
 		return false;
@@ -255,13 +287,13 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
-		// showValidMoves();
 		return validMoves;
 	}
 
 	public Player[] getPlayerList() {
 		return playerList;
 	}
+
 	public Player getPlayer() {
 		return player;
 	}
@@ -310,5 +342,7 @@ public class GameBoard {
 		return turn;
 	}
 
-	public Point getLastMove() { return lastMove; }
+	public Point getLastMove() {
+		return lastMove;
+	}
 }

@@ -109,6 +109,7 @@ public class BoardPanel extends JPanel {
 		private int y;
 
 		private int w, h;
+		private Color backGroundcolor;
 
 		public SquarePanel(int x, int y, int type) {
 			this.type = type;
@@ -119,8 +120,8 @@ public class BoardPanel extends JPanel {
 			setBorder(new LineBorder(Color.lightGray));
 
 			// set background color to dark green
-			Color backgroundColor = new Color(0, 120, 0);
-			setBackground(backgroundColor);
+			backGroundcolor = new Color(0, 80, 0);
+			setBackground(backGroundcolor);
 
 			addMouseListener(this);
 		}
@@ -149,7 +150,27 @@ public class BoardPanel extends JPanel {
 				c = new Color(0, 0, 0);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
-			} else if (type < 0) {
+			} else if (type == RED) {
+				// draw a black circle
+				c = new Color(255, 0, 0);
+				g2.setColor(c);
+				g2.fillOval(5, 5, w - 10, h - 10);
+			} else if (type == GREEN) {
+				// draw a black circle
+				c = new Color(0, 255, 0);
+				g2.setColor(c);
+				g2.fillOval(5, 5, w - 10, h - 10);
+			} else if (type == BLUE) {
+				// draw a black circle
+				c = new Color(0, 0, 255);
+				g2.setColor(c);
+				g2.fillOval(5, 5, w - 10, h - 10);
+			} else if (type == YELLOW) {
+				// draw a black circle
+				c = new Color(255, 255, 0);
+				g2.setColor(c);
+				g2.fillOval(5, 5, w - 10, h - 10);
+			}  else if (type < 0) {
 				String flips = Integer.toString(-type);
 				// change background color to light green and draw number
 
@@ -189,8 +210,7 @@ public class BoardPanel extends JPanel {
 
 		@Override
 		public void mouseExited(MouseEvent e) {
-			Color backgroundColor = new Color(0, 120, 0);
-			setBackground(backgroundColor);
+			setBackground(backGroundcolor);
 		}
 	}
 

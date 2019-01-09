@@ -215,6 +215,7 @@ public class MainApp{
 		}
 		gameBoard.setPlayerList(playerList);
 		rPanel.setPlayerList(playerList);
+		boardPanel.setGameBoard(gameBoard);
 
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0, 1);
