@@ -39,7 +39,7 @@ public class Settings extends JDialog {
 			sl_contentPanel.putConstraint(SpringLayout.WEST, lblNumOfPlayers, 10, SpringLayout.WEST, contentPanel);
 			contentPanel.add(lblNumOfPlayers);
 
-			cbNumOfPlayers = new JComboBox(playersList);
+			cbNumOfPlayers = new JComboBox(numberOfPlayers);
 			cbNumOfPlayers.setSelectedIndex(0);
 			cbNumOfPlayers.addActionListener(cbNumOfPlayers);
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbNumOfPlayers, -30, SpringLayout.NORTH, contentPanel);
