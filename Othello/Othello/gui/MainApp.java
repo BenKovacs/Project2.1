@@ -115,8 +115,8 @@ public class MainApp{
 			ai.start();
 			playerArray[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			int runtime = 3000; //min runtime in millisecs
-			int iterations = 10000; //min iterations
+			int runtime = 30000; //min runtime in millisecs
+			int iterations = 1000; //min iterations
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerArray[0] = ai;
 			ai.start();

@@ -168,17 +168,11 @@ public class Settings extends JDialog {
 			return 0;
 		}
 
-		public int getNumPlayers() {
-			return (int)(cbNumOfPlayers.getSelectedItem());
-		}
+		public int getNumPlayers() { return (Integer.parseInt((String)cbNumOfPlayers.getSelectedItem())); }
 
-		public String getPlayer1() {
-			return (String)(cbPlayers1.getSelectedItem());
-		}
+		public String getPlayer1() { return (String)(cbPlayers1.getSelectedItem()); }
 
-		public String getPlayer2() {
-			return (String)(cbPlayers2.getSelectedItem());
-		}
+		public String getPlayer2() { return (String)(cbPlayers2.getSelectedItem()); }
 
 		public  String getPlayer3() { return  (String)(cbPlayers3.getSelectedItem());}
 
