@@ -10,9 +10,11 @@ public class Settings extends JDialog {
 
 		private final JPanel contentPanel = new JPanel();
 		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "Random", "None"};
+		private String[] numberOfPlayers = {"2","3","4"};
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
+		private JComboBox cbNumOfPlayers;
 		private JComboBox cbPlayers1;
 		private JComboBox cbPlayers2;
 		private JComboBox cbPlayers3;
@@ -29,7 +31,21 @@ public class Settings extends JDialog {
 			getContentPane().add(contentPanel, BorderLayout.CENTER);
 			SpringLayout sl_contentPanel = new SpringLayout();
 			contentPanel.setLayout(sl_contentPanel);
-			
+
+
+			// Number Of Players: 2-4 players
+			JLabel lblNumOfPlayers = new JLabel(" Number of Players : ");
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNumOfPlayers, -30, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, lblNumOfPlayers, 10, SpringLayout.WEST, contentPanel);
+			contentPanel.add(lblNumOfPlayers);
+
+			cbNumOfPlayers = new JComboBox(playersList);
+			cbNumOfPlayers.setSelectedIndex(0);
+			cbNumOfPlayers.addActionListener(cbNumOfPlayers);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbNumOfPlayers, -30, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, cbNumOfPlayers, 200, SpringLayout.WEST, contentPanel);
+			contentPanel.add(cbNumOfPlayers);
+
 			// Player 1
 			JLabel lblPlayer1 = new JLabel("Player 1 : ");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblPlayer1, 10, SpringLayout.NORTH, contentPanel);
@@ -153,7 +169,7 @@ public class Settings extends JDialog {
 		}
 
 		public int getNumPlayers() {
-			return 2;
+			return (int)(cbNumOfPlayers.getSelectedItem());
 		}
 
 		public String getPlayer1() {
@@ -163,5 +179,10 @@ public class Settings extends JDialog {
 		public String getPlayer2() {
 			return (String)(cbPlayers2.getSelectedItem());
 		}
+
+		public  String getPlayer3() { return  (String)(cbPlayers3.getSelectedItem());}
+
+		public  String getPlayer4() { return  (String)(cbPlayers4.getSelectedItem());}
+
 
 }
