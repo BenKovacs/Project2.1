@@ -16,14 +16,15 @@ public class GameBoard {
 	private int height;
 	private int[][] board;
 
-	private int enemy;
 	// Game staten
 	public static int turn;
 	private Point lastMove;
 	private int INVERSE_COLOUR;
 	private int countValid;
-	public static int countWhite;
-	public static int countBlack;
+	public static int count1;
+	public static int count2;
+	public static int count3;
+	public static int count4;
 
 	private Player[] playerList;
 	private Player player;
@@ -40,13 +41,13 @@ public class GameBoard {
 				board[x][y] = EMPTY; // default empty
 			}
 		}
-		turn = WHITE;
 		lastMove = null;
-		enemy = BLACK;
+		turn = WHITE;
 		board[3][3] = WHITE;
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
+
 		// starting game position
 		showValidMoves();
 	}
@@ -71,14 +72,24 @@ public class GameBoard {
 	 * Recounts the disc counts
 	 */
 	private void countDiscs() {
-		countWhite = 0;
-		countBlack = 0;
+		count1 = 0;
+		count2 = 0;
+		count3 = 0;
+		count4 = 0;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				if (board[x][y] == WHITE)
-					countWhite++;
+					count1++;
 				if (board[x][y] == BLACK)
-					countBlack++;
+					count2++;
+				if (board[x][y] == RED)
+					count1++;
+				if (board[x][y] == GREEN)
+					count2++;
+				if (board[x][y] == BLUE)
+					count3++;
+				if (board[x][y] == YELLOW)
+					count4++;
 			}
 		}
 	}
@@ -109,7 +120,7 @@ public class GameBoard {
 		for (int i = x - 1; i <= x + 1; i++) {
 			for (int j = y - 1; j <= y + 1; j++) {
 				if (isInsideBoard(i, j)) {
-					if (board[i][j] == enemy) {
+					if (board[i][j] != turn) {
 						int flipsDirection = checkDirection(x, y, i, j, executeMove);
 						if (flipsDirection > 0) {
 							flips += flipsDirection;
@@ -146,27 +157,32 @@ public class GameBoard {
 
 	public void changeTurn() {
 		swapPlayers();
-
 		showValidMoves();
-
-		if (player.getPlayerType() == Player.TYPE_BOT) {
-			//player.play();
-		}
 	}
 
 	/**
 	 * Sets who is making a turn now
 	 */
 	private void swapPlayers() {
-		if (turn == WHITE) {
-			turn = BLACK;
-			enemy = WHITE;
-		} else {
-			turn = WHITE;
-			enemy = BLACK;
+//		if (turn == WHITE) {
+//			turn = BLACK;
+//		} else {
+//			turn = WHITE;
+//		}
+		int oldturn = turn;
+		int i = 0;
+		while (oldturn == turn){
+			if (playerList[i].getColor() == turn){
+				if( i < playerList.length-1){
+					turn = playerList[i+1].getColor();
+					player = playerList[i+1];
+				} else {
+					turn = playerList[0].getColor();
+					player = playerList[0];
+				}
+			}
+			i++;
 		}
-
-		player = playerList[turn];
 	}
 
 	/**
@@ -209,7 +225,7 @@ public class GameBoard {
 	 * @return true or false
 	 */
 	public boolean isGameFinished() {
-		if (countWhite + countBlack == 64) {
+		if (count1 + count2 + count3 + count4 == 64) {
 			return true;
 		}
 		// CHeck for the current player valid moves
@@ -223,12 +239,19 @@ public class GameBoard {
 		return false;
 	}
 
-	public void setPlayers(Player[] playerList) {
+	public void setPlayerList(Player[] playerList) {
 		this.playerList = playerList;
 		player = playerList[turn];
-		if (player.getPlayerType() == Player.TYPE_BOT) {
-			//player.play();
+
+		if(playerList.length > 2){
+			turn = RED;
+			board[3][3] = RED;
+			board[3][4] = GREEN;
+			board[4][3] = BLUE;
+			board[4][4] = YELLOW;
 		}
+		countDiscs();
+		showValidMoves();
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
@@ -244,11 +267,27 @@ public class GameBoard {
 	}
 
 	public int getCountWhite() {
-		return countWhite;
+		return count1;
 	}
 
 	public int getCountBlack() {
-		return countBlack;
+		return count2;
+	}
+
+	public static int getCount1() {
+		return count1;
+	}
+
+	public static int getCount2() {
+		return count2;
+	}
+
+	public static int getCount3() {
+		return count3;
+	}
+
+	public static int getCount4() {
+		return count4;
 	}
 
 	public int getSquareType(int x, int y) {

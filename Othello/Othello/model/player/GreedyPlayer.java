@@ -15,7 +15,7 @@ public class GreedyPlayer extends Thread implements Player{
     public GreedyPlayer(BoardPanel boardPanel, int color) {
        this.boardPanel = boardPanel;
        this.color = color;
-        setName("Greedy Bot");
+       setName("Greedy Bot");
 
     }
     public void play(){
