@@ -9,12 +9,14 @@ import java.awt.event.ActionListener;
 public class Settings extends JDialog {
 
 		private final JPanel contentPanel = new JPanel();
-		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "Random"};
+		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "Random", "None"};
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
 		private JComboBox cbPlayers1;
 		private JComboBox cbPlayers2;
+		private JComboBox cbPlayers3;
+		private JComboBox cbPlayers4;
 
 		/**
 		 * Create the dialog.
@@ -23,7 +25,7 @@ public class Settings extends JDialog {
 			setModal(true);
 			setBounds(100, 100, 450, 336);
 			getContentPane().setLayout(new BorderLayout());
-			contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
+			contentPanel.setBorder(new EmptyBorder(50, 50, 50, 50));
 			getContentPane().add(contentPanel, BorderLayout.CENTER);
 			SpringLayout sl_contentPanel = new SpringLayout();
 			contentPanel.setLayout(sl_contentPanel);
@@ -41,30 +43,57 @@ public class Settings extends JDialog {
 			sl_contentPanel.putConstraint(SpringLayout.WEST, cbPlayers1, 200, SpringLayout.WEST, contentPanel);
 			contentPanel.add(cbPlayers1);
 			
-			// Player 1
+			// Player 2
 			JLabel lblPlayer2 = new JLabel("Player 2 : ");
-			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblPlayer2, 50, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblPlayer2, 40, SpringLayout.NORTH, contentPanel);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, lblPlayer2, 10, SpringLayout.WEST, contentPanel);
 			contentPanel.add(lblPlayer2);
-			
+
 			cbPlayers2 = new JComboBox(playersList);
 			cbPlayers2.setSelectedIndex(0);
 			cbPlayers2.addActionListener(cbPlayers2);
-			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbPlayers2, 50, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbPlayers2, 40, SpringLayout.NORTH, contentPanel);
 			sl_contentPanel.putConstraint(SpringLayout.WEST, cbPlayers2, 200, SpringLayout.WEST, contentPanel);
 			contentPanel.add(cbPlayers2);
-			
+
+			// Player 3
+			JLabel lblPlayer3 = new JLabel("Player 3 : ");
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblPlayer3, 70, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, lblPlayer3, 10, SpringLayout.WEST, contentPanel);
+			contentPanel.add(lblPlayer3);
+
+			cbPlayers3 = new JComboBox(playersList);
+			cbPlayers3.setSelectedIndex(0);
+			cbPlayers3.addActionListener(cbPlayers3);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbPlayers3, 70, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, cbPlayers3, 200, SpringLayout.WEST, contentPanel);
+			contentPanel.add(cbPlayers3);
+
+			//Player 4
+			JLabel lblPlayer4 = new JLabel("Player 4 : ");
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblPlayer4, 100, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, lblPlayer4, 10, SpringLayout.WEST, contentPanel);
+			contentPanel.add(lblPlayer4);
+
+			cbPlayers4 = new JComboBox(playersList);
+			cbPlayers4.setSelectedIndex(0);
+			cbPlayers4.addActionListener(cbPlayers4);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, cbPlayers4, 100, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, cbPlayers4, 200, SpringLayout.WEST, contentPanel);
+			contentPanel.add(cbPlayers4);
+
+
+			// Depth Level
 			JLabel lblDepthLevel = new JLabel("Depth Level");
-			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblDepthLevel, 16, SpringLayout.SOUTH, lblPlayer2);
-			sl_contentPanel.putConstraint(SpringLayout.WEST, lblDepthLevel, 0, SpringLayout.WEST, lblPlayer1);
-			sl_contentPanel.putConstraint(SpringLayout.EAST, lblDepthLevel, 50, SpringLayout.EAST, lblPlayer2);
+			sl_contentPanel.putConstraint(SpringLayout.NORTH, lblDepthLevel, 150, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, lblDepthLevel, 10, SpringLayout.WEST, contentPanel);
 			contentPanel.add(lblDepthLevel);
 			
 			tfDepth = new JTextField();
 			tfDepth.setHorizontalAlignment(SwingConstants.RIGHT);
 			tfDepth.setText("4");
-			sl_contentPanel.putConstraint(SpringLayout.SOUTH, tfDepth, 5, SpringLayout.SOUTH, lblDepthLevel);
-			sl_contentPanel.putConstraint(SpringLayout.EAST, tfDepth, 210, SpringLayout.EAST, lblPlayer2);
+			sl_contentPanel.putConstraint(SpringLayout.SOUTH, tfDepth, 160, SpringLayout.NORTH, contentPanel);
+			sl_contentPanel.putConstraint(SpringLayout.WEST, tfDepth, 200, SpringLayout.WEST, contentPanel);
 			contentPanel.add(tfDepth);
 			tfDepth.setColumns(10);
 			{
@@ -136,97 +165,3 @@ public class Settings extends JDialog {
 		}
 
 }
-
-
-
-
-
-
-/////
-
-
-//tfDepth = new JTextField();
-//tfDepth.setHorizontalAlignment(SwingConstants.RIGHT);
-//tfDepth.setText("2");
-//sl_contentPanel.putConstraint(SpringLayout.SOUTH, tfDepth, 0, SpringLayout.SOUTH, lblDepthLevel);
-//sl_contentPanel.putConstraint(SpringLayout.EAST, tfDepth, 0, SpringLayout.EAST, tfHumanPlayers);
-//contentPanel.add(tfDepth);
-//tfDepth.setColumns(10);
-
-//JRadioButton rdbtnSmall = new JRadioButton("Small");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, rdbtnSmall, 0, SpringLayout.NORTH, contentPanel);
-//contentPanel.add(rdbtnSmall);
-//
-//JRadioButton rdbtnMedium = new JRadioButton("Medium");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, rdbtnMedium, 6, SpringLayout.SOUTH, rdbtnSmall);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, rdbtnMedium, 0, SpringLayout.WEST, rdbtnSmall);
-//contentPanel.add(rdbtnMedium);
-//
-//JRadioButton rdbtnLarge = new JRadioButton("Large");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, rdbtnLarge, 6, SpringLayout.SOUTH, rdbtnMedium);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, rdbtnLarge, 0, SpringLayout.WEST, rdbtnSmall);
-//contentPanel.add(rdbtnLarge);
-//
-//tfHumanPlayers = new JTextField();
-//tfHumanPlayers.setHorizontalAlignment(SwingConstants.RIGHT);
-//tfHumanPlayers.setText("1");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, tfHumanPlayers, 6, SpringLayout.SOUTH, rdbtnLarge);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, tfHumanPlayers, 0, SpringLayout.WEST, rdbtnSmall);
-//contentPanel.add(tfHumanPlayers);
-//tfHumanPlayers.setColumns(10);
-//
-//tfAiPlayers = new JTextField();
-//tfAiPlayers.setHorizontalAlignment(SwingConstants.RIGHT);
-//tfAiPlayers.setText("1");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, tfAiPlayers, 6, SpringLayout.SOUTH, tfHumanPlayers);
-//sl_contentPanel.putConstraint(SpringLayout.EAST, tfAiPlayers, 0, SpringLayout.EAST, tfHumanPlayers);
-//contentPanel.add(tfAiPlayers);
-//tfAiPlayers.setColumns(10);
-//
-//JLabel lblNoHumans = new JLabel("No. Humans");
-//sl_contentPanel.putConstraint(SpringLayout.WEST, lblNoHumans, 0, SpringLayout.WEST, lblBoardSiye);
-//contentPanel.add(lblNoHumans);
-//
-//JLabel lblNoAi = new JLabel("No. AI");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNoAi, 114, SpringLayout.NORTH, contentPanel);
-//sl_contentPanel.putConstraint(SpringLayout.SOUTH, lblNoHumans, -12, SpringLayout.NORTH, lblNoAi);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, lblNoAi, 0, SpringLayout.WEST, lblBoardSiye);
-//contentPanel.add(lblNoAi);
-//
-//tfKangaroos = new JTextField();
-//tfKangaroos.setHorizontalAlignment(SwingConstants.RIGHT);
-//tfKangaroos.setText("5");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, tfKangaroos, 6, SpringLayout.SOUTH, tfAiPlayers);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, tfKangaroos, 0, SpringLayout.WEST, rdbtnSmall);
-//contentPanel.add(tfKangaroos);
-//tfKangaroos.setColumns(10);
-//
-//JLabel lblNoKangasPer = new JLabel("No. Kangas per player");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, lblNoKangasPer, 18, SpringLayout.SOUTH, lblNoAi);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, rdbtnSmall, 18, SpringLayout.EAST, lblNoKangasPer);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, tfAiPlayers, 18, SpringLayout.EAST, lblNoKangasPer);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, lblNoKangasPer, 0, SpringLayout.WEST, lblBoardSiye);
-//contentPanel.add(lblNoKangasPer);
-//
-//JLabel lblDepthLevel = new JLabel("Depth Level");
-//sl_contentPanel.putConstraint(SpringLayout.NORTH, lblDepthLevel, 16, SpringLayout.SOUTH, lblNoKangasPer);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, lblDepthLevel, 0, SpringLayout.WEST, lblBoardSiye);
-//sl_contentPanel.putConstraint(SpringLayout.EAST, lblDepthLevel, -50, SpringLayout.EAST, lblNoKangasPer);
-//contentPanel.add(lblDepthLevel);
-//
-//tfDepth = new JTextField();
-//tfDepth.setHorizontalAlignment(SwingConstants.RIGHT);
-//tfDepth.setText("2");
-//sl_contentPanel.putConstraint(SpringLayout.SOUTH, tfDepth, 0, SpringLayout.SOUTH, lblDepthLevel);
-//sl_contentPanel.putConstraint(SpringLayout.EAST, tfDepth, 0, SpringLayout.EAST, tfHumanPlayers);
-//contentPanel.add(tfDepth);
-//tfDepth.setColumns(10);
-//
-//chckbxDebugMode = new JCheckBox("Debug Mode");
-//chckbxDebugMode.setHorizontalAlignment(SwingConstants.LEFT);
-//sl_contentPanel.putConstraint(SpringLayout.WEST, chckbxDebugMode, 0, SpringLayout.WEST, lblBoardSiye);
-//sl_contentPanel.putConstraint(SpringLayout.SOUTH, chckbxDebugMode, 0, SpringLayout.SOUTH, contentPanel);
-//contentPanel.add(chckbxDebugMode);
-
-
-/////////////
