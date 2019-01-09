@@ -8,4 +8,5 @@ public class Constants {
     public static final int GREEN = 3; // true
     public static final int BLUE = 4; // true
     public static final int YELLOW = 5; // true
+    public static final int VALID = -999; // true
 }

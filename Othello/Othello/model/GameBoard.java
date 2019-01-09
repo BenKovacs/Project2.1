@@ -240,6 +240,10 @@ public class GameBoard {
 					board[x][y] = -flips;
 					validMoves.add(new Point3D(x, y, flips));
 					countValid++;
+				} else if (isValidMove(x, y, false)){
+					board[x][y] = VALID;
+					validMoves.add(new Point3D(x, y, 0));
+					countValid++;
 				}
 				// System.out.print(" " + board[x][y]);
 			}

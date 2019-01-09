@@ -171,7 +171,12 @@ public class BoardPanel extends JPanel {
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
 			}  else if (type < 0) {
-				String flips = Integer.toString(-type);
+				String flips;
+				if (type == -999){
+					flips = Integer.toString(0);
+				}else{
+					flips = Integer.toString(-type);
+				}
 				// change background color to light green and draw number
 
 				c = new Color(0, 0, 0);
@@ -180,8 +185,7 @@ public class BoardPanel extends JPanel {
 				g2.drawOval(5,5,w-10, h-10);
 
 				g2.setFont(new Font("Arial", Font.BOLD, h / 2));
-				g2.drawString(flips, w / 2 - g2.getFontMetrics().stringWidth(flips) / 2,
-						h / 2 + g2.getFontMetrics().getHeight() / 4);
+				g2.drawString(flips, w / 2 - g2.getFontMetrics().stringWidth(flips) / 2, h / 2 + g2.getFontMetrics().getHeight() / 4);
 
 			}
 		}
