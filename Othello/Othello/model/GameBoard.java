@@ -173,17 +173,16 @@ public class GameBoard {
 		int i = 0;
 		while (oldturn == turn){
 			if (playerList[i].getColor() == turn){
-				System.out.println(i);
 				if( i < playerList.length-1){
 					turn = playerList[i+1].getColor();
+					player = playerList[i+1];
 				} else {
 					turn = playerList[0].getColor();
+					player = playerList[0];
 				}
 			}
 			i++;
 		}
-
-		player = playerList[turn];
 	}
 
 	/**
@@ -240,7 +239,7 @@ public class GameBoard {
 		return false;
 	}
 
-	public void setPlayers(Player[] playerList) {
+	public void setPlayerList(Player[] playerList) {
 		this.playerList = playerList;
 		player = playerList[turn];
 
@@ -251,6 +250,7 @@ public class GameBoard {
 			board[4][3] = BLUE;
 			board[4][4] = YELLOW;
 		}
+		countDiscs();
 		showValidMoves();
 	}
 
@@ -271,7 +271,23 @@ public class GameBoard {
 	}
 
 	public int getCountBlack() {
+		return count2;
+	}
+
+	public static int getCount1() {
 		return count1;
+	}
+
+	public static int getCount2() {
+		return count2;
+	}
+
+	public static int getCount3() {
+		return count3;
+	}
+
+	public static int getCount4() {
+		return count4;
 	}
 
 	public int getSquareType(int x, int y) {
