@@ -29,6 +29,7 @@ public class GameBoard {
 	private Player[] playerList;
 	private Player player;
 	private ArrayList<Point3D> validMoves = new ArrayList<>();
+	private ArrayList<Point3D> previousMoves = new ArrayList<>();
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -47,9 +48,6 @@ public class GameBoard {
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
-
-		// starting game position
-		showValidMoves();
 	}
 
 	/**
@@ -61,6 +59,7 @@ public class GameBoard {
 			lastMove = new Point(x, y);
 			countDiscs();
 			changeTurn();
+			previousMoves.add(new Point3D(x, y , turn));
 			return true;
 		} else {
 			System.out.println("invalid move");
@@ -103,7 +102,7 @@ public class GameBoard {
 			return false;
 		} else if (checkFlip(x, y, executeMove) > 0){
 			return true;
-		} else if (!checkForValidMoves() && checkForNeighbours(x,y)){
+		} else if (playerList.length > 2 && !checkForValidMoves() && checkForNeighbours(x,y)){
 			return true;
 		}
 		return false;
@@ -194,11 +193,6 @@ public class GameBoard {
 	 * Sets who is making a turn now
 	 */
 	private void swapPlayers() {
-//		if (turn == WHITE) {
-//			turn = BLACK;
-//		} else {
-//			turn = WHITE;
-//		}
 		int oldturn = turn;
 		int i = 0;
 		while (oldturn == turn){
@@ -348,5 +342,9 @@ public class GameBoard {
 
 	public Point getLastMove() {
 		return lastMove;
+	}
+
+	public ArrayList<Point3D> getPreviousMoves() {
+		return previousMoves;
 	}
 }
