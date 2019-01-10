@@ -13,7 +13,6 @@ public class Settings extends JDialog {
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
-		private JComboBox cbNumOfPlayers;
 		private JComboBox cbPlayers1;
 		private JComboBox cbPlayers2;
 		private JComboBox cbPlayers3;
@@ -24,9 +23,6 @@ public class Settings extends JDialog {
 		public JButton btn2player;
 		public JButton btn3player;
 		public JButton btn4player;
-
-		public JButton okButton;
-
 		public JButton btnreturn;
 
 	/**

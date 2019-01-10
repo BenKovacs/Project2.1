@@ -298,8 +298,18 @@ public class GameBoard {
 								highestScorePositionTwo =x;
 							}
 						}
-			result = players[highestScorePositionOne];
-			result2 = players[highestScorePositionTwo];
+			if(playerList.length == 2){
+				result = players[highestScorePositionOne];
+				result2 = players[highestScorePositionTwo];
+
+
+			}
+			if (playerList.length > 2) {
+				result = players[highestScorePositionOne + 2];
+				result2 = players[highestScorePositionTwo + 2];
+
+			}
+
 
 			return true;
 		}
