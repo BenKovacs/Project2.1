@@ -1,5 +1,8 @@
 package model;
 
+import gui.BoardPanel;
+import gui.RightPanel;
+import gui.Settings;
 import javafx.geometry.Point3D;
 import model.player.Player;
 
@@ -25,6 +28,8 @@ public class GameBoard {
 	public static int count2;
 	public static int count3;
 	public static int count4;
+	public static String result;
+	public static String result2;
 
 	private Player[] playerList;
 	private Player player;
@@ -197,6 +202,7 @@ public class GameBoard {
 		int i = 0;
 		while (oldturn == turn){
 			if (playerList[i].getColor() == turn){
+				System.out.println(i);
 				if( i < playerList.length-1){
 					turn = playerList[i+1].getColor();
 					player = playerList[i+1];
@@ -252,8 +258,49 @@ public class GameBoard {
 	 *
 	 * @return true or false
 	 */
-	public boolean isGameFinished() {
-		if (count1 + count2 + count3 + count4 == 64) {
+	public boolean isGameFinished()
+	{
+		Settings settings = new Settings();
+		int highestScorePositionOne =0;
+		int highestScorePositionTwo =0;
+		//RightPanel rightpanel = new RightPanel();
+		int[] scores = new int[playerList.length];
+		String[] players = {"WHITE", "BLACK", "BLUE", "RED", "GREEN", "YELLOW"};
+		if (count1 + count2 + count3 + count4 == 64)
+		{
+						if (playerList.length == 2) {
+							scores[0] = count1;
+							scores[1] = count2;
+						}
+						if(playerList.length == 3) {
+							scores[0] =count1;
+							scores[1] =count2;
+							scores[2] =count3;
+						}
+						if(playerList.length == 4)
+                        {
+                            scores[0] =count1;
+                            scores[1] =count2;
+                            scores[2] =count3;
+                            scores[3] =count4;
+                        }
+						for(int i=0;i<scores.length;i++)
+						{
+							if (scores[i] > highestScorePositionOne)
+							{
+								highestScorePositionOne = i;
+							}
+						}
+						for(int x =0; x<scores.length; x++)
+						{
+							if(x == scores[highestScorePositionOne])
+							{
+								highestScorePositionTwo =x;
+							}
+						}
+			result = players[highestScorePositionOne];
+			result2 = players[highestScorePositionTwo];
+
 			return true;
 		}
 		if(playerList.length == 2){
@@ -285,13 +332,13 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
+		// showValidMoves();
 		return validMoves;
 	}
 
 	public Player[] getPlayerList() {
 		return playerList;
 	}
-
 	public Player getPlayer() {
 		return player;
 	}

@@ -11,6 +11,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import static model.Constants.*;
+import static model.GameBoard.result;
+import static model.GameBoard.result2;
 
 public class BoardPanel extends JPanel {
 
@@ -23,7 +25,7 @@ public class BoardPanel extends JPanel {
 
 	/**
 	 * Create the panel.
-	 * 
+	 *
 	 * @param gameB
 	 */
 	public BoardPanel(GameBoard gameB, RightPanel rPanel) {
@@ -68,38 +70,48 @@ public class BoardPanel extends JPanel {
 		showBoard();
 	}
 
-	public void play(int x, int y){
+	public void play(int x, int y) {
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
 			rightPanel.changeTurn();
-
-			String message;
+			;
+			String message = "";
 			if (gameBoard.isGameFinished()) {
-				if (gameBoard.getCountWhite() - gameBoard.getCountBlack() > 0){
-					message = "White wins!";
-				} else if (gameBoard.getCountWhite() - gameBoard.getCountBlack() < 0){
-					message = "Black wins!";
-				} else {
-					message = "It's a Tie!";
+
+				if(result == result2) {
+					message = "It is a tie, the winners are " + result + " and " + result2;
 				}
+				else
+				{
+					message = "The winner is the " + result + " player. ";
+				}
+//				if (gameBoard.getCountWhite() - gameBoard.getCountBlack() > 0) {
+//					message = "The winner is the " + result + " player";
+//				} else if (gameBoard.getCountWhite() - gameBoard.getCountBlack() < 0) {
+//					message = "The winner is the " + result + " player";
+//				} else {
+//					message = "It is a tie, the winners are " + result + "and " + result2;
+//				}
+
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
-				if(dialogResult == 0) {
+				if (dialogResult == 0) {
 					MainApp.getSingleton().reset();
 				} else {
 					System.exit(-1);
 				}
 			}
-		}
-		//System.out.println("About to check if stable");
-		for(int i= 0;  i < 8; i++) {
-			for(int j = 0; j < 8; j++) {
-				AIBoard.isStable(i, j, gameBoard.getboard());
+			//System.out.println("About to check if stable");
+			for (int i = 0; i < 8; i++) {
+				for (int j = 0; j < 8; j++) {
+					AIBoard.isStable(i, j, gameBoard.getboard());
+				}
 			}
 		}
-		
-		
 	}
+
+
+
 
 	// the square composing the grid panels
 	private class SquarePanel extends JPanel implements MouseListener {
@@ -221,4 +233,4 @@ public class BoardPanel extends JPanel {
 	public GameBoard getGameBoard(){
 		return gameBoard;
 	}
-}
+	}
