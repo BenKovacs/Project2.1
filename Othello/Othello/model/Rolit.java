@@ -1,5 +1,7 @@
 package model;
 
+import javafx.geometry.Point3D;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Random;
@@ -7,10 +9,13 @@ import java.util.Random;
 public class Rolit implements Cloneable {
 
     public static final int EMPTY = 0;
-    public static final int RED = 1;
-    public static final int YELLOW = 2;
-    public static final int GREEN = 3;
-    public static final int BLUE = 4;
+    public static final int BLACK = 1;
+    public static final int WHITE = 2;
+    public static final int RED = 3;
+    public static final int YELLOW = 4;
+    public static final int GREEN = 5;
+    public static final int BLUE = 6;
+    public static final int VALID = 9;
 
     private int width;
     private int height;
@@ -19,28 +24,48 @@ public class Rolit implements Cloneable {
 
     private int[] players;
     private int turn;
-    private ArrayList<Point> previousMoves; //Maybe change the var name.
+    private ArrayList<Point3D> previousMoves; //Maybe change the var name.
 //    private Point lastMove;
+
+    public Rolit(int width, int height) {
+        this.width = width;
+        this.height = height;
+        this.board = new int[height][width];
+        this.players = new int[]{BLACK, WHITE};
+        previousMoves = new ArrayList<Point3D>();
+        restart(players, players[1]);
+    }
 
     public Rolit(int width, int height, int[] players) {
         this.width = width;
         this.height = height;
         board = new int[height][width];
-        this.players = players;
-        previousMoves = new ArrayList<Point>();
-        restart();
+        if (players.length >= 3 && players.length <= 4) {
+            this.players = players;
+        } else if (players.length <= 2) {
+            this.players = new int[]{BLACK, WHITE};
+        } else {
+            this.players = new int[]{RED, YELLOW, GREEN, BLUE};
+        }
+        previousMoves = new ArrayList<Point3D>();
+        restart(players, players[1]);
     }
 
-    public void restart() {
+    public void restart(int[] players, int turn) {
         clearBoard();
-        board[(int)Math.floor((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = RED;
-        board[(int)Math.floor((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = YELLOW;
-        board[(int)Math.ceil((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = BLUE;
-        board[(int)Math.ceil((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = GREEN;
-        Random random = new Random();
-        turn = random.nextInt(4) + 1;
+        if (players.length <= 2) {
+            board[(int)Math.floor((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = WHITE;
+            board[(int)Math.floor((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = BLACK;
+            board[(int)Math.ceil((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = BLACK;
+            board[(int)Math.ceil((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = WHITE;
+        } else {
+            board[(int)Math.floor((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = RED;
+            board[(int)Math.floor((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = YELLOW;
+            board[(int)Math.ceil((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = BLUE;
+            board[(int)Math.ceil((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = GREEN;
+        }
+        this.turn = turn;
         previousMoves.clear();
-//        lastMove = null;
     }
 
     public void clearBoard() {
@@ -51,33 +76,73 @@ public class Rolit implements Cloneable {
         }
     }
 
-//    //play using a board from a GameBoard
-//    public void useGameBoard(GameBoard gameBoard){
-//        this.width = gameBoard.getWidth();
-//        this.height = gameBoard.getHeight();
-//        board = new int[height][width];
-//        for (int row = 0; row < height; row++) {
-//            for (int column = 0; column < width; column++) {
-//                if (gameBoard.getboard()[row][column] == Constants.BLACK)
-//                    board[row][column] = BLACK;
-//                if (gameBoard.getboard()[row][column] == Constants.EMPTY)
-//                    board[row][column] = EMPTY;
-//                if (gameBoard.getboard()[row][column] == Constants.WHITE)
-//                    board[row][column] = WHITE;
-//            }
-//        }
-//        if (gameBoard.getTurn() == Constants.BLACK)
-//            turn = BLACK;
-//        if (gameBoard.getTurn() == Constants.WHITE)
-//            turn = WHITE;
-//        lastMove = gameBoard.getLastMove();
-//    }
+    //play using a board from a GameBoard
+    public void useGameBoard(GameBoard gameBoard){
+        this.width = gameBoard.getWidth();
+        this.height = gameBoard.getHeight();
+        board = new int[height][width];
+        for (int row = 0; row < height; row++) {
+            for (int column = 0; column < width; column++) {
+                switch (gameBoard.getboard()[row][column]) {
+                    case Constants.EMPTY:
+                        board[row][column] = EMPTY;
+                        break;
+                    case Constants.BLACK:
+                        board[row][column] = BLACK;
+                        break;
+                    case Constants.WHITE:
+                        board[row][column] = WHITE;
+                        break;
+                    case Constants.RED:
+                        board[row][column] = RED;
+                        break;
+                    case Constants.YELLOW:
+                        board[row][column] = YELLOW;
+                        break;
+                    case Constants.GREEN:
+                        board[row][column] = GREEN;
+                        break;
+                    case Constants.BLUE:
+                        board[row][column] = BLUE;
+                        break;
+                    case Constants.VALID:
+                        board[row][column] = VALID;
+                        break;
+                }
+            }
+        }
+        switch (gameBoard.getTurn()) {
+            case Constants.BLACK:
+                turn = BLACK;
+                break;
+            case Constants.WHITE:
+                turn = WHITE;
+                break;
+            case Constants.RED:
+                turn = RED;
+                break;
+            case Constants.YELLOW:
+                turn = YELLOW;
+                break;
+            case Constants.GREEN:
+                turn = GREEN;
+                break;
+            case Constants.BLUE:
+                turn = BLUE;
+                break;
+        }
+        players = new int[gameBoard.getPlayerList().length];
+        for (int i = 0; i < gameBoard.getPlayerList().length; i++) {
+            players[i] = gameBoard.getPlayerList()[i].getColor();
+        }
+        setPreviousMoves(new ArrayList<Point3D>(gameBoard.getPreviousMoves()));
+    }
 
     //return a list of valid moves as points.
     public ArrayList<Point> getValidMoves() {
         ArrayList<Point> validMoves = new ArrayList<Point>();
         validMoves.addAll(getCapturableCells());
-        if (validMoves.isEmpty()) {
+        if (validMoves.isEmpty() && players.length > 2) {
             for (int row = 0; row < height; row++) {
                 for (int column = 0; column < width; column++) {
                     if (board[row][column] == EMPTY && hasOpponentNeighbor(row, column)) {
@@ -151,15 +216,17 @@ public class Rolit implements Cloneable {
     private boolean isValidMove(int targetRow, int targetColumn) {
         if (isCellCapturable(targetRow, targetColumn)) {
             return true;
-        } else {
+        } else if (players.length > 2) {
             return getCapturableCells().isEmpty() && hasOpponentNeighbor(targetRow, targetColumn);
+        } else {
+            return false;
         }
     }
 
     public void play(int targetRow, int targetColumn) {
         if (isValidMove(targetRow,targetColumn)) {
             board[targetRow][targetColumn] = turn;
-            Point lastMove = new Point(targetRow, targetColumn);
+            Point3D lastMove = new Point3D(targetRow, targetColumn, turn);
             previousMoves.add(lastMove);
             for (int row = targetRow-1; row <= targetRow+1; row++) {
                 for (int column = targetColumn-1; column <= targetColumn+1; column++) {
@@ -221,23 +288,27 @@ public class Rolit implements Cloneable {
         return counter;
     }
 
-    private String toColor(int value) {
+    public String toColor(int value) {
         switch (value) {
-            case 1 : return "RED";
-            case 2 : return "YELLOW";
-            case 3 : return "GREEN";
-            case 4 : return "BLUE";
+            case 1 : return "BLACK";
+            case 2 : return "WHITE";
+            case 3 : return "RED";
+            case 4 : return "YELLOW";
+            case 5 : return "GREEN";
+            case 6 : return "BLUE";
             case 9 : return "VALID";
             default: return "EMPTY";
         }
     }
 
-    private String toChar(int value) {
+    public String toChar(int value) {
         switch (value) {
-            case 1 : return "R";
-            case 2 : return "Y";
-            case 3 : return "G";
-            case 4 : return "B";
+            case 1 : return "B";
+            case 2 : return "W";
+            case 3 : return "R";
+            case 4 : return "Y";
+            case 5 : return "G";
+            case 6 : return "B";
             case 9 : return "X";
             default: return "O";
         }
@@ -247,7 +318,7 @@ public class Rolit implements Cloneable {
         if (isGameOver()) {
             String result = "";
             for (int i = 0; i < players.length; i++) {
-                result += "PLAYER " + players[i] + ": " + countCellState(players[i]) + "\n";
+                result += "PLAYER " + toColor(players[i]) + ": " + countCellState(players[i]) + "\n";
             }
             return result;
         } else {
@@ -292,7 +363,7 @@ public class Rolit implements Cloneable {
             }
             clone.setPlayers(clonePlayers);
 
-            clone.setPreviousMoves(new ArrayList<Point>(previousMoves));
+            clone.setPreviousMoves(new ArrayList<Point3D>(previousMoves));
 //            if (lastMove != null)
 //                clone.setLastMove(new Point((int) lastMove.getX(), (int) lastMove.getY())); //TRY remove this line and see what happen
         } catch (CloneNotSupportedException e) {
@@ -325,15 +396,15 @@ public class Rolit implements Cloneable {
     public int getHeight() { return height; }
     public int[][] getBoard() { return board; }
     public int getTurn() { return turn; }
-    public ArrayList<Point> getPreviousMoves() { return previousMoves; }
-    public Point getLastMove() { return previousMoves.get(previousMoves.size()-1); }
+    public ArrayList<Point3D> getPreviousMoves() { return previousMoves; }
+    public Point3D getLastMove() { return previousMoves.get(previousMoves.size()-1); }
     public int[] getPlayers() { return players; }
 
     public void setWidth(int width) { this.width = width; }
     public void setHeight(int height) { this.height = height; }
     public void setBoard(int[][] board) { this.board = board; }
     public void setTurn(int turn) { this.turn = turn; }
-    public void setPreviousMoves(ArrayList<Point> previousMoves) { this.previousMoves = previousMoves; }
+    public void setPreviousMoves(ArrayList<Point3D> previousMoves) { this.previousMoves = previousMoves; }
 //    public void setLastMove(Point lastMove) { this.lastMove = lastMove; }
     public void setPlayers(int[] players) { this.players = players; }
 

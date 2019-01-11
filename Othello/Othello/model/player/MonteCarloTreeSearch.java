@@ -20,6 +20,12 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     private BoardPanel boardPanel;
     private int color;
 
+    public MonteCarloTreeSearch() {
+        this.runtime = 3000;
+        this.iterations = 10000;
+        this.exploreParam = 2;
+    }
+
     public MonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
         this.boardPanel = boardPanel;
         this.color = color;

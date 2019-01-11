@@ -2,6 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
+import javafx.geometry.Point3D;
 import model.Rolit;
 import model.data_model.Node;
 
@@ -55,7 +56,7 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
                     bestMove = move;
                 }
             }
-            return getBoard(bestMove).getLastMove();
+            return new Point((int) getBoard(bestMove).getLastMove().getX(), (int) getBoard(bestMove).getLastMove().getY());
         } else {
             return null;
         }
@@ -106,7 +107,7 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
         } else if (!getBoard(currentNode).getValidMoves().isEmpty()) {
             expansion();
         } else {
-            updateResult(getBoard(currentNode));
+            backpropagation(getResult(getBoard(currentNode)));
         }
     }
 
@@ -138,55 +139,38 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
             int column = (int) move.getY();
             clonedBoard.play(row, column);
         }
-        updateResult(clonedBoard);
-        backpropagation();
+        double[] result = getResult(clonedBoard);
+        backpropagation(result);
     }
 
-    private void updateResult(Rolit simulatedBoard) {
-        Rolit currentBoard = getBoard(currentNode);
-        Point currentLastMove = currentBoard.getLastMove();
-        int row = (int) currentLastMove.getX();
-        int column = (int) currentLastMove.getY();
-        int currentPlayer = currentBoard.getBoard()[row][column];
-
+    private double[] getResult(Rolit simulatedBoard) {
+        int currentPlayer = (int) getBoard(currentNode).getLastMove().getZ();
         int max = 0;
         for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
             if (simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]) > max) {
                 max = simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]);
             }
         }
-        if (simulatedBoard.countCellState(currentPlayer) == max) {
-            currentNode.getData().put("WINS", getWins(currentNode) + 1.0);
+        double[] result = new double[7];
+        for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
+            if (simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]) == max) {
+                result[simulatedBoard.getPlayers()[i]] = 1.0;
+            } else {
+                result[simulatedBoard.getPlayers()[i]] = 0.0;
+            }
         }
+        return result;
 //        Still need to implement the case of draw
-//        currentNode.getData().put("WINS", getWins(currentNode) + 0.5);
-        currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
     }
 
-    private void backpropagation(){
-        double result;
-        if (getWins(currentNode) == getPlayouts(currentNode)) {
-            result = 1.0;
-        } else if (getWins(currentNode) == 0.0) {
-            result = 0.0;
-        } else {
-            result = 0.5;
-        }
-
-        //Still has room for changes
-        Node<HashMap<String,Object>> simulatedNode = currentNode;
-        while (currentNode.getParent() != null) {
-            currentNode = currentNode.getParent();
-            if (isSamePlayer(simulatedNode, currentNode)) {
-                currentNode.getData().put("WINS", getWins(currentNode) + result);
-            } else {
-                if (result == 1.0)
-                    currentNode.getData().put("WINS", getWins(currentNode) + 0.0);
-                else if (result == 0.0)
-                    currentNode.getData().put("WINS", getWins(currentNode) + 1.0);
-            }
+    private void backpropagation(double[] result){
+        while (currentNode != rootNode) {
+            int currentNodePlayer = (int) getBoard(currentNode).getLastMove().getZ();
+            currentNode.getData().put("WINS", getWins(currentNode) + result[currentNodePlayer]);
             currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
+            currentNode = currentNode.getParent();
         }
+        currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
     }
 
     private double uct(Node<HashMap<String,Object>> node) {
@@ -211,7 +195,7 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
 
     //Not sure if this change could result in possible problems
     //Using last turn instead of last played color to identify players
-    private boolean isSamePlayer(Node<HashMap<String,Object>> node1, Node<HashMap<String,Object>> node2) {
+//    private boolean isSamePlayer(Node<HashMap<String,Object>> node1, Node<HashMap<String,Object>> node2) {
 //        Rolit board1 = getBoard(node1);
 //        Point lastMove1 = board1.getLastMove();
 //        int player1;
@@ -233,13 +217,13 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
 //        } else {
 //            player2 = -getBoard(rootNode).getTurn();
 //        }
-
-        if (getBoard(node1).getTurn() == getBoard(node2).getTurn()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+//
+//        if (getBoard(node1).getTurn() == getBoard(node2).getTurn()) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
 
     public int getRuntime() { return runtime; }
     public int getIterations() { return iterations; }
@@ -260,16 +244,8 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
     }
 
     public void printData() {
-        switch (getBoard(rootNode).getTurn()) {
-            case Rolit.RED: System.out.println("MCTS PLAYER: RED");
-            break;
-            case Rolit.YELLOW: System.out.println("MCTS PLAYER: YELLOW");
-            break;
-            case Rolit.GREEN: System.out.println("MCTS PLAYER: GREEN");
-            break;
-            case Rolit.BLUE: System.out.println("MCTS PLAYER: BLUE");
-            break;
-        }
+        Rolit board = getBoard(rootNode);
+        System.out.println("MCTS PLAYER: " + board.toColor(board.getTurn()));
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         for (Node<HashMap<String,Object>> move : validMoves) {
             System.out.println("[COORD: " + getBoard(move).getLastMove().getX() + ", " + getBoard(move).getLastMove().getY() + "] "
@@ -277,11 +253,10 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
                     + "[WINS%: " + String.format("%.2f", (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS") * 100) + "%]");
         }
         System.out.println("TOTAL ITERATIONS: " + rootNode.getData().get("PLAYOUTS"));
-        System.out.println("TOTAL NODES EXPANDED: " + (countChildren(rootNode) + 1));
-        System.out.println("RED COUNTS: " + getBoard(rootNode).countCellState(Rolit.RED));
-        System.out.println("YELLOW COUNTS: " + getBoard(rootNode).countCellState(Rolit.YELLOW));
-        System.out.println("GREEN COUNTS: " + getBoard(rootNode).countCellState(Rolit.GREEN));
-        System.out.println("BLUE COUNTS: " + getBoard(rootNode).countCellState(Rolit.BLUE));
+        System.out.println("TOTAL NODES: " + (countChildren(rootNode) + 1));
+        for (int player = 0; player < board.getPlayers().length; player++) {
+            System.out.println(board.toColor(board.getPlayers()[player]) + " COUNTS: " + board.countCellState(board.getPlayers()[player]));
+        }
         System.out.println();
     }
 
@@ -312,13 +287,13 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
     }
 
     public void play() {
-//        Rolit board = new Rolit(8,8);
-//        board.useGameBoard(boardPanel.getGameBoard());
-//        Point bestMove = getMove(board);
-//        if (bestMove != null) {
-//            printData();
-//            boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
-//        }
+        Rolit board = new Rolit(8,8);
+        board.useGameBoard(boardPanel.getGameBoard());
+        Point bestMove = getMove(board);
+        if (bestMove != null) {
+            printData();
+            boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
+        }
     }
 
     public int getPlayerType() {

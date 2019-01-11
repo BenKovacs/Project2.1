@@ -120,9 +120,9 @@ public class MainApp{
 			ai.start();
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			int runtime = 30000; //min runtime in millisecs
-			int iterations = 1000; //min iterations
-			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			int runtime = 3000; //min runtime in millisecs
+			int iterations = 10000; //min iterations
+			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerList[0] = ai;
 			ai.start();
 		}
@@ -149,7 +149,7 @@ public class MainApp{
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
 			int runtime = 3000; //min runtime in millisecs
 			int iterations = 10000; //min iterations
-			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			ai.start();
 			playerList[1] = ai;
 		}
@@ -173,7 +173,7 @@ public class MainApp{
 			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
 				int iterations = 10000; //min iterations
-				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[2] = ai;
 			}
@@ -198,7 +198,7 @@ public class MainApp{
 			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
 				int iterations = 10000; //min iterations
-				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[3] = ai;
 			}

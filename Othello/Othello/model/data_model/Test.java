@@ -1,25 +1,54 @@
-//package model.data_model;
-//
-//import gui.BoardPanel;
-//import gui.RightPanel;
-//import model.Constants;
-//import model.GameBoard;
-//import model.OthelloBoard;
-//import model.player.MonteCarloTreeSearch;
-//
-//import java.awt.*;
-//import java.util.*;
-//
-//public class Test {
-//
-//    public static void main(String[] args) {
+package model.data_model;
+
+import gui.BoardPanel;
+import gui.RightPanel;
+import model.Constants;
+import model.GameBoard;
+import model.OthelloBoard;
+import model.Rolit;
+import model.player.MonteCarloTreeSearch;
+import model.player.RolitMonteCarloTreeSearch;
+
+import java.awt.*;
+import java.util.*;
+
+public class Test {
+
+    public static void main(String[] args) {
 //        int testsPerValue = 10; //change this to how many runs you want, even 1 run will take pretty long.
 //        int[] iterations = new int[]{5000, 20000, 50000};
 //        int[] exploParams = new int[]{10, 20, 50};
 //        test1(testsPerValue, iterations);
 //        test2(testsPerValue, exploParams);
-//    }
-//
+
+//        OthelloBoard game = new OthelloBoard(8,8);
+//        Random random = new Random();
+//        while (!game.isGameOver()) {
+//            ArrayList<Point> validMoves = game.getValidMoves();
+//            Point move = validMoves.get(random.nextInt(validMoves.size()));
+//            game.play((int) move.getX(), (int) move.getY());
+//            game.printBoard();
+//        }
+
+//        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
+//        Rolit game = new Rolit(8,8, new int[]{Rolit.RED, Rolit.YELLOW, Rolit.GREEN, Rolit.BLUE});
+//        while (!game.isGameOver()) {
+//            Point move = rmcts.getMove(game);
+//            game.printBoard();
+//            rmcts.printData();
+//            game.play((int) move.getX(), (int) move.getY());
+//        }
+
+        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
+        Rolit game = new Rolit(8,8, new int[]{Rolit.BLACK, Rolit.WHITE});
+        while (!game.isGameOver()) {
+            Point move = rmcts.getMove(game);
+            game.printBoard();
+            rmcts.printData();
+            game.play((int) move.getX(), (int) move.getY());
+        }
+    }
+
 //    public static void test1(int testRuns, int[] iterations) {
 //        OthelloBoard game = new OthelloBoard(8,8);
 //        BoardPanel boardPanel = new BoardPanel(new GameBoard(8,8), new RightPanel());
@@ -95,5 +124,5 @@
 //            System.out.println();
 //        }
 //    }
-//
-//}
+
+}
