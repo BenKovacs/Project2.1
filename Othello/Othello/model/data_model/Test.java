@@ -30,23 +30,23 @@ public class Test {
 //            game.printBoard();
 //        }
 
-//        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
-//        Rolit game = new Rolit(8,8, new int[]{Rolit.RED, Rolit.YELLOW, Rolit.GREEN, Rolit.BLUE});
-//        while (!game.isGameOver()) {
-//            Point move = rmcts.getMove(game);
-//            game.printBoard();
-//            rmcts.printData();
-//            game.play((int) move.getX(), (int) move.getY());
-//        }
-
         RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
-        Rolit game = new Rolit(8,8, new int[]{Rolit.BLACK, Rolit.WHITE});
+        Rolit game = new Rolit(8,8, new int[]{Rolit.RED, Rolit.YELLOW, Rolit.GREEN, Rolit.BLUE});
         while (!game.isGameOver()) {
             Point move = rmcts.getMove(game);
             game.printBoard();
             rmcts.printData();
             game.play((int) move.getX(), (int) move.getY());
         }
+
+//        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
+//        Rolit game = new Rolit(8,8, new int[]{Rolit.BLACK, Rolit.WHITE});
+//        while (!game.isGameOver()) {
+//            Point move = rmcts.getMove(game);
+//            game.printBoard();
+//            rmcts.printData();
+//            game.play((int) move.getX(), (int) move.getY());
+//        }
     }
 
 //    public static void test1(int testRuns, int[] iterations) {

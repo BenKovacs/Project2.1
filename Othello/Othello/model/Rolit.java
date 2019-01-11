@@ -83,59 +83,27 @@ public class Rolit implements Cloneable {
         board = new int[height][width];
         for (int row = 0; row < height; row++) {
             for (int column = 0; column < width; column++) {
-                switch (gameBoard.getboard()[row][column]) {
-                    case Constants.EMPTY:
-                        board[row][column] = EMPTY;
-                        break;
-                    case Constants.BLACK:
-                        board[row][column] = BLACK;
-                        break;
-                    case Constants.WHITE:
-                        board[row][column] = WHITE;
-                        break;
-                    case Constants.RED:
-                        board[row][column] = RED;
-                        break;
-                    case Constants.YELLOW:
-                        board[row][column] = YELLOW;
-                        break;
-                    case Constants.GREEN:
-                        board[row][column] = GREEN;
-                        break;
-                    case Constants.BLUE:
-                        board[row][column] = BLUE;
-                        break;
-                    case Constants.VALID:
-                        board[row][column] = VALID;
-                        break;
-                }
+                board[row][column] = convertCell(gameBoard.getboard()[row][column]);
             }
         }
-        switch (gameBoard.getTurn()) {
-            case Constants.BLACK:
-                turn = BLACK;
-                break;
-            case Constants.WHITE:
-                turn = WHITE;
-                break;
-            case Constants.RED:
-                turn = RED;
-                break;
-            case Constants.YELLOW:
-                turn = YELLOW;
-                break;
-            case Constants.GREEN:
-                turn = GREEN;
-                break;
-            case Constants.BLUE:
-                turn = BLUE;
-                break;
-        }
+        turn = convertCell(gameBoard.getTurn());
         players = new int[gameBoard.getPlayerList().length];
         for (int i = 0; i < gameBoard.getPlayerList().length; i++) {
-            players[i] = gameBoard.getPlayerList()[i].getColor();
+            players[i] = convertCell(gameBoard.getPlayerList()[i].getColor());
         }
         setPreviousMoves(new ArrayList<Point3D>(gameBoard.getPreviousMoves()));
+    }
+
+    private int convertCell(int cell) {
+        switch (cell) {
+            case Constants.BLACK: return BLACK;
+            case Constants.WHITE: return WHITE;
+            case Constants.RED: return RED;
+            case Constants.YELLOW: return YELLOW;
+            case Constants.GREEN: return GREEN;
+            case Constants.BLUE: return BLUE;
+            default: return EMPTY;
+        }
     }
 
     //return a list of valid moves as points.
@@ -290,6 +258,7 @@ public class Rolit implements Cloneable {
 
     public String toColor(int value) {
         switch (value) {
+            case 0 : return "EMPTY";
             case 1 : return "BLACK";
             case 2 : return "WHITE";
             case 3 : return "RED";
