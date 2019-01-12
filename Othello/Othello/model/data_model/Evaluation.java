@@ -1,9 +1,4 @@
 package model.data_model;
-import model.Constants;
-
-import static model.Constants.BLACK;
-import static model.Constants.WHITE;
-
 public class Evaluation {
 
 
@@ -23,14 +18,14 @@ public class Evaluation {
     }
 
     public static int staticWeightsHeuristic(int x, int y, int[][] board, int turn){
-        int[][] weights = {{4, -3, 2, 2, 2, 2, -3, 4},
-                {-3, -4, -1, -1, -1, -1, -4, -3},
-                {2, -1, 1, 0, 0, 1, -1, 2},
-                {2, -1, 0, 1, 1, 0, -1, 2},
-                {2, -1, 0, 1, 1, 0, -1, 2},
-                {2, -1, 1, 0, 0, 1, -1, 2},
-                {-3, -4, -1, -1, -1, -1, -4, -3},
-                {4, -3, 2, 2, 2, 2, -3, 4}};
+        int[][] weights ={{120, -20,  20,  5,  5,  20,  -20,  120},
+                          {-20, -40,  -5, -5, -5,  -5,  -40,  -20},
+                          {20,   -5,  15,  3,  3,  15,   -5,   20},
+                          {5,    -5,   3,  3,  3,   3,   -5,    5},
+                          {5,    -5,   3,  3,  3,   3,   -5,    5},
+                          {20,   -5,  15,  3,  3,  15,   -5,   20},
+                          {-20,  -40, -5, -5, -5,  -5,  -40,  -20},
+                          {120,  -20, 20,  5,  5,  20,  -20, 120}};
         int total = 0;
         //int turn = board[x][y];
         //if(turn == BLACK){turn=WHITE;}else{turn=BLACK;}

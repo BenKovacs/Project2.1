@@ -1,5 +1,6 @@
 package model.player;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import gui.BoardPanel;
 import gui.MainApp;
 import javafx.geometry.Point3D;
@@ -31,8 +32,8 @@ public class MinMaxPlayer extends Thread implements Player {
 		bTree = new BoardTree(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), depth);
 
 		//get the minimax move
-		//Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), false);
-		Node<Point3D> bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
+		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true);
+		//Node<Point3D> bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
 		//set true to Maximize the result for the first player
 		System.out.println(bestmove.getData().toString());
 
@@ -41,26 +42,35 @@ public class MinMaxPlayer extends Thread implements Player {
 	}
 
 	/**
-	 *MINIMAX ALGORITHM STill something to test !!!!
+	 *MINIMAX ALGORITHM
 	 */
 	private Node<Point3D> minimax(Node<Point3D> node, int depth, boolean maxPlayer){
 		//condition of end
 		if(depth == 0) return node;
 
+		if(node.getChildren().size()==0) return node;
+
 		//act for the MAX
 		if(maxPlayer){
+
 			Node<Point3D> maxEval = new Node(new Point3D(0,0,-999));
 			for(Node<Point3D> n: node.getChildren()){
 				double eval = minimax(n, depth-1, false).getData().getZ();
-				maxEval = new Node(new Point3D( n.getData().getX(),n.getData().getY(), Math.max(maxEval.getData().getZ(), eval)));
+
+				//if the new eval is major that the previous it goes
+				if(maxEval.getData().getZ()< eval)
+					maxEval = new Node(new Point3D( n.getData().getX(), n.getData().getY(), eval));
 			}
 			return maxEval;
 
 		}else{ // act for the MIN
 			Node<Point3D>  minEval = new Node(new Point3D(0,0,999));
 			for(Node<Point3D> n: node.getChildren()){
-				double eval =minimax(n, depth-1, true).getData().getZ();
-				minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), Math.min(minEval.getData().getZ(), eval)));
+				double eval = minimax(n, depth-1, true).getData().getZ();
+
+				//if the new eval is minor that the previous it goes
+				if(minEval.getData().getZ()> eval)
+					minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), eval));
 			}
 			return minEval;
 		}
@@ -68,7 +78,7 @@ public class MinMaxPlayer extends Thread implements Player {
 
 
 	/**
-	 *AlphaBeta ALGORITHM STill something to test !!!!
+	 *AlphaBeta ALGORITHM not FIXED
 	 */
 	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer){
 		//condition of end
