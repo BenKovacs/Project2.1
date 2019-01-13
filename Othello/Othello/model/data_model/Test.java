@@ -2,12 +2,14 @@ package model.data_model;
 
 import gui.BoardPanel;
 import gui.RightPanel;
+import javafx.geometry.Point3D;
 import model.Constants;
 import model.GameBoard;
 import model.OthelloBoard;
 import model.Rolit;
 import model.player.MonteCarloTreeSearch;
 import model.player.RolitMonteCarloTreeSearch;
+import model.player.SuperRolitMonteCarloTreeSearch;
 
 import java.awt.*;
 import java.util.*;
@@ -30,14 +32,26 @@ public class Test {
 //            game.printBoard();
 //        }
 
-        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
-        Rolit game = new Rolit(8,8, new int[]{Rolit.RED, Rolit.YELLOW, Rolit.GREEN, Rolit.BLUE});
-        while (!game.isGameOver()) {
-            Point move = rmcts.getMove(game);
-            game.printBoard();
-            rmcts.printData();
-            game.play((int) move.getX(), (int) move.getY());
+//        Rolit game = new Rolit(8,8);
+//        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
+//        while (!game.isGameOver()) {
+//            if (game.getTurn() == Rolit.WHITE) {
+//                Point move = rmcts.getMove(game);
+//                game.printBoard();
+//                rmcts.printData();
+//                game.play((int) move.getX(), (int) move.getY());
+//            } else {
+//                Point move = rmcts.getMove(game);
+//                game.printBoard();
+//                rmcts.printData();
+//                game.play((int) move.getX(), (int) move.getY());
+//            }
+//        }
+        Rolit rolit = new Rolit(8,8);
+        for (int i = 0; i < 10; i++) {
+            System.out.println(i + "=" + rolit.convertCell(i));
         }
+
 
 //        RolitMonteCarloTreeSearch rmcts = new RolitMonteCarloTreeSearch();
 //        Rolit game = new Rolit(8,8, new int[]{Rolit.BLACK, Rolit.WHITE});

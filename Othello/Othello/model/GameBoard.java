@@ -33,8 +33,8 @@ public class GameBoard {
 
 	private Player[] playerList;
 	private Player player;
-	private ArrayList<Point3D> validMoves = new ArrayList<>();
-	private ArrayList<Point3D> previousMoves = new ArrayList<>();
+	private ArrayList<Point3D> validMoves = new ArrayList<Point3D>();
+	private ArrayList<Point3D> previousMoves = new ArrayList<Point3D>();
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -62,12 +62,12 @@ public class GameBoard {
 		if (isValidMove(x, y, EXECUTE)) {
 			board[x][y] = turn;
 			lastMove = new Point(x, y);
+			previousMoves.add(new Point3D(x, y , turn));
 			countDiscs();
 			changeTurn();
-			previousMoves.add(new Point3D(x, y , turn));
 			return true;
 		} else {
-			System.out.println("invalid move");
+			System.out.println(x + "," + y + " is invalid move");
 			return false;
 		}
 	}

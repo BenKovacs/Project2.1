@@ -121,11 +121,17 @@ public class MainApp{
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
 			int runtime = 3000; //min runtime in millisecs
-			int iterations = 10000; //min iterations
+			int iterations = 0; //min iterations
 			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerList[0] = ai;
 			ai.start();
-		}
+		} else if (settings.getPlayer1().equalsIgnoreCase("smcts")) {
+            int runtime = 3000; //min runtime in millisecs
+            int iterations = 0; //min iterations
+            SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+            playerList[0] = ai;
+            ai.start();
+        }
 
 		if (playerCount == 2){
 			turn = Constants.BLACK;
@@ -148,11 +154,17 @@ public class MainApp{
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
 			int runtime = 3000; //min runtime in millisecs
-			int iterations = 10000; //min iterations
+			int iterations = 0; //min iterations
 			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			ai.start();
 			playerList[1] = ai;
-		}
+		} else if (settings.getPlayer2().equalsIgnoreCase("smcts")) {
+            int runtime = 3000; //min runtime in millisecs
+            int iterations = 0; //min iterations
+            SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+            playerList[1] = ai;
+            ai.start();
+        }
 
 		if (playerCount > 2){
 			turn = Constants.BLUE;
@@ -172,11 +184,17 @@ public class MainApp{
 				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
-				int iterations = 10000; //min iterations
+				int iterations = 0; //min iterations
 				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[2] = ai;
-			}
+			} else if (settings.getPlayer3().equalsIgnoreCase("smcts")) {
+                int runtime = 3000; //min runtime in millisecs
+                int iterations = 0; //min iterations
+                SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+                playerList[2] = ai;
+                ai.start();
+            }
 		}
 
 		if (playerCount > 3){
@@ -197,11 +215,17 @@ public class MainApp{
 				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
-				int iterations = 10000; //min iterations
+				int iterations = 0; //min iterations
 				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[3] = ai;
-			}
+			} else if (settings.getPlayer4().equalsIgnoreCase("smcts")) {
+                int runtime = 3000; //min runtime in millisecs
+                int iterations = 0; //min iterations
+                SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+                playerList[3] = ai;
+                ai.start();
+            }
 		}
 
 

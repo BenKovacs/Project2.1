@@ -33,7 +33,7 @@ public class Rolit implements Cloneable {
         this.board = new int[height][width];
         this.players = new int[]{BLACK, WHITE};
         previousMoves = new ArrayList<Point3D>();
-        restart(players, players[1]);
+        restart(players, players[0]);
     }
 
     public Rolit(int width, int height, int[] players) {
@@ -48,7 +48,7 @@ public class Rolit implements Cloneable {
             this.players = new int[]{RED, YELLOW, GREEN, BLUE};
         }
         previousMoves = new ArrayList<Point3D>();
-        restart(players, players[1]);
+        restart(players, players[0]);
     }
 
     public void restart(int[] players, int turn) {
@@ -91,10 +91,17 @@ public class Rolit implements Cloneable {
         for (int i = 0; i < gameBoard.getPlayerList().length; i++) {
             players[i] = convertCell(gameBoard.getPlayerList()[i].getColor());
         }
-        setPreviousMoves(new ArrayList<Point3D>(gameBoard.getPreviousMoves()));
+        this.previousMoves.clear();
+        for (Point3D previousMove : gameBoard.getPreviousMoves()) {
+            this.previousMoves.add(convertPreviousMove(previousMove));
+        }
     }
 
-    private int convertCell(int cell) {
+    public Point3D convertPreviousMove(Point3D previousMove) {
+        return new Point3D(previousMove.getX(), previousMove.getY(), convertCell((int) previousMove.getZ()));
+    }
+
+    public int convertCell(int cell) {
         switch (cell) {
             case Constants.BLACK: return BLACK;
             case Constants.WHITE: return WHITE;
