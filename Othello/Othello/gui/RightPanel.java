@@ -24,8 +24,6 @@ public class RightPanel extends JPanel {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.playerList = playerList;
 
-
-
 	}
 
 	void changeTurn(){

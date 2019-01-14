@@ -14,7 +14,7 @@ public class GameBoard {
 
 	private int width;
 	private int height;
-	private int[][] board;
+	protected int[][] board;
 
 	// Game staten
 	public static int turn;
@@ -30,16 +30,14 @@ public class GameBoard {
 	int bug1 = 0;
 	int bug2 = 0;
 
-	private Player[] playerList;
+	protected Player[] playerList;
 	private Player player;
 	private ArrayList<Point3D> validMoves = new ArrayList<>();
 	private ArrayList<Point3D> previousMoves = new ArrayList<>();
-	protected int playerCount;
 
-	public GameBoard(int width, int height, int playerCount) {
+	public GameBoard(int width, int height) {
 		this.width = width;
 		this.height = height;
-		this.playerCount = playerCount;
 
 		board = new int[width][height];
 
@@ -54,14 +52,7 @@ public class GameBoard {
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
-//		board[0][0] = WHITE;
-//		board[1][0] = WHITE;
-//		board[2][0] = WHITE;
-//		board[3][0] = WHITE;
-//		board[0][1] = BLACK;
-//		board[1][1] = BLACK;
-//		board[2][1] = BLACK;
-//		board[3][1] = BLACK;
+
 	}
 
 	/**
@@ -431,7 +422,7 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
-		// showValidMoves();
+		showValidMoves();
 		return validMoves;
 	}
 

@@ -1,12 +1,11 @@
 package model.data_model;
 
-import model.GameBoard;
 import model.player.Player;
 
 /**
  * Encapsulate some of the features of the board but easier to manage for AI
  */
-public class AIBoard extends GameBoard {
+public class AIBoard extends GameBoard{
 
 	public AIBoard(int[][] b, int t, Player[] playerList) {
 		super(8, 8);
