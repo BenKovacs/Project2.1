@@ -54,7 +54,7 @@ public class MainApp{
 	private MainApp() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 927, 473);
+		frame.setBounds(100, 100, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -63,7 +63,7 @@ public class MainApp{
 	public void reset() {
 	    frame.dispose();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 927, 473);
+		frame.setBounds(100, 100, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -73,20 +73,21 @@ public class MainApp{
 	/**
 	 * Initialize the contents.
 	 */
-
 	private void initialize() {
 
 		settings = new Settings();
 		// The settings Dialog is Modal so this thread will pause after setting
 		// it to be visible until it is set invisible by the dialog.
 		settings.setVisible(true);
+		if (settings.isCancelSelected()) {
+			System.exit(0);
+		}
 
 		// create the gameBoard/panel
 		gameBoard = new GameBoard(8, 8);
 
 		// set the layout
 		frame.getContentPane().setLayout(new GridLayout(1, 2));
-
 
 		// Create AIs or human players
 		int playerCount = settings.getNumPlayers();
@@ -95,7 +96,6 @@ public class MainApp{
 		rPanel = new RightPanel(playerList);
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1, 0);
-
 
 
 		int turn;
@@ -114,21 +114,20 @@ public class MainApp{
 			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
 			ai.start();
 			playerList[0] = ai;
-			
 		} else if (settings.getPlayer1().equalsIgnoreCase("random")) {
-			AIPlayer ai = new AIPlayer(boardPanel, turn);
+			RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 			ai.start();
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
 			int runtime = 3000; //min runtime in millisecs
 			int iterations = 0; //min iterations
-			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerList[0] = ai;
 			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("smcts")) {
             int runtime = 3000; //min runtime in millisecs
             int iterations = 0; //min iterations
-            SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+            SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
             playerList[0] = ai;
             ai.start();
         }
@@ -149,19 +148,19 @@ public class MainApp{
 			playerList[1]  = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("random")) {
-			AIPlayer ai = new AIPlayer(boardPanel, turn);
+			RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 			playerList[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
 			int runtime = 3000; //min runtime in millisecs
 			int iterations = 0; //min iterations
-			RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			ai.start();
 			playerList[1] = ai;
 		} else if (settings.getPlayer2().equalsIgnoreCase("smcts")) {
             int runtime = 3000; //min runtime in millisecs
             int iterations = 0; //min iterations
-            SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+            SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
             playerList[1] = ai;
             ai.start();
         }
@@ -179,19 +178,19 @@ public class MainApp{
 				playerList[2]  = ai;
 				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("random")) {
-				AIPlayer ai = new AIPlayer(boardPanel, turn);
+				RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 				playerList[2] = ai;
 				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
 				int iterations = 0; //min iterations
-				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[2] = ai;
 			} else if (settings.getPlayer3().equalsIgnoreCase("smcts")) {
                 int runtime = 3000; //min runtime in millisecs
                 int iterations = 0; //min iterations
-                SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+                SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
                 playerList[2] = ai;
                 ai.start();
             }
@@ -210,24 +209,23 @@ public class MainApp{
 				playerList[3]  = ai;
 				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("random")) {
-				AIPlayer ai = new AIPlayer(boardPanel, turn);
+				RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 				playerList[3] = ai;
 				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
 				int runtime = 3000; //min runtime in millisecs
 				int iterations = 0; //min iterations
-				RolitMonteCarloTreeSearch ai = new RolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
 				playerList[3] = ai;
 			} else if (settings.getPlayer4().equalsIgnoreCase("smcts")) {
                 int runtime = 3000; //min runtime in millisecs
                 int iterations = 0; //min iterations
-                SuperRolitMonteCarloTreeSearch ai = new SuperRolitMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+                SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
                 playerList[3] = ai;
                 ai.start();
             }
 		}
-
 
 
 		for (int i = 0; i < playerList.length; i++) {
@@ -237,7 +235,6 @@ public class MainApp{
 		gameBoard.setPlayerList(playerList);
 		rPanel.setPlayerList(playerList);
 		boardPanel.setGameBoard(gameBoard);
-
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0, 1);
 

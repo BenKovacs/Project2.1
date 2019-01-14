@@ -129,7 +129,9 @@ public class MinMaxPlayer extends Thread implements Player {
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				this.play();
 			}
-
+			if (boardPanel.getGameBoard().isGameFinished()){
+				break;
+			}
 		}
 
 	}

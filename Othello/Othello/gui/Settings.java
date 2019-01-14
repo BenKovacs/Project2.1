@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class Settings extends JDialog {
 
 		private final JPanel contentPanel = new JPanel();
-		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "SMCTS", "Random", "None"};
+		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "SMCTS", "Random"};
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
@@ -19,10 +19,12 @@ public class Settings extends JDialog {
 		private JComboBox cbPlayers4;
 		private int numOfPlayers = 0;
 
-
 		public JButton btn2player;
 		public JButton btn3player;
 		public JButton btn4player;
+
+		public JButton okButton;
+
 		public JButton btnreturn;
 
 	/**
@@ -113,6 +115,36 @@ public class Settings extends JDialog {
 			tfDepth.setColumns(10);
 			tfDepth.setVisible(false);
 
+
+			JPanel buttonPane = new JPanel();
+			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
+			getContentPane().add(buttonPane, BorderLayout.SOUTH);
+			{
+				okButton = new JButton("OK");
+				okButton.setVisible(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent arg0) {
+						okSelected = true;
+						setVisible(false);
+					}
+				});
+				okButton.setActionCommand("OK");
+				buttonPane.add(okButton);
+				getRootPane().setDefaultButton(okButton);
+			}
+			{
+				JButton cancelButton = new JButton("Cancel");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						cancelSelected = true;
+						setVisible(false);
+					}
+				});
+				cancelButton.setActionCommand("Cancel");
+				buttonPane.add(cancelButton);
+			}
+
+
 			// return button to go back to the option of player number
 			btnreturn = new JButton("return");
 			sl_contentPanel.putConstraint(SpringLayout.NORTH, btnreturn, 180, SpringLayout.NORTH, contentPanel);
@@ -137,6 +169,7 @@ public class Settings extends JDialog {
 					tfDepth.setVisible(false);
 					btnreturn.setVisible(false);
 					numOfPlayers = 0;
+					okButton.setVisible(false);
 				}
 			});
 			//button for 2 player game mode
@@ -160,6 +193,7 @@ public class Settings extends JDialog {
 					tfDepth.setVisible(true);
 					btnreturn.setVisible(true);
 					numOfPlayers = 2;
+					okButton.setVisible(true);
 				}
 			});
 
@@ -186,6 +220,7 @@ public class Settings extends JDialog {
 					tfDepth.setVisible(true);
 					btnreturn.setVisible(true);
 					numOfPlayers = 3;
+					okButton.setVisible(true);
 				}
 			});
 
@@ -213,38 +248,9 @@ public class Settings extends JDialog {
 					tfDepth.setVisible(true);
 					btnreturn.setVisible(true);
 					numOfPlayers = 4;
+					okButton.setVisible(true);
 				}
 			});
-
-
-			{
-				JPanel buttonPane = new JPanel();
-				buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-				getContentPane().add(buttonPane, BorderLayout.SOUTH);
-				{
-					JButton okButton = new JButton("OK");
-					okButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							okSelected = true;
-							setVisible(false);
-						}
-					});
-					okButton.setActionCommand("OK");
-					buttonPane.add(okButton);
-					getRootPane().setDefaultButton(okButton);
-				}
-				{
-					JButton cancelButton = new JButton("Cancel");
-					cancelButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent e) {
-							cancelSelected = true;
-							setVisible(false);
-						}
-					});
-					cancelButton.setActionCommand("Cancel");
-					buttonPane.add(cancelButton);
-				}
-			}
 		}
 
 		public boolean isOkSelected() {
