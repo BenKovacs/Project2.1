@@ -1,4 +1,4 @@
-package model;
+package model.data_model;
 
 public class Constants {
     public static final int EMPTY = 9; //can be any positive number

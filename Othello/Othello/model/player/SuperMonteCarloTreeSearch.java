@@ -2,7 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import javafx.geometry.Point3D;
-import model.data_model.Rolit;
+import model.data_model.MCTSBoard;
 import model.data_model.Node;
 
 import java.awt.*;
@@ -25,6 +25,8 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private long startTime;
     private long timer;
 
+    private boolean won;
+
     public SuperMonteCarloTreeSearch() {
         this.runtime = 3000;
         this.iterations = 10000;
@@ -40,16 +42,17 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         setName("SMCTS Bot");
     }
 
-    private void initialization(Rolit board) {
+    private void initialization(MCTSBoard board) {
         HashMap<String,Object> data = new HashMap<String, Object>();
-        data.put("BOARD", (Rolit) board.clone());
+        data.put("BOARD", (MCTSBoard) board.clone());
         data.put("WINS", 0.0);
         data.put("PLAYOUTS", 0);
+        data.put("SCORE", 0);
         rootNode = new Node<HashMap<String,Object>>(data);
 
         ArrayList<Point> validMoves = board.getValidMoves();
         for (Point move : validMoves) {
-            Rolit clonedBoard = (Rolit) board.clone();
+            MCTSBoard clonedBoard = (MCTSBoard) board.clone();
             int row = (int) move.getX();
             int column = (int) move.getY();
             clonedBoard.play(row, column);
@@ -57,6 +60,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
             data.put("BOARD", clonedBoard);
             data.put("WINS", 0.0);
             data.put("PLAYOUTS", 0);
+            data.put("SCORE", 0);
             Node<HashMap<String, Object>> child = new Node<HashMap<String, Object>>(data);
             rootNode.addChild(child);
         }
@@ -85,14 +89,14 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         } else if (!getBoard(currentNode).getValidMoves().isEmpty()) {
             expansion();
         } else {
-            backpropagation(getResult(getBoard(currentNode)));
+            backpropagation(getResult(getBoard(currentNode)), getScores(getBoard(currentNode)));
         }
     }
 
     private void expansion() {
         ArrayList<Point> validMoves = getBoard(currentNode).getValidMoves();
         for (Point move : validMoves) {
-            Rolit clonedBoard = (Rolit) getBoard(currentNode).clone();
+            MCTSBoard clonedBoard = (MCTSBoard) getBoard(currentNode).clone();
             int row = (int) move.getX();
             int column = (int) move.getY();
             clonedBoard.play(row, column);
@@ -100,6 +104,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
             data.put("BOARD", clonedBoard);
             data.put("WINS", 0.0);
             data.put("PLAYOUTS", 0);
+            data.put("SCORE", 0);
             Node<HashMap<String, Object>> child = new Node<HashMap<String, Object>>(data);
             currentNode.addChild(child);
         }
@@ -108,7 +113,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     }
 
     private void simulation(){
-        Rolit clonedBoard = (Rolit) getBoard(currentNode).clone();
+        MCTSBoard clonedBoard = (MCTSBoard) getBoard(currentNode).clone();
         Random random = new Random();
         while (!clonedBoard.getValidMoves().isEmpty()) {
             ArrayList<Point> validMoves = clonedBoard.getValidMoves();
@@ -118,10 +123,11 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
             clonedBoard.play(row, column);
         }
         double[] result = getResult(clonedBoard);
-        backpropagation(result);
+        int[] scores = getScores(clonedBoard);
+        backpropagation(result, scores);
     }
 
-    private double[] getResult(Rolit simulatedBoard) {
+    private double[] getResult(MCTSBoard simulatedBoard) {
         int currentPlayer = (int) getBoard(currentNode).getLastMove().getZ();
         int max = 0;
         for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
@@ -141,11 +147,22 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
 //        Still need to implement the case of draw
     }
 
-    private void backpropagation(double[] result){
+    private int[] getScores(MCTSBoard simulatedBoard) {
+        int[] scores = new int[7];
+        int[] players = simulatedBoard.getPlayers();
+        for (int player : players) {
+            scores[player] = simulatedBoard.countCellState(player);
+        }
+        return scores;
+//        Still need to implement the case of draw
+    }
+
+    private void backpropagation(double[] result, int[] scores){
         while (currentNode != rootNode) {
             int currentNodePlayer = (int) getBoard(currentNode).getLastMove().getZ();
             currentNode.getData().put("WINS", getWins(currentNode) + result[currentNodePlayer]);
             currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
+            currentNode.getData().put("SCORE", getScore(currentNode) + scores[currentNodePlayer]);
             currentNode = currentNode.getParent();
         }
         currentNode.getData().put("PLAYOUTS", getPlayouts(currentNode) + 1);
@@ -159,8 +176,12 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         return getWins(node) / getPlayouts(node);
     }
 
-    private Rolit getBoard(Node<HashMap<String,Object>> node) {
-        return (Rolit) node.getData().get("BOARD");
+    private double avgScore(Node<HashMap<String, Object>> node) {
+        return (double) getScore(node) / getPlayouts(node);
+    }
+
+    private MCTSBoard getBoard(Node<HashMap<String,Object>> node) {
+        return (MCTSBoard) node.getData().get("BOARD");
     }
 
     private double getWins(Node<HashMap<String,Object>> node) {
@@ -169,6 +190,10 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
 
     private int getPlayouts(Node<HashMap<String,Object>> node) {
         return (int) node.getData().get("PLAYOUTS");
+    }
+
+    private int getScore(Node<HashMap<String,Object>> node) {
+        return (int) node.getData().get("SCORE");
     }
 
     public int getRuntime() { return runtime; }
@@ -189,14 +214,25 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         return total;
     }
 
+    private boolean hadWon() {
+        ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
+        for (Node<HashMap<String,Object>> move : validMoves) {
+            if (winRate(move) < 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void printData() {
-        Rolit board = getBoard(rootNode);
+        MCTSBoard board = getBoard(rootNode);
         System.out.println("SUPER MCTS PLAYER: " + board.toColor(board.getTurn()));
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         for (Node<HashMap<String,Object>> move : validMoves) {
             System.out.println("[COORD: " + getBoard(move).getLastMove().getX() + ", " + getBoard(move).getLastMove().getY() + "] "
                     + "[WINS/PLAYOUTS: " + move.getData().get("WINS") + "/" + move.getData().get("PLAYOUTS") + "] "
-                    + "[WINS%: " + String.format("%.2f", (double) move.getData().get("WINS") / (int) move.getData().get("PLAYOUTS") * 100) + "%]");
+                    + "[WINS%: " + String.format("%.2f", winRate(move) * 100) + "%] "
+                    + "[AVERAGE SCORE: " + String.format("%.2f", avgScore(move)) + "]");
         }
         System.out.println("TOTAL ITERATIONS: " + rootNode.getData().get("PLAYOUTS"));
         System.out.println("TOTAL NODES: " + (countChildren(rootNode) + 1));
@@ -208,30 +244,14 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
 
     public void run() {
         while(true) {
-//            try {
-//                sleep(200);
-//            } catch (InterruptedException e) {
-//                // TODO Auto-generated catch block
-//                e.printStackTrace();
-//            }
-            //System.out.println("AI Tick");
-//            if(MainApp.getSingleton() == null)
-//                continue;
-            //System.out.println("Check 2");
-            //System.out.println("GB:" + boardPanel.getGameBoard());
-//            if(boardPanel.getGameBoard() == null)
-//                continue;
-            //System.out.println("GB not null");
-            //System.out.println(Player.TYPE_BOT);
-            //System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
-
             if (rootNode == null) {
                 if (boardPanel.getGameBoard() != null) {
-                    Rolit board = new Rolit(8,8);
+                    MCTSBoard board = new MCTSBoard(8,8);
                     board.useGameBoard(boardPanel.getGameBoard());
                     initialization(board);
                     startTime = System.currentTimeMillis();
                     timer = runtime;
+                    won = false;
                 }
             } else {
                 while (getBoard(rootNode).getPreviousMoves().size() < boardPanel.getGameBoard().getPreviousMoves().size()) {
@@ -242,10 +262,15 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                         Point3D convertedPreviousMove = getBoard(rootNode).convertPreviousMove(boardPreviousMove);
                         if (childPreviousMove.equals(convertedPreviousMove)) {
                             rootNode = child;
+                            rootNode.getParent().setChildren(null);
+                            rootNode.setParent(null);
+//                            oldRootNode.getChildren().remove(rootNode);
+//                            destroyTree(oldRootNode);
+//                            System.gc();
                             break;
                         }
                         if (child == children.get(children.size()-1)) {
-                            Rolit board = new Rolit(8,8);
+                            MCTSBoard board = new MCTSBoard(8,8);
                             board.useGameBoard(boardPanel.getGameBoard());
                             initialization(board);
                         }
@@ -256,9 +281,9 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                     long deltaTime = endTime - startTime;
                     timer = timer - deltaTime;
                     if (timer < 0) {
+                        won = hadWon();
                         play();
                         timer = runtime;
-                        rootNode.setParent(null);
                     }
                 }
                 startTime = System.currentTimeMillis();
@@ -275,9 +300,17 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         if (!validMoves.isEmpty()) {
             Node<HashMap<String, Object>> bestMove = validMoves.get(0);
-            for (Node<HashMap<String, Object>> move : validMoves) {
-                if (winRate(move) > winRate(bestMove)) {
-                    bestMove = move;
+            if (!won) {
+                for (Node<HashMap<String, Object>> move : validMoves) {
+                    if (winRate(move) > winRate(bestMove)) {
+                        bestMove = move;
+                    }
+                }
+            } else {
+                for (Node<HashMap<String, Object>> move : validMoves) {
+                    if (avgScore(move) > avgScore(bestMove)) {
+                        bestMove = move;
+                    }
                 }
             }
             getBoard(rootNode).printBoard();
@@ -286,12 +319,35 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         }
     }
 
+    private void destroyTree(Node<HashMap<String, Object>> node) {
+        for (Node<HashMap<String, Object>> child : node.getChildren()) {
+            destroyTree(child);
+            node.setParent(null);
+            node.setChildren(null);
+            node.setData(null);
+        }
+    }
+
+//    private Node<HashMap<String, Object>> bestMove() {
+//        double winrate = 0;
+//        if (!rootNode.getChildren().isEmpty()) {
+//            Node<HashMap<String, Object>> bestMove = rootNode.getChildren().get(0);
+//            ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
+//            for (Node<HashMap<String,Object>> move : validMoves) {
+//                while (move)
+//            }
+//        }
+//
+//
+//
+//    }
+
     public int getPlayerType() {
         return Player.TYPE_BOT;
     }
-    
+
     public int getColor() {
-    	return color;
+        return color;
     }
-    
+
 }

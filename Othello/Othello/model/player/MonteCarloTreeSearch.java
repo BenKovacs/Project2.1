@@ -2,7 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
-import model.data_model.Rolit;
+import model.data_model.MCTSBoard;
 import model.data_model.Node;
 
 import java.awt.*;
@@ -37,7 +37,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         setName("MCTS Bot");
     }
 
-    public Point getMove(Rolit board) {
+    public Point getMove(MCTSBoard board) {
         initialization(board);
 
         long endTime = System.currentTimeMillis() + runtime;
@@ -61,7 +61,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         }
     }
 
-    private void initialization(Rolit board) {
+    private void initialization(MCTSBoard board) {
         HashMap<String,Object> data = new HashMap<String, Object>();
         data.put("BOARD", board);
         data.put("WINS", 0.0);
@@ -70,7 +70,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
 
         ArrayList<Point> validMoves = getBoard(rootNode).getValidMoves();
         for (Point move : validMoves) {
-            Rolit clonedBoard = (Rolit) getBoard(rootNode).clone();
+            MCTSBoard clonedBoard = (MCTSBoard) getBoard(rootNode).clone();
             int row = (int) move.getX();
             int column = (int) move.getY();
             clonedBoard.play(row, column);
@@ -113,7 +113,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     private void expansion() {
         ArrayList<Point> validMoves = getBoard(currentNode).getValidMoves();
         for (Point move : validMoves) {
-            Rolit clonedBoard = (Rolit) getBoard(currentNode).clone();
+            MCTSBoard clonedBoard = (MCTSBoard) getBoard(currentNode).clone();
             int row = (int) move.getX();
             int column = (int) move.getY();
             clonedBoard.play(row, column);
@@ -129,7 +129,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     private void simulation(){
-        Rolit clonedBoard = (Rolit) getBoard(currentNode).clone();
+        MCTSBoard clonedBoard = (MCTSBoard) getBoard(currentNode).clone();
         Random random = new Random();
         while (!clonedBoard.getValidMoves().isEmpty()) {
             ArrayList<Point> validMoves = clonedBoard.getValidMoves();
@@ -142,7 +142,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         backpropagation(result);
     }
 
-    private double[] getResult(Rolit simulatedBoard) {
+    private double[] getResult(MCTSBoard simulatedBoard) {
         int currentPlayer = (int) getBoard(currentNode).getLastMove().getZ();
         int max = 0;
         for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
@@ -180,8 +180,8 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         return getWins(node) / getPlayouts(node);
     }
 
-    private Rolit getBoard(Node<HashMap<String,Object>> node) {
-        return (Rolit) node.getData().get("BOARD");
+    private MCTSBoard getBoard(Node<HashMap<String,Object>> node) {
+        return (MCTSBoard) node.getData().get("BOARD");
     }
 
     private double getWins(Node<HashMap<String,Object>> node) {
@@ -195,7 +195,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     //Not sure if this change could result in possible problems
     //Using last turn instead of last played color to identify players
 //    private boolean isSamePlayer(Node<HashMap<String,Object>> node1, Node<HashMap<String,Object>> node2) {
-//        Rolit board1 = getBoard(node1);
+//        MCTSBoard board1 = getBoard(node1);
 //        Point lastMove1 = board1.getLastMove();
 //        int player1;
 //        if (lastMove1 != null) {
@@ -206,7 +206,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
 //            player1 = -getBoard(rootNode).getTurn();
 //        }
 //
-//        Rolit board2 = getBoard(node2);
+//        MCTSBoard board2 = getBoard(node2);
 //        Point lastMove2 = board2.getLastMove();
 //        int player2;
 //        if (lastMove2 != null) {
@@ -243,7 +243,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     public void printData() {
-        Rolit board = getBoard(rootNode);
+        MCTSBoard board = getBoard(rootNode);
         System.out.println("MCTS PLAYER: " + board.toColor(board.getTurn()));
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         for (Node<HashMap<String,Object>> move : validMoves) {
@@ -289,7 +289,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     public void play() {
-        Rolit board = new Rolit(8,8);
+        MCTSBoard board = new MCTSBoard(8,8);
         board.useGameBoard(boardPanel.getGameBoard());
         Point bestMove = getMove(board);
         if (bestMove != null) {

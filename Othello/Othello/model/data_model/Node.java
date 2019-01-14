@@ -36,11 +36,15 @@ public class Node<T> {
 
     public T getData() {return this.data;}
 
+    public void setData(T data) { this.data = data; }
+
     public int getDepth(){return depth;}
 
     public void setDepth(int depth){this.depth = depth;}
 
     public void setParent(Node<T> parent) {this.parent = parent;} //Hong: Need this for mcts
+
+    public void setChildren(ArrayList<Node<T>> children) { this.children = children; }
 
     public Node<T> getParent() {return this.parent;} //Hong: Need this for mcts
 

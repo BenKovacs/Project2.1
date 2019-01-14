@@ -1,12 +1,10 @@
 package gui;
 
-import model.GameBoard;
-import model.Constants;
+import model.data_model.GameBoard;
+import model.data_model.Constants;
 import model.player.*;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MainApp{
 
@@ -82,15 +80,15 @@ public class MainApp{
 			System.exit(0);
 		}
 
-		// create the gameBoard/panel
-		gameBoard = new GameBoard(8, 8);
-
-		// set the layout
-		frame.getContentPane().setLayout(new GridLayout(1, 2));
-
 		// Create AIs or human players
 		int playerCount = settings.getNumPlayers();
 		Player[] playerList = new Player[playerCount];
+
+		// create the gameBoard/panel
+		gameBoard = new GameBoard(8, 8, playerCount);
+
+		// set the layout
+		frame.getContentPane().setLayout(new GridLayout(1, 2));
 
 		rPanel = new RightPanel(playerList);
 		boardPanel = new BoardPanel(gameBoard, rPanel);

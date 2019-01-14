@@ -1,11 +1,9 @@
 package gui;
 
-import model.GameBoard;
+import model.data_model.GameBoard;
 import model.player.Player;
 
 import javax.swing.*;
-
-import static model.Constants.WHITE;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -17,6 +15,7 @@ public class RightPanel extends JPanel {
 	private JLabel discs2;
 	private JLabel discs3;
 	private JLabel discs4;
+	private JLabel memory;
 
 	Player[] playerList;
 	String[] colorArray ={"White", "Black", "Red", "Green", "Blue", "Yellow"};;
@@ -32,10 +31,14 @@ public class RightPanel extends JPanel {
 	void changeTurn(){
 		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 
-		discs1.setText(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
-		discs2.setText(playerList[1] + " " + colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
-		if (playerList.length >= 3) {discs3.setText(playerList[2] + " " + colorArray[playerList[2].getColor()] + " = " + GameBoard.count3);}
-		if (playerList.length >= 4) {discs4.setText(playerList[3] + " " + colorArray[playerList[3].getColor()] + " = " + GameBoard.count4);}
+		discs1.setText(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
+		discs2.setText(colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
+		if (playerList.length >= 3) {discs3.setText(colorArray[playerList[2].getColor()] + " = " + GameBoard.count3);}
+		if (playerList.length >= 4) {discs4.setText(colorArray[playerList[3].getColor()] + " = " + GameBoard.count4);}
+		long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+		double kb = (double)used/1024.0;
+		double mb = (double)kb/1024.0;
+		memory.setText(mb + " MB memory used");
 	}
 
 	public void setPlayerList(Player[] playerList) {
@@ -60,5 +63,7 @@ public class RightPanel extends JPanel {
 			discs4 = new JLabel(playerList[3] + " " +colorArray[playerList[3].getColor()] + " = 1");
 			this.add(discs4);
 		}
+		memory = new JLabel("Memory Usage");
+		this.add(memory);
 	}
 }
