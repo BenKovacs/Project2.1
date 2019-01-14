@@ -270,8 +270,7 @@ public class GameBoard {
 	 *
 	 * @return true or false
 	 */
-	public boolean isGameFinished()
-	{
+	public boolean isGameFinished() {
 		Settings settings = new Settings();
 		int highestScorePositionOne =0;
 		int highestScorePositionTwo =0;
@@ -392,8 +391,6 @@ public class GameBoard {
 							}
 			}
 
-
-
 			if (playerList.length == 2) {
 								result = players[highestScorePositionOne];
 								result2 = players[highestScorePositionTwo];
@@ -405,10 +402,6 @@ public class GameBoard {
 								result2 = players[highestScorePositionTwo + 2];
 
 							}
-
-
-
-
 			return true;
 		}
 		if(playerList.length == 2){
