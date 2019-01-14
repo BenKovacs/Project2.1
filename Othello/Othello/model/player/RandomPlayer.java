@@ -3,7 +3,6 @@ package model.player;
 import gui.BoardPanel;
 import gui.MainApp;
 import javafx.geometry.Point3D;
-import model.GameBoard;
 
 import java.util.ArrayList;
 import java.util.Random;

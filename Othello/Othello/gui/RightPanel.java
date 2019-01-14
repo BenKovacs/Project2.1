@@ -1,11 +1,9 @@
 package gui;
 
-import model.GameBoard;
+import model.data_model.GameBoard;
 import model.player.Player;
 
 import javax.swing.*;
-
-import static model.Constants.WHITE;
 
 import java.awt.Dimension;
 import java.awt.Font;
@@ -25,8 +23,6 @@ public class RightPanel extends JPanel {
 	public RightPanel(Player[] playerList) {
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		this.playerList = playerList;
-
-
 
 	}
 

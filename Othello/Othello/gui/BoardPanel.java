@@ -1,6 +1,6 @@
 package gui;
 
-import model.GameBoard;
+import model.data_model.GameBoard;
 import model.data_model.AIBoard;
 import model.player.Player;
 
@@ -10,9 +10,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-import static model.Constants.*;
-import static model.GameBoard.result;
-import static model.GameBoard.result2;
+import static model.data_model.Constants.*;
+import static model.data_model.GameBoard.result;
+import static model.data_model.GameBoard.result2;
 
 public class BoardPanel extends JPanel {
 
@@ -101,12 +101,14 @@ public class BoardPanel extends JPanel {
 					System.exit(-1);
 				}
 			}
+
 			//System.out.println("About to check if stable");
-			for (int i = 0; i < 8; i++) {
+			//WTF is this !?!?!?!?!
+			/*for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
 					AIBoard.isStable(i, j, gameBoard.getboard());
 				}
-			}
+			}*/
 		}
 	}
 

@@ -13,15 +13,17 @@ public class BoardTree {
     private boolean debug = false;
     private int depth;
 
-    public BoardTree(int[][] board, int turn, int depth ){
+    public BoardTree(GameBoard gameBoard, int turn, int depth ){
         // create a temporary GameBoard
-        AIBoard tmpBoard = new AIBoard(board, turn);
+
+        AIBoard tmpBoard = new AIBoard(gameBoard.getboard(), turn, gameBoard.getPlayerList());
+
         this.depth = depth;
 
         // create a tree with a certain depth
         rootT = new Node<>(new Point3D(999, 999, 99));
 
-        ArrayList<Point3D> validMoves = tmpBoard.getValidM();
+        ArrayList<Point3D> validMoves = tmpBoard.getValidMoves();
 
         // Leave this part commented for testing purposes
 		/*for(Point3D p: validMoves)System.out.println(p.toString());
@@ -49,7 +51,7 @@ public class BoardTree {
 
             Node<Point3D> child = new Node<>(new Point3D(p.getX(), p.getY(), p.getZ()));
             child.setDepth(rootT.getDepth()+1);
-            rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getBoard(), tmpBoard.getTurn())));
+            rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getboard(), tmpBoard.getTurn(), gameBoard.getPlayerList())));
         }
 
         //at the end build the tree
@@ -65,7 +67,7 @@ public class BoardTree {
         if(debug)gmB.printBoard();
 
         // check how many possibilities with this node
-        ArrayList<Point3D> validMoves = gmB.getValidM();
+        ArrayList<Point3D> validMoves = gmB.getValidMoves();
 
         if(debug)System.out.println("Found valid moves for depth " + root.getData().toString());
 
@@ -75,7 +77,7 @@ public class BoardTree {
             Node<Point3D> n = new Node<>(new Point3D(p.getX(), p.getY(), p.getZ()));
             n.setDepth(root.getDepth()+1);
 
-            root.addChild(buildTree(n, depth, new AIBoard(gmB.getBoard(), gmB.getTurn())));
+            root.addChild(buildTree(n, depth, new AIBoard(gmB.getboard(), gmB.getTurn(), gmB.getPlayerList())));
             //root.addChild(buildTree(n, depth, gmB));
         }
 
