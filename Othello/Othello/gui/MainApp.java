@@ -85,7 +85,7 @@ public class MainApp{
 		Player[] playerList = new Player[playerCount];
 
 		// create the gameBoard/panel
-		gameBoard = new GameBoard(8, 8, playerCount);
+		gameBoard = new GameBoard(8, 8);
 
 		// set the layout
 		frame.getContentPane().setLayout(new GridLayout(1, 2));
