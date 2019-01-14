@@ -349,7 +349,6 @@ public class GameBoard {
 								highestScorePositionTwo = 3;
 							}
 							//scores 1 wins
-
 							else if (scores[1] > scores[0] && scores[0] > scores[2] && scores[0] > scores[3]) {
 								highestScorePositionOne = 1;
 								highestScorePositionTwo = 0;
