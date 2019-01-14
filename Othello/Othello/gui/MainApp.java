@@ -3,7 +3,6 @@ package gui;
 import model.GameBoard;
 import model.Constants;
 import model.player.*;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -119,7 +118,7 @@ public class MainApp{
 			ai.start();
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
-			int runtime = 3000; //min runtime in millisecs
+			int runtime = 2000; //min runtime in millisecs
 			int iterations = 0; //min iterations
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerList[0] = ai;
@@ -152,7 +151,7 @@ public class MainApp{
 			playerList[1] = ai;
 			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
-			int runtime = 3000; //min runtime in millisecs
+			int runtime = 2000; //min runtime in millisecs
 			int iterations = 0; //min iterations
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			ai.start();
@@ -182,7 +181,7 @@ public class MainApp{
 				playerList[2] = ai;
 				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
-				int runtime = 3000; //min runtime in millisecs
+				int runtime = 2000; //min runtime in millisecs
 				int iterations = 0; //min iterations
 				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();
@@ -213,7 +212,7 @@ public class MainApp{
 				playerList[3] = ai;
 				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
-				int runtime = 3000; //min runtime in millisecs
+				int runtime = 2000; //min runtime in millisecs
 				int iterations = 0; //min iterations
 				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 				ai.start();

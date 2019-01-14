@@ -53,16 +53,16 @@ public class RightPanel extends JPanel {
 
 
 		this.add(playerTurn);
-		discs1 = new JLabel(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
+		discs1 = new JLabel(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
 		this.add(discs1);
-		discs2 = new JLabel(colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
+		discs2 = new JLabel(playerList[1] + " " +colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
 		this.add(discs2);
 		if (playerList.length > 2) {
-			discs3 = new JLabel(colorArray[playerList[2].getColor()] + " = 1");
+			discs3 = new JLabel(playerList[2] + " " +colorArray[playerList[2].getColor()] + " = 1");
 			this.add(discs3);
 		}
 		if (playerList.length > 3) {
-			discs4 = new JLabel(colorArray[playerList[3].getColor()] + " = 1");
+			discs4 = new JLabel(playerList[3] + " " +colorArray[playerList[3].getColor()] + " = 1");
 			this.add(discs4);
 		}
 		memory = new JLabel("Memory Usage");

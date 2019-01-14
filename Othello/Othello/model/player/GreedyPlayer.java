@@ -43,7 +43,7 @@ public class GreedyPlayer extends Thread implements Player{
     public void run() {
         while(true) {
             try {
-                sleep(100);
+                sleep(50);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -57,12 +57,16 @@ public class GreedyPlayer extends Thread implements Player{
 
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
                 try {
-                    sleep(150);
+                    sleep(50);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
                 }
                 this.play();
+            }
+
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
             }
 
         }

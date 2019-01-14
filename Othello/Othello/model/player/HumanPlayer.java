@@ -22,4 +22,9 @@ public class HumanPlayer implements Player{
     public int getColor() {
     	return color;
     }
+
+    @Override
+    public String toString() {
+        return "Human Player";
+    }
 }
