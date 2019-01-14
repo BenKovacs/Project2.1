@@ -10,14 +10,14 @@ import java.util.Random;
 
 
 
-public class AIPlayer  extends Thread implements Player {
+public class RandomPlayer  extends Thread implements Player {
     private BoardPanel boardPanel;
     private Random random = new Random();
     
     private int color;
     
 
-    public AIPlayer(BoardPanel boardPanel, int color){
+    public RandomPlayer(BoardPanel boardPanel, int color){
        this.boardPanel = boardPanel;
        this.color = color;
        setName("Random Bot");
@@ -63,7 +63,6 @@ public class AIPlayer  extends Thread implements Player {
         		play();
         	}
             if (boardPanel.getGameBoard().isGameFinished()){
-                System.out.println("breaking");
                 break;
             }
         	

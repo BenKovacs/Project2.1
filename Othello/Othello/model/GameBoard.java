@@ -56,6 +56,14 @@ public class GameBoard {
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
+//		board[0][0] = WHITE;
+//		board[1][0] = WHITE;
+//		board[2][0] = WHITE;
+//		board[3][0] = WHITE;
+//		board[0][1] = BLACK;
+//		board[1][1] = BLACK;
+//		board[2][1] = BLACK;
+//		board[3][1] = BLACK;
 	}
 
 	/**
@@ -205,7 +213,6 @@ public class GameBoard {
 		int i = 0;
 		while (oldturn == turn){
 			if (playerList[i].getColor() == turn){
-				System.out.println(i);
 				if( i < playerList.length-1){
 					turn = playerList[i+1].getColor();
 					player = playerList[i+1];
@@ -243,10 +250,12 @@ public class GameBoard {
 					board[x][y] = -flips;
 					validMoves.add(new Point3D(x, y, flips));
 					countValid++;
+					//System.out.println(validMoves.get(validMoves.size()-1));
 				} else if (isValidMove(x, y, false)){
 					board[x][y] = VALID;
 					validMoves.add(new Point3D(x, y, 0));
 					countValid++;
+					//System.out.println(validMoves.get(validMoves.size()-1));
 				}
 				// System.out.print(" " + board[x][y]);
 			}

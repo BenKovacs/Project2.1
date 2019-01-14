@@ -30,7 +30,7 @@ public class RightPanel extends JPanel {
 	}
 
 	void changeTurn(){
-		playerTurn.setText(colorArray[GameBoard.turn] + " turn\n");
+		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 
 		discs1.setText(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
 		discs2.setText(colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
@@ -41,7 +41,7 @@ public class RightPanel extends JPanel {
 	public void setPlayerList(Player[] playerList) {
 		this.playerList = playerList;
 
-		playerTurn = new JLabel(colorArray[playerList[0].getColor()] + " Turn");
+		playerTurn = new JLabel(colorArray[playerList[0].getColor()] + "'s Turn\n");
 		playerTurn.setFont(new Font("Arial", Font.BOLD, 20));
 		playerTurn.setPreferredSize(new Dimension(200, 50));
 

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-public class RolitMonteCarloTreeSearch extends Thread implements Player {
+public class MonteCarloTreeSearch extends Thread implements Player {
 
     private Node<HashMap<String,Object>> rootNode;
     private Node<HashMap<String,Object>> currentNode;
@@ -23,13 +23,13 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
     private BoardPanel boardPanel;
     private int color;
 
-    public RolitMonteCarloTreeSearch() {
+    public MonteCarloTreeSearch() {
         this.runtime = 3000;
         this.iterations = 10000;
         this.exploreParam = 2;
     }
 
-    public RolitMonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
+    public MonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
         this.boardPanel = boardPanel;
         this.color = color;
         this.runtime = runtime;
@@ -280,6 +280,9 @@ public class RolitMonteCarloTreeSearch extends Thread implements Player {
             //System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
                 play();
+            }
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
             }
 
         }
