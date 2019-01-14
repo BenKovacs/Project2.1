@@ -83,7 +83,7 @@ public class BoardPanel extends JPanel {
 				}
 				else
 				{
-					message = "The winner is the " + result + " player. ";
+					message = "The winner is the " + result + " player. " ;
 				}
 //				if (gameBoard.getCountWhite() - gameBoard.getCountBlack() > 0) {
 //					message = "The winner is the " + result + " player";
