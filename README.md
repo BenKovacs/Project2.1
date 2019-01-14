@@ -9,6 +9,7 @@
 - [A world-championship-level Othello program](https://www.sciencedirect.com/science/article/pii/0004370282900030)
 - [jOthelloT open source orthello AI tournament](https://github.com/data-library/jOthelloT)
 - [AI techniques](http://web.mit.edu/sp.268/www/gamesearch.pdf)
+- [N-Minimax and pruning](https://www.diva-portal.org/smash/get/diva2:761634/FULLTEXT01.pdf)
 
 ###### Wanna be the next othello world champion ?
 > [Play me](https://othello-reversi.com/play/index.html)
