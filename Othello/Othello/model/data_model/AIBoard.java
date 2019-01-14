@@ -1,12 +1,12 @@
 package model.data_model;
 
 import javafx.geometry.Point3D;
-import model.Constants;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Random;
 
-import static model.Constants.EMPTY;
+import static model.data_model.Constants.EMPTY;
 import static model.data_model.Evaluation.*;
 
 /**

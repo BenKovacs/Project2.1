@@ -1,13 +1,11 @@
 package model.data_model;
 
 import javafx.geometry.Point3D;
-import model.Constants;
-import model.GameBoard;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-public class Rolit implements Cloneable {
+public class MCTSBoard implements Cloneable {
 
     public static final int EMPTY = 0;
     public static final int BLACK = 1;
@@ -28,7 +26,7 @@ public class Rolit implements Cloneable {
     private ArrayList<Point3D> previousMoves; //Maybe change the var name.
 //    private Point lastMove;
 
-    public Rolit(int width, int height) {
+    public MCTSBoard(int width, int height) {
         this.width = width;
         this.height = height;
         this.board = new int[height][width];
@@ -37,7 +35,7 @@ public class Rolit implements Cloneable {
         restart(players, players[0]);
     }
 
-    public Rolit(int width, int height, int[] players) {
+    public MCTSBoard(int width, int height, int[] players) {
         this.width = width;
         this.height = height;
         board = new int[height][width];
@@ -323,9 +321,9 @@ public class Rolit implements Cloneable {
 
     //NEED A BETTER WAY TO COPY THE ARRAY !!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public Object clone() {
-        Rolit clone = null;
+        MCTSBoard clone = null;
         try {
-            clone = (Rolit) super.clone();
+            clone = (MCTSBoard) super.clone();
             int[][] cloneBoard = new int[height][width]; //Perhaps a better name?
             for (int row = 0; row < height; row++) {
                 for (int column = 0; column < width; column++) {

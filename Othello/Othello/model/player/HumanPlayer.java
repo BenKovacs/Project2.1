@@ -1,7 +1,6 @@
 package model.player;
 
 import gui.BoardPanel;
-import model.GameBoard;
 
 public class HumanPlayer implements Player{
 	

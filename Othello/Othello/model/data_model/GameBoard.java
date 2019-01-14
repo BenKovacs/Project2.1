@@ -1,15 +1,12 @@
-package model;
+package model.data_model;
 
-import gui.BoardPanel;
-import gui.RightPanel;
-import gui.Settings;
 import javafx.geometry.Point3D;
 import model.player.Player;
 
 import java.awt.*;
 import java.util.ArrayList;
 
-import static model.Constants.*;
+import static model.data_model.Constants.*;
 
 public class GameBoard {
 	private static final boolean EXECUTE = true;
@@ -22,7 +19,6 @@ public class GameBoard {
 	// Game staten
 	public static int turn;
 	private Point lastMove;
-	private int INVERSE_COLOUR;
 	private int countValid;
 	public static int count1;
 	public static int count2;
@@ -36,12 +32,14 @@ public class GameBoard {
 
 	private Player[] playerList;
 	private Player player;
-	private ArrayList<Point3D> validMoves = new ArrayList<Point3D>();
-	private ArrayList<Point3D> previousMoves = new ArrayList<Point3D>();
+	private ArrayList<Point3D> validMoves = new ArrayList<>();
+	private ArrayList<Point3D> previousMoves = new ArrayList<>();
+	protected int playerCount;
 
-	public GameBoard(int width, int height) {
+	public GameBoard(int width, int height, int playerCount) {
 		this.width = width;
 		this.height = height;
+		this.playerCount = playerCount;
 
 		board = new int[width][height];
 

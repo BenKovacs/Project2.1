@@ -1,11 +1,9 @@
 package gui;
 
-import model.GameBoard;
+import model.data_model.GameBoard;
 import model.player.Player;
 
 import javax.swing.*;
-
-import static model.Constants.WHITE;
 
 import java.awt.Dimension;
 import java.awt.Font;
