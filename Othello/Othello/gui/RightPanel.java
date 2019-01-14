@@ -41,6 +41,8 @@ public class RightPanel extends JPanel {
 		double kb = (double)used/1024.0;
 		double mb = (double)kb/1024.0;
 		memory.setText(mb + " MB memory used");
+		System.gc();
+		System.runFinalization();
 	}
 
 	public void setPlayerList(Player[] playerList) {
