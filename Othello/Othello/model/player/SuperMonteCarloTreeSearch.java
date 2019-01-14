@@ -1,9 +1,8 @@
 package model.player;
 
 import gui.BoardPanel;
-import gui.MainApp;
 import javafx.geometry.Point3D;
-import model.Rolit;
+import model.data_model.Rolit;
 import model.data_model.Node;
 
 import java.awt.*;

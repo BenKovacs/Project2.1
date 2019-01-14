@@ -270,8 +270,7 @@ public class GameBoard {
 	 *
 	 * @return true or false
 	 */
-	public boolean isGameFinished()
-	{
+	public boolean isGameFinished() {
 	//	Settings settings = new Settings();
 		int highestScorePositionOne =0;
 		int highestScorePositionTwo =0;
@@ -402,7 +401,6 @@ public class GameBoard {
 								System.out.println(result + result2);
 
 							}
-
 			return true;
 		}
 		if(playerList.length == 2){
