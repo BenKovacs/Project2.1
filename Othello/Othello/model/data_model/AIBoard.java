@@ -19,6 +19,8 @@ public class AIBoard extends GameBoard{
 		for (int i = 0; i < b.length; i++) {
 			for (int f = 0; f < b[0].length; f++) {
 				board[i][f] = b[i][f];
+				if (board[i][f] < 0)
+					board[i][f] = Constants.EMPTY;
 			}
 		}
 
