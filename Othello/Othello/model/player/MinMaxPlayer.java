@@ -42,7 +42,9 @@ public class MinMaxPlayer extends Thread implements Player {
 		//System.out.println(bestmove.getData().toString());
 
 		//select the move and play
-		boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+		try{
+			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
 	}
 
 	/**
