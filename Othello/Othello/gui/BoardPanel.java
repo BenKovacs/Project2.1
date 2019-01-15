@@ -22,6 +22,7 @@ public class BoardPanel extends JPanel {
 	private RightPanel rightPanel;
 
 	private SquarePanel[][] sp;
+	private static boolean gameInProgress = true;
 
 	/**
 	 * Create the panel.
@@ -71,13 +72,15 @@ public class BoardPanel extends JPanel {
 	}
 
 	public void play(int x, int y) {
+		System.out.println(" "+x+","+y);
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
 			rightPanel.changeTurn();
 			;
 			String message = "";
 			if (gameBoard.isGameFinished()) {
-				if(result == result2) {
+				this.gameInProgress = false;
+				if(result.equals(result2)) {
 					message = "It is a tie, the winners are " + result + " and " + result2;
 				}
 				else
@@ -101,6 +104,11 @@ public class BoardPanel extends JPanel {
 			}*/
 		}
 	}
+
+	public boolean gameInProgress() {
+		return this.gameInProgress;
+	}
+
 
 	// the square composing the grid panels
 	private class SquarePanel extends JPanel implements MouseListener {

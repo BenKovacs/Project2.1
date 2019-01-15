@@ -27,6 +27,40 @@ public class Evaluation {
                         {-100, -200, -50, -50, -50, -50, -200, -100},
                         {200 , -100, 100,  50,  50, 100, -100,  200}};
         int total = 0;
+        //if corners are taken, that corner of the board looses all value.
+        if(board[0][0] != 0){
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j <= 3; j++) {
+                    weights[i][j] = 0;
+                }
+            }
+        }
+
+        if(board[0][7] != 0){
+            for (int i = 0; i < 3; i++) {
+                for (int j = 4; j <= 7; j++) {
+                    weights[i][j] = 0;
+                }
+            }
+        }
+
+        if(board[7][0] != 0){
+            for (int i = 5; i < 8; i++) {
+                for (int j = 0; j <= 3; j++) {
+                    weights[i][j] = 0;
+                }
+            }
+        }
+
+        if(board[7][7] != 0){
+            for (int i = 5; i < 8; i++) {
+                for (int j = 4; j <= 7; j++) {
+                    weights[i][j] = 0;
+                }
+            }
+        }
+
+
         //int turn = board[x][y];
         //if(turn == BLACK){turn=WHITE;}else{turn=BLACK;}
         int i;

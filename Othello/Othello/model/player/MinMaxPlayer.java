@@ -2,9 +2,12 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
+import gui.TestApp;
 import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
 import model.data_model.Node;
+
+import static java.lang.Thread.sleep;
 
 
 /**
@@ -42,8 +45,12 @@ public class MinMaxPlayer extends Thread implements Player {
 		//System.out.println(bestmove.getData().toString());
 
 		//select the move and play
-		boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+		try{
+			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
 	}
+
+
 
 	/**
 	 *MINIMAX ALGORITHM
@@ -128,7 +135,7 @@ public class MinMaxPlayer extends Thread implements Player {
 				e.printStackTrace();
 			}
 
-			if(MainApp.getSingleton() == null)
+			if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
 				continue;
 
 			if(boardPanel.getGameBoard() == null)

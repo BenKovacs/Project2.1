@@ -27,6 +27,7 @@ public class RightPanel extends JPanel {
 	}
 
 	void changeTurn(){
+		System.out.print(colorArray[GameBoard.turn] + "'s Turn");
 		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 
 		discs1.setText(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
@@ -37,6 +38,8 @@ public class RightPanel extends JPanel {
 		double kb = (double)used/1024.0;
 		double mb = (double)kb/1024.0;
 		memory.setText(mb + " MB memory used");
+		System.gc();
+		System.runFinalization();
 	}
 
 	public void setPlayerList(Player[] playerList) {

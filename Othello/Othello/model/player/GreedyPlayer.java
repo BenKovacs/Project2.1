@@ -2,6 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
+import gui.TestApp;
 import javafx.geometry.Point3D;
 import java.util.ArrayList;
 
@@ -49,7 +50,7 @@ public class GreedyPlayer extends Thread implements Player{
                 e.printStackTrace();
             }
 
-            if(MainApp.getSingleton() == null)
+           if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
                 continue;
 
             if(boardPanel.getGameBoard() == null)
