@@ -227,7 +227,6 @@ public class MainApp{
 
 		for (int i = 0; i < playerList.length; i++) {
 			System.out.println("Player " + i + " is: " + playerList[i] + playerList[i].getColor());
-			
 		}
 		gameBoard.setPlayerList(playerList);
 		rPanel.setPlayerList(playerList);

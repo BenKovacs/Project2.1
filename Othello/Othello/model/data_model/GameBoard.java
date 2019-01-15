@@ -27,9 +27,6 @@ public class GameBoard {
 	public static String result;
 	public static String result2;
 
-	int bug1 = 0;
-	int bug2 = 0;
-
 	protected Player[] playerList;
 	private Player player;
 	private ArrayList<Point3D> validMoves = new ArrayList<>();
@@ -281,6 +278,7 @@ public class GameBoard {
 							{
 								highestScorePositionOne = 1;
 								highestScorePositionTwo = 0;
+
 							}
 							System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
 						}
@@ -316,6 +314,7 @@ public class GameBoard {
 							} else if(scores[2] > scores[0] && scores[0] > scores[1]){
 								highestScorePositionOne = 2;
 								highestScorePositionTwo = 0;
+
 							}
 							System.out.println(" Highest score one :  "+highestScorePositionOne +"  highest score two : "+ highestScorePositionTwo);
 						}
@@ -374,22 +373,19 @@ public class GameBoard {
 							System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
                         }
 
-
-
-
-
 			if (playerList.length == 2) {
-								result = players[highestScorePositionOne];
-								result2 = players[highestScorePositionTwo];
-
-
-							}
-							if (playerList.length > 2) {
-								result = players[highestScorePositionOne+2];
-								result2 = players[highestScorePositionTwo+2];
-								System.out.println(result + result2);
-
-							}
+				result = players[highestScorePositionOne];
+				result2 = players[highestScorePositionTwo];
+			}
+			else if (playerList.length == 3) {
+				result = players[highestScorePositionOne+2];
+				result2 = players[highestScorePositionTwo+2];
+				System.out.println(result + " " + result2);
+			}
+			else if(playerList.length == 4) {
+				result = players[highestScorePositionOne+2];
+				result2 = players[highestScorePositionTwo+2];
+			}
 			return true;
 		}
 		if(playerList.length == 2){
@@ -404,7 +400,6 @@ public class GameBoard {
 		}
 		return false;
 	}
-
 
 	public void setPlayerList(Player[] playerList) {
 		this.playerList = playerList;

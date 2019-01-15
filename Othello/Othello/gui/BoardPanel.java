@@ -77,7 +77,6 @@ public class BoardPanel extends JPanel {
 			;
 			String message = "";
 			if (gameBoard.isGameFinished()) {
-
 				if(result == result2) {
 					message = "It is a tie, the winners are " + result + " and " + result2;
 				}
@@ -85,14 +84,6 @@ public class BoardPanel extends JPanel {
 				{
 					message = "The winner is the " + result + " player. " ;
 				}
-//				if (gameBoard.getCountWhite() - gameBoard.getCountBlack() > 0) {
-//					message = "The winner is the " + result + " player";
-//				} else if (gameBoard.getCountWhite() - gameBoard.getCountBlack() < 0) {
-//					message = "The winner is the " + result + " player";
-//				} else {
-//					message = "It is a tie, the winners are " + result + "and " + result2;
-//				}
-
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
 				if (dialogResult == 0) {
@@ -101,7 +92,6 @@ public class BoardPanel extends JPanel {
 					System.exit(-1);
 				}
 			}
-
 			//System.out.println("About to check if stable");
 			//WTF is this !?!?!?!?!
 			/*for (int i = 0; i < 8; i++) {
@@ -111,9 +101,6 @@ public class BoardPanel extends JPanel {
 			}*/
 		}
 	}
-
-
-
 
 	// the square composing the grid panels
 	private class SquarePanel extends JPanel implements MouseListener {

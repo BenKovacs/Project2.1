@@ -87,6 +87,8 @@ public class MCTSBoard implements Cloneable {
         }
         turn = convertCell(gameBoard.getTurn());
         players = new int[gameBoard.getPlayerList().length];
+        System.out.println(players);
+
         for (int i = 0; i < gameBoard.getPlayerList().length; i++) {
             players[i] = convertCell(gameBoard.getPlayerList()[i].getColor());
         }

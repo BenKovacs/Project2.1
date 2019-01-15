@@ -19,7 +19,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private int iterations;
     private int exploreParam;
 
-    private BoardPanel boardPanel;
+    private BoardPanel  boardPanel;
     private int color;
 
     private long startTime;
