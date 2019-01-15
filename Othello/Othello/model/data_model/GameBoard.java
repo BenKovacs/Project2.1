@@ -282,6 +282,7 @@ public class GameBoard {
 								highestScorePositionOne = 1;
 								highestScorePositionTwo = 0;
 							}
+
 							System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
 						}
 						if(playerList.length == 3) {

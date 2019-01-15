@@ -27,6 +27,7 @@ public class RightPanel extends JPanel {
 	}
 
 	void changeTurn(){
+		System.out.print(colorArray[GameBoard.turn] + "'s Turn");
 		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 
 		discs1.setText(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);

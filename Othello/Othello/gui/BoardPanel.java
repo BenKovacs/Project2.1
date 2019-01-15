@@ -22,6 +22,7 @@ public class BoardPanel extends JPanel {
 	private RightPanel rightPanel;
 
 	private SquarePanel[][] sp;
+	private static boolean gameInProgress = true;
 
 	/**
 	 * Create the panel.
@@ -71,14 +72,15 @@ public class BoardPanel extends JPanel {
 	}
 
 	public void play(int x, int y) {
+		System.out.println(" "+x+","+y);
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
 			rightPanel.changeTurn();
 			;
 			String message = "";
 			if (gameBoard.isGameFinished()) {
-
-				if(result == result2) {
+				this.gameInProgress = false;
+				if(result.equals(result2)) {
 					message = "It is a tie, the winners are " + result + " and " + result2;
 				}
 				else
@@ -93,12 +95,14 @@ public class BoardPanel extends JPanel {
 //					message = "It is a tie, the winners are " + result + "and " + result2;
 //				}
 
-				int dialogButton = JOptionPane.YES_NO_OPTION;
-				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
-				if (dialogResult == 0) {
-					MainApp.getSingleton().reset();
-				} else {
-					System.exit(-1);
+				if (MainApp.getSingleton() != null){
+					int dialogButton = JOptionPane.YES_NO_OPTION;
+					int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
+					if (dialogResult == 0) {
+						MainApp.getSingleton().reset();
+					} else {
+						System.exit(-1);
+					}
 				}
 			}
 
@@ -112,7 +116,9 @@ public class BoardPanel extends JPanel {
 		}
 	}
 
-
+	public boolean gameInProgress() {
+		return this.gameInProgress;
+	}
 
 
 	// the square composing the grid panels
