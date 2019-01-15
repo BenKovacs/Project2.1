@@ -22,6 +22,8 @@ public class HumanPlayer implements Player{
     	return color;
     }
 
+    public void run(){}
+
     @Override
     public String toString() {
         return "Human Player";

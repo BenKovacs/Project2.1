@@ -15,7 +15,7 @@ public class MainApp{
 	}
 
 	private JFrame frame;
-	public GameBoard gameBoard;
+	private GameBoard gameBoard;
 
 	public JFrame getFrame() {
 		return frame;
@@ -51,7 +51,8 @@ public class MainApp{
 	private MainApp() {
 
 		frame = new JFrame();
-		frame.setBounds(100, 100, 927*2, 473*2);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setBounds(50, 50, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -60,7 +61,8 @@ public class MainApp{
 	public void reset() {
 	    frame.dispose();
 		frame = new JFrame();
-		frame.setBounds(100, 100, 927*2, 473*2);
+		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//frame.setBounds(50, 50, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -71,7 +73,6 @@ public class MainApp{
 	 * Initialize the contents.
 	 */
 	private void initialize() {
-
 		settings = new Settings();
 		// The settings Dialog is Modal so this thread will pause after setting
 		// it to be visible until it is set invisible by the dialog.
@@ -93,7 +94,6 @@ public class MainApp{
 		rPanel = new RightPanel(playerList);
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1, 0);
-
 
 		int turn;
 		if (playerCount == 2){
@@ -225,14 +225,13 @@ public class MainApp{
 		}
 
 
-		for (int i = 0; i < playerList.length; i++) {
-			System.out.println("Player " + i + " is: " + playerList[i] + playerList[i].getColor());
-		}
+//		for (int i = 0; i < playerList.length; i++) {
+//			System.out.println("Player " + i + " is: " + playerList[i] + playerList[i].getColor());
+//		}
 		gameBoard.setPlayerList(playerList);
 		rPanel.setPlayerList(playerList);
 		boardPanel.setGameBoard(gameBoard);
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0, 1);
-
 	}
 }

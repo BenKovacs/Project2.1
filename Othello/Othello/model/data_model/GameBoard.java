@@ -12,14 +12,14 @@ public class GameBoard {
 	private static final boolean EXECUTE = true;
 	private static final boolean SIMULATE = false;
 
-	private int width;
-	private int height;
+	protected int width;
+    protected int height;
 	protected int[][] board;
 
 	// Game staten
 	public static int turn;
 	private Point lastMove;
-	private int countValid;
+	protected int countValid;
 	public static int count1;
 	public static int count2;
 	public static int count3;
@@ -29,7 +29,7 @@ public class GameBoard {
 
 	protected Player[] playerList;
 	private Player player;
-	private ArrayList<Point3D> validMoves = new ArrayList<>();
+	protected ArrayList<Point3D> validMoves = new ArrayList<>();
 	private ArrayList<Point3D> previousMoves = new ArrayList<>();
 
 	public GameBoard(int width, int height) {
@@ -418,7 +418,7 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
-		showValidMoves();
+		//showValidMoves();
 		return validMoves;
 	}
 

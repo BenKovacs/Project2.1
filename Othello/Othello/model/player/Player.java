@@ -9,5 +9,7 @@ public interface Player{
     int getPlayerType();
     
     int getColor();
+
+    void run();
     
 }

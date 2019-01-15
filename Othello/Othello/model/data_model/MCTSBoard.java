@@ -21,7 +21,7 @@ public class MCTSBoard implements Cloneable {
 
     private int[][] board;
 
-    private int[] players;
+    private int[] playerList;
     private int turn;
     private ArrayList<Point3D> previousMoves; //Maybe change the var name.
 //    private Point lastMove;
@@ -30,29 +30,29 @@ public class MCTSBoard implements Cloneable {
         this.width = width;
         this.height = height;
         this.board = new int[height][width];
-        this.players = new int[]{BLACK, WHITE};
+        this.playerList = new int[]{BLACK, WHITE};
         previousMoves = new ArrayList<Point3D>();
-        restart(players, players[0]);
+        restart(playerList, playerList[0]);
     }
 
-    public MCTSBoard(int width, int height, int[] players) {
+    public MCTSBoard(int width, int height, int[] playerList) {
         this.width = width;
         this.height = height;
         board = new int[height][width];
-        if (players.length >= 3 && players.length <= 4) {
-            this.players = players;
-        } else if (players.length <= 2) {
-            this.players = new int[]{BLACK, WHITE};
+        if (playerList.length >= 3 && playerList.length <= 4) {
+            this.playerList = playerList;
+        } else if (playerList.length <= 2) {
+            this.playerList = new int[]{BLACK, WHITE};
         } else {
-            this.players = new int[]{RED, YELLOW, GREEN, BLUE};
+            this.playerList = new int[]{RED, YELLOW, GREEN, BLUE};
         }
         previousMoves = new ArrayList<Point3D>();
-        restart(players, players[0]);
+        restart(playerList, playerList[0]);
     }
 
-    public void restart(int[] players, int turn) {
+    public void restart(int[] playerList, int turn) {
         clearBoard();
-        if (players.length <= 2) {
+        if (playerList.length <= 2) {
             board[(int)Math.floor((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = WHITE;
             board[(int)Math.floor((height-1)/2.0)][(int)Math.ceil((width-1)/2.0)] = BLACK;
             board[(int)Math.ceil((height-1)/2.0)][(int)Math.floor((width-1)/2.0)] = BLACK;
@@ -86,11 +86,9 @@ public class MCTSBoard implements Cloneable {
             }
         }
         turn = convertCell(gameBoard.getTurn());
-        players = new int[gameBoard.getPlayerList().length];
-        System.out.println(players);
-
+        playerList = new int[gameBoard.getPlayerList().length];
         for (int i = 0; i < gameBoard.getPlayerList().length; i++) {
-            players[i] = convertCell(gameBoard.getPlayerList()[i].getColor());
+            playerList[i] = convertCell(gameBoard.getPlayerList()[i].getColor());
         }
         this.previousMoves.clear();
         for (Point3D previousMove : gameBoard.getPreviousMoves()) {
@@ -118,7 +116,7 @@ public class MCTSBoard implements Cloneable {
     public ArrayList<Point> getValidMoves() {
         ArrayList<Point> validMoves = new ArrayList<Point>();
         validMoves.addAll(getCapturableCells());
-        if (validMoves.isEmpty() && players.length > 2) {
+        if (validMoves.isEmpty() && playerList.length > 2) {
             for (int row = 0; row < height; row++) {
                 for (int column = 0; column < width; column++) {
                     if (board[row][column] == EMPTY && hasOpponentNeighbor(row, column)) {
@@ -192,7 +190,7 @@ public class MCTSBoard implements Cloneable {
     private boolean isValidMove(int targetRow, int targetColumn) {
         if (isCellCapturable(targetRow, targetColumn)) {
             return true;
-        } else if (players.length > 2) {
+        } else if (playerList.length > 2) {
             return getCapturableCells().isEmpty() && hasOpponentNeighbor(targetRow, targetColumn);
         } else {
             return false;
@@ -239,13 +237,13 @@ public class MCTSBoard implements Cloneable {
 
     //switch player turn
     public void nextTurn() {
-        for (int i = 0; i < players.length; i++) {
-            if (players[i] == turn) {
-                if (i < players.length - 1) {
-                    turn = players[i+1];
+        for (int i = 0; i < playerList.length; i++) {
+            if (playerList[i] == turn) {
+                if (i < playerList.length - 1) {
+                    turn = playerList[i+1];
                     break;
                 } else {
-                    turn = players[0];
+                    turn = playerList[0];
                     break;
                 }
             }
@@ -294,8 +292,8 @@ public class MCTSBoard implements Cloneable {
     public String gameResult(){
         if (isGameOver()) {
             String result = "";
-            for (int i = 0; i < players.length; i++) {
-                result += "PLAYER " + toColor(players[i]) + ": " + countCellState(players[i]) + "\n";
+            for (int i = 0; i < playerList.length; i++) {
+                result += "PLAYER " + toColor(playerList[i]) + ": " + countCellState(playerList[i]) + "\n";
             }
             return result;
         } else {
@@ -334,11 +332,11 @@ public class MCTSBoard implements Cloneable {
             }
             clone.setBoard(cloneBoard);
 
-            int[] clonePlayers = new int[players.length]; //Perhaps a better name?
-            for (int i = 0; i < players.length; i++) {
-                clonePlayers[i] = players[i];
+            int[] clonePlayerList = new int[playerList.length]; //Perhaps a better name?
+            for (int i = 0; i < playerList.length; i++) {
+                clonePlayerList[i] = playerList[i];
             }
-            clone.setPlayers(clonePlayers);
+            clone.setPlayerList(clonePlayerList);
 
             clone.setPreviousMoves(new ArrayList<Point3D>(previousMoves));
 //            if (lastMove != null)
@@ -375,7 +373,7 @@ public class MCTSBoard implements Cloneable {
     public int getTurn() { return turn; }
     public ArrayList<Point3D> getPreviousMoves() { return previousMoves; }
     public Point3D getLastMove() { return previousMoves.get(previousMoves.size()-1); }
-    public int[] getPlayers() { return players; }
+    public int[] getPlayerList() { return playerList; }
 
     public void setWidth(int width) { this.width = width; }
     public void setHeight(int height) { this.height = height; }
@@ -383,6 +381,6 @@ public class MCTSBoard implements Cloneable {
     public void setTurn(int turn) { this.turn = turn; }
     public void setPreviousMoves(ArrayList<Point3D> previousMoves) { this.previousMoves = previousMoves; }
 //    public void setLastMove(Point lastMove) { this.lastMove = lastMove; }
-    public void setPlayers(int[] players) { this.players = players; }
+    public void setPlayerList(int[] playerList) { this.playerList = playerList; }
 
 }

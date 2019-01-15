@@ -1,4 +1,7 @@
 package model.data_model;
+
+import java.util.Random;
+
 public class Evaluation {
 
 
@@ -73,6 +76,7 @@ public class Evaluation {
             }
 
         }
-        return total;
+        Random random = new Random();
+        return total/* * (1 - random.nextDouble())*/;
     }
 }

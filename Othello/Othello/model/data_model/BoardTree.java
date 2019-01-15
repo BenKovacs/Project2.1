@@ -53,7 +53,6 @@ public class BoardTree {
             child.setDepth(rootT.getDepth()+1);
             rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getboard(), tmpBoard.getTurn(), gameBoard.getPlayerList())));
         }
-
         //at the end build the tree
         if(debug)printTree(rootT, " ");
     }
