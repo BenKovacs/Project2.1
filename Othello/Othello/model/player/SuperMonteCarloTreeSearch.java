@@ -19,7 +19,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private int iterations;
     private int exploreParam;
 
-    private BoardPanel  boardPanel;
+    private BoardPanel boardPanel;
     private int color;
 
     private long startTime;
@@ -130,17 +130,17 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private double[] getResult(MCTSBoard simulatedBoard) {
         int currentPlayer = (int) getBoard(currentNode).getLastMove().getZ();
         int max = 0;
-        for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
-            if (simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]) > max) {
-                max = simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]);
+        for (int i = 0; i < simulatedBoard.getPlayerList().length; i++) {
+            if (simulatedBoard.countCellState(simulatedBoard.getPlayerList()[i]) > max) {
+                max = simulatedBoard.countCellState(simulatedBoard.getPlayerList()[i]);
             }
         }
         double[] result = new double[7];
-        for (int i = 0; i < simulatedBoard.getPlayers().length; i++) {
-            if (simulatedBoard.countCellState(simulatedBoard.getPlayers()[i]) == max) {
-                result[simulatedBoard.getPlayers()[i]] = 1.0;
+        for (int i = 0; i < simulatedBoard.getPlayerList().length; i++) {
+            if (simulatedBoard.countCellState(simulatedBoard.getPlayerList()[i]) == max) {
+                result[simulatedBoard.getPlayerList()[i]] = 1.0;
             } else {
-                result[simulatedBoard.getPlayers()[i]] = 0.0;
+                result[simulatedBoard.getPlayerList()[i]] = 0.0;
             }
         }
         return result;
@@ -149,8 +149,8 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
 
     private int[] getScores(MCTSBoard simulatedBoard) {
         int[] scores = new int[7];
-        int[] players = simulatedBoard.getPlayers();
-        for (int player : players) {
+        int[] playerList = simulatedBoard.getPlayerList();
+        for (int player : playerList) {
             scores[player] = simulatedBoard.countCellState(player);
         }
         return scores;
@@ -236,8 +236,8 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         }
         System.out.println("TOTAL ITERATIONS: " + rootNode.getData().get("PLAYOUTS"));
         System.out.println("TOTAL NODES: " + (countChildren(rootNode) + 1));
-        for (int player = 0; player < board.getPlayers().length; player++) {
-            System.out.println(board.toColor(board.getPlayers()[player]) + " COUNTS: " + board.countCellState(board.getPlayers()[player]));
+        for (int player = 0; player < board.getPlayerList().length; player++) {
+            System.out.println(board.toColor(board.getPlayerList()[player]) + " COUNTS: " + board.countCellState(board.getPlayerList()[player]));
         }
         System.out.println();
     }

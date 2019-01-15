@@ -30,14 +30,14 @@ public class RightPanel extends JPanel {
 		System.out.print(colorArray[GameBoard.turn] + "'s Turn");
 		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 
-		discs1.setText(colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
-		discs2.setText(colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
-		if (playerList.length >= 3) {discs3.setText(colorArray[playerList[2].getColor()] + " = " + GameBoard.count3);}
-		if (playerList.length >= 4) {discs4.setText(colorArray[playerList[3].getColor()] + " = " + GameBoard.count4);}
-		long used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
-		double kb = (double)used/1024.0;
-		double mb = (double)kb/1024.0;
-		memory.setText(mb + " MB memory used");
+		discs1.setText(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
+		discs2.setText(playerList[0] + " " + colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
+		if (playerList.length >= 3) {discs3.setText(playerList[2] + " " + colorArray[playerList[2].getColor()] + " = " + GameBoard.count3);}
+		if (playerList.length >= 4) {discs4.setText(playerList[3] + " " + colorArray[playerList[3].getColor()] + " = " + GameBoard.count4);}
+		double used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
+		double kb = used/1024.0;
+		double mb = kb/1024.0;
+		memory.setText((int)mb + " MB memory used");
 		System.gc();
 		System.runFinalization();
 	}

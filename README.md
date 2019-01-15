@@ -10,6 +10,7 @@
 - [jOthelloT open source orthello AI tournament](https://github.com/data-library/jOthelloT)
 - [AI techniques](http://web.mit.edu/sp.268/www/gamesearch.pdf)
 - [N-Minimax and pruning](https://www.diva-portal.org/smash/get/diva2:761634/FULLTEXT01.pdf)
+- [An Analysis of Heuristics in Othello](https://courses.cs.washington.edu/courses/cse573/04au/Project/mini1/RUSSIA/Final_Paper.pdf)
 
 ###### Wanna be the next othello world champion ?
 > [Play me](https://othello-reversi.com/play/index.html)

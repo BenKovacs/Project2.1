@@ -1,6 +1,10 @@
 package model.data_model;
 
+import javafx.geometry.Point3D;
 import model.player.Player;
+
+import java.util.ArrayList;
+import static model.data_model.Constants.*;
 
 /**
  * Encapsulate some of the features of the board but easier to manage for AI
@@ -34,6 +38,25 @@ public class AIBoard extends GameBoard{
 			System.out.println();
 		}
 	}
+
+	@Override
+	public ArrayList<Point3D> getValidMoves() {
+		ArrayList<Point3D> validMoves = new ArrayList<>();
+
+		// Find possible moves for new player turn
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				if(isValidMove(x,y,false)){
+					validMoves.add(new Point3D(x, y, Evaluation.staticWeightsHeuristic(x, y, board, turn)));
+				}
+				// System.out.print(" " + board[x][y]);
+			}
+			// System.out.println(" ");
+		}
+		// System.out.println(" ");
+		return validMoves;
+	}
+
 }
 
 

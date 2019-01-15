@@ -148,7 +148,8 @@ public class BoardPanel extends JPanel {
 			Graphics2D g2 = (Graphics2D) g;
 
 			g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
+            g2.setStroke(new BasicStroke(4f));
+            Color black = new Color(0, 0, 0);
 			if (type == WHITE) {
 				// draw a white circle
 				c = new Color(255, 255, 255);
@@ -164,21 +165,29 @@ public class BoardPanel extends JPanel {
 				c = new Color(255, 0, 0);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
+                g2.setColor(black);
+                g2.drawOval(5,5,w-10, h-10);
 			} else if (type == GREEN) {
 				// draw a black circle
 				c = new Color(0, 255, 0);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
+                g2.setColor(black);
+                g2.drawOval(5,5,w-10, h-10);
 			} else if (type == BLUE) {
 				// draw a black circle
 				c = new Color(0, 0, 255);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
+                g2.setColor(black);
+                g2.drawOval(5,5,w-10, h-10);
 			} else if (type == YELLOW) {
 				// draw a black circle
 				c = new Color(255, 255, 0);
 				g2.setColor(c);
 				g2.fillOval(5, 5, w - 10, h - 10);
+                g2.setColor(black);
+                g2.drawOval(5,5,w-10, h-10);
 			}  else if (type < 0) {
 				String flips;
 				if (type == -999){
@@ -188,9 +197,7 @@ public class BoardPanel extends JPanel {
 				}
 				// change background color to light green and draw number
 
-				c = new Color(0, 0, 0);
-				g2.setColor(c);
-				g2.setStroke(new BasicStroke(3.5f));
+				g2.setColor(black);
 				g2.drawOval(5,5,w-10, h-10);
 
 				g2.setFont(new Font("Arial", Font.BOLD, h / 2));
