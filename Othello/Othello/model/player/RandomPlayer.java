@@ -2,6 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
+import gui.TestAppV2;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -26,7 +27,6 @@ public class RandomPlayer  extends Thread implements Player {
         ArrayList<Point3D> validMoves = boardPanel.getGameBoard().getValidMoves();
         if(validMoves.size() > 0){
             int randInt = random.nextInt(validMoves.size());
-            //try {Thread.sleep(300);}catch(Exception e){}
             boardPanel.play((int)validMoves.get(randInt).getX() , (int)validMoves.get(randInt).getY());
             //boardPanel.getGameBoard().flipDisc((int)validMoves.get(randInt).getX() , (int)validMoves.get(randInt).getY());
         }
@@ -37,14 +37,14 @@ public class RandomPlayer  extends Thread implements Player {
     	while(true) {
     		try {
         		
-    			sleep(100);
+    			sleep(200);
     		} catch (InterruptedException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
     		}
     		//System.out.println("AI Tick");
-        	if(MainApp.getSingleton() == null)
-        		continue;
+			if(MainApp.getSingleton() == null && TestAppV2.getSingleton() == null)
+				continue;
         	//System.out.println("Check 2");
         	//System.out.println("GB:" + boardPanel.getGameBoard());
         	if(boardPanel.getGameBoard() == null)
@@ -54,7 +54,7 @@ public class RandomPlayer  extends Thread implements Player {
         	//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
         	if(getColor() == boardPanel.getGameBoard().getTurn()) {
         		try {
-        			sleep(150);
+        			sleep(100);
         		} catch (InterruptedException e) {
         			// TODO Auto-generated catch block
         			e.printStackTrace();

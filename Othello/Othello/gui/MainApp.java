@@ -15,18 +15,10 @@ public class MainApp{
 	}
 
 	private JFrame frame;
-	private GameBoard gameBoard;
 
 	public JFrame getFrame() {
 		return frame;
 	}
-
-	// --PANELS
-	// right RightPanel
-	private RightPanel rPanel;
-	// left LeftPanel
-	private BoardPanel boardPanel;
-	private Settings settings;
 
 	/**
 	 * Launch the application.
@@ -49,10 +41,9 @@ public class MainApp{
 	 * Create the application.
 	 */
 	private MainApp() {
-
 		frame = new JFrame();
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//frame.setBounds(50, 50, 927*2, 473*2);
+		frame.setBounds(50, 50, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -62,7 +53,7 @@ public class MainApp{
 	    frame.dispose();
 		frame = new JFrame();
 		frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		//frame.setBounds(50, 50, 927*2, 473*2);
+		frame.setBounds(50, 50, 927*2, 473*2);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		initialize();
@@ -73,7 +64,13 @@ public class MainApp{
 	 * Initialize the contents.
 	 */
 	private void initialize() {
-		settings = new Settings();
+		// --PANELS
+		// right RightPanel
+		RightPanel rPanel;
+		// left LeftPanel
+		BoardPanel boardPanel;
+
+		Settings settings = new Settings();
 		// The settings Dialog is Modal so this thread will pause after setting
 		// it to be visible until it is set invisible by the dialog.
 		settings.setVisible(true);
@@ -86,12 +83,12 @@ public class MainApp{
 		Player[] playerList = new Player[playerCount];
 
 		// create the gameBoard/panel
-		gameBoard = new GameBoard(8, 8);
+		GameBoard gameBoard = new GameBoard(8, 8);
 
 		// set the layout
 		frame.getContentPane().setLayout(new GridLayout(1, 2));
 
-		rPanel = new RightPanel(playerList);
+		rPanel = new RightPanel();
 		boardPanel = new BoardPanel(gameBoard, rPanel);
 		frame.getContentPane().add(boardPanel, 1, 0);
 

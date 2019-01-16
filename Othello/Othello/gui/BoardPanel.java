@@ -16,10 +16,10 @@ import static model.data_model.GameBoard.result2;
 
 public class BoardPanel extends JPanel {
 
-	private static GameBoard gameBoard;
+	protected static GameBoard gameBoard;
 
 	// copy of the right panel
-	private RightPanel rightPanel;
+	protected RightPanel rightPanel;
 
 	private SquarePanel[][] sp;
 	private static boolean gameInProgress = true;
@@ -67,12 +67,11 @@ public class BoardPanel extends JPanel {
 				add(sp[x][y]);
 			}
 		}
-
 		showBoard();
 	}
 
 	public void play(int x, int y) {
-		System.out.println(" "+x+","+y);
+		//System.out.println(" " + x + "," + y);
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
 			rightPanel.changeTurn(gameBoard);
@@ -82,9 +81,7 @@ public class BoardPanel extends JPanel {
 				this.gameInProgress = false;
 				if(result.equals(result2)) {
 					message = "It is a tie, the winners are " + result + " and " + result2;
-				}
-				else
-				{
+				} else {
 					message = "The winner is the " + result + " player. " ;
 				}
 				int dialogButton = JOptionPane.YES_NO_OPTION;

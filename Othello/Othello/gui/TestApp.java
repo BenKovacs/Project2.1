@@ -20,7 +20,6 @@ public class TestApp {
     private int depthLevel = 4;
 
     public static void main(String[] args){
-
         testApp = new TestApp();
 
     }
@@ -47,7 +46,7 @@ public class TestApp {
         // create the gameBoard/panel
         gameBoard = new GameBoard(8, 8);
 
-        rPanel = new RightPanel(playerList);
+        rPanel = new RightPanel();
         boardPanel = new BoardPanel(gameBoard, rPanel);
 
         int turn;
