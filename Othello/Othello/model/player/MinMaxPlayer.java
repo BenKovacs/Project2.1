@@ -34,7 +34,7 @@ public class MinMaxPlayer extends Thread implements Player {
 		nPlayers = boardPanel.getGameBoard().getPlayerList().length;
 
 		//construct the tree
-		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth * nPlayers);
+		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth);
 
 		//get the minimax move
 		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
