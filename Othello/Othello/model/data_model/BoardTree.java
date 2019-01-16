@@ -27,7 +27,6 @@ public class BoardTree {
 
         // Leave this part commented for testing purposes
 
-
         /*for(Point3D p: validMoves)System.out.println(p.toString());
 
         tmpBoard.printBoard();
@@ -48,21 +47,25 @@ public class BoardTree {
 
 
         //for each valid moves create a branch with a recursive algorithm
+
         for(Point3D p: validMoves){
             if(debug)System.out.println(p.toString());
 
             Node<Point3D> child = new Node<>(new Point3D(p.getX(), p.getY(), p.getZ()));
             child.setDepth(rootT.getDepth()+1);
-            rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getboard(), tmpBoard.getTurn(), gameBoard.getPlayerList())));
+
+            rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getBoard(), tmpBoard.getTurn(), tmpBoard.getPlayerList())));
         }
+
         //at the end build the tree
         if(debug)printTree(rootT, " ");
+
     }
 
     private Node<Point3D> buildTree(Node<Point3D> root, int depth, AIBoard gmB) {
         if (root.getDepth() == depth) return root;
 
-        gmB.flipDisc((int) root.getData().getX(),  (int) root.getData().getY());//something wring with thissss
+        gmB.flipDisc((int) root.getData().getX(),  (int) root.getData().getY());
 
         if(debug)gmB.printBoard();
 
@@ -77,7 +80,7 @@ public class BoardTree {
             Node<Point3D> n = new Node<>(new Point3D(p.getX(), p.getY(), p.getZ()));
             n.setDepth(root.getDepth()+1);
 
-            root.addChild(buildTree(n, depth, new AIBoard(gmB.getboard(), gmB.getTurn(), gmB.getPlayerList())));
+            root.addChild(buildTree(n, depth, new AIBoard(gmB.getBoard(), gmB.getTurn(), gmB.getPlayerList())));
             //root.addChild(buildTree(n, depth, gmB));
         }
 

@@ -12,12 +12,12 @@ public class GameBoard {
 	private static final boolean EXECUTE = true;
 	private static final boolean SIMULATE = false;
 
-	protected int width;
+	private int width;
     protected int height;
 	protected int[][] board;
 
 	// Game staten
-	protected int turn;
+	public static int turn;
 	private Point lastMove;
 	protected int countValid;
 	public static int count1;
@@ -457,7 +457,7 @@ public class GameBoard {
 		return board[x][y];
 	}
 
-	public int[][] getboard() { return board; }
+	int[][] getboard() { return board; }
 
 	public int getHeight() {
 		return height;
