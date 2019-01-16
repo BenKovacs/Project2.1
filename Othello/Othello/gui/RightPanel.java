@@ -26,7 +26,7 @@ public class RightPanel extends JPanel {
 
 	}
 
-	void changeTurn(){
+	void changeTurn(GameBoard gameBoard){
 		System.out.print(colorArray[GameBoard.turn] + "'s Turn");
 		playerTurn.setText(colorArray[GameBoard.turn] + "'s Turn\n");
 

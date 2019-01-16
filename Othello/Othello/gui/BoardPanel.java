@@ -75,7 +75,7 @@ public class BoardPanel extends JPanel {
 		System.out.println(" "+x+","+y);
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
-			rightPanel.changeTurn();
+			rightPanel.changeTurn(gameBoard);
 			;
 			String message = "";
 			if (gameBoard.isGameFinished()) {

@@ -2,9 +2,7 @@ package model.data_model;
 
 import javafx.geometry.Point3D;
 import model.player.Player;
-
 import java.util.ArrayList;
-import static model.data_model.Constants.*;
 
 /**
  * Encapsulate some of the features of the board but easier to manage for AI
