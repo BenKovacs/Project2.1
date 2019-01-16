@@ -1,7 +1,6 @@
 package model.data_model;
 
 import javafx.geometry.Point3D;
-
 import java.awt.*;
 import java.util.ArrayList;
 

@@ -17,7 +17,7 @@ public class GameBoard {
 	protected int[][] board;
 
 	// Game staten
-	public static int turn;
+	protected int turn;
 	private Point lastMove;
 	protected int countValid;
 	public static int count1;
@@ -99,7 +99,7 @@ public class GameBoard {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-	private boolean isValidMove(int x, int y, boolean executeMove) {
+	protected boolean isValidMove(int x, int y, boolean executeMove) {
 		if (!(board[x][y] == EMPTY || board[x][y] < 0)){
 			return false;
 		} else if (checkFlip(x, y, executeMove) > 0){
@@ -457,7 +457,7 @@ public class GameBoard {
 		return board[x][y];
 	}
 
-	private int[][] getboard() { return board; }
+	public int[][] getboard() { return board; }
 
 	public int getHeight() {
 		return height;
