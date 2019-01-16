@@ -26,23 +26,25 @@ public class BoardTree {
         ArrayList<Point3D> validMoves = tmpBoard.getValidMoves();
 
         // Leave this part commented for testing purposes
-		/*for(Point3D p: validMoves)System.out.println(p.toString());
 
-		tmpBoard.printBoard();
+
+        /*for(Point3D p: validMoves)System.out.println(p.toString());
+
+        tmpBoard.printBoard();
 
 		tmpBoard.flipDisc((int)validMoves.get(0).getX(), (int)validMoves.get(0).getY());
-		System.out.println(validMoves.get(0).toString());
+		System.out.println("move for " + tmpBoard.getTurn() + " " +validMoves.get(0).toString());
 		tmpBoard.printBoard();
+        System.out.println();
 
 		validMoves.clear();
-		tmpBoard.changeTurn();
-		validMoves = tmpBoard.getValidM();
-
+		validMoves = tmpBoard.getValidMoves();
 		for(Point3D p: validMoves)System.out.println(p.toString());
 
-		System.out.println(validMoves.get(0).toString());
 		tmpBoard.flipDisc((int)validMoves.get(0).getX(), (int)validMoves.get(0).getY());
-		tmpBoard.printBoard();*/
+        System.out.println("move for " + tmpBoard.getTurn() + " " +validMoves.get(0).toString());
+		tmpBoard.printBoard();
+        System.out.println("endddd");*/
 
 
         //for each valid moves create a branch with a recursive algorithm
@@ -61,8 +63,7 @@ public class BoardTree {
         if (root.getDepth() == depth) return root;
 
         gmB.flipDisc((int) root.getData().getX(),  (int) root.getData().getY());//something wring with thissss
-        // it doesn't change anything in the board
-        gmB.changeTurn();
+
         if(debug)gmB.printBoard();
 
         // check how many possibilities with this node

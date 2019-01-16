@@ -17,6 +17,8 @@ public class AIBoard extends GameBoard{
 		for (int i = 0; i < b.length; i++) {
 			for (int f = 0; f < b[0].length; f++) {
 				board[i][f] = b[i][f];
+				if (board[i][f] < 0)
+					board[i][f] = Constants.EMPTY;
 			}
 		}
 
@@ -47,11 +49,8 @@ public class AIBoard extends GameBoard{
 				if(isValidMove(x,y,false)){
 					validMoves.add(new Point3D(x, y, Evaluation.staticWeightsHeuristic(x, y, board, turn)));
 				}
-				// System.out.print(" " + board[x][y]);
 			}
-			// System.out.println(" ");
 		}
-		// System.out.println(" ");
 		return validMoves;
 	}
 

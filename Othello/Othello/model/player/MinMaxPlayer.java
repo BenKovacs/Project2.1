@@ -7,8 +7,6 @@ import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
 import model.data_model.Node;
 
-import static java.lang.Thread.sleep;
-
 
 /**
  * This class need to be reviewed but the tree building works
@@ -35,7 +33,7 @@ public class MinMaxPlayer extends Thread implements Player {
 		nPlayers = boardPanel.getGameBoard().getPlayerList().length;
 
 		//construct the tree
-		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth);
+		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth * nPlayers);
 
 		//get the minimax move
 		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
@@ -79,10 +77,12 @@ public class MinMaxPlayer extends Thread implements Player {
 
 				double eval;
 
+
 				if(toMinimize >=2)
 					eval = minimax(n, depth-1, false, toMinimize-1).getData().getZ();
 				else
 					eval = minimax(n, depth-1, true, nPlayers).getData().getZ();
+
 
 				if(minEval.getData().getZ()> eval)
 					minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), eval));

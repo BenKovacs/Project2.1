@@ -120,7 +120,7 @@ public class BoardPanel extends JPanel {
 		private int w, h;
 		private Color backGroundcolor;
 
-		public SquarePanel(int x, int y, int type) {
+		private SquarePanel(int x, int y, int type) {
 			this.type = type;
 			this.x = x;
 			this.y = y;

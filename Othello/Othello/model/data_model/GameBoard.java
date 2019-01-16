@@ -17,7 +17,7 @@ public class GameBoard {
 	protected int[][] board;
 
 	// Game staten
-	public static int turn;
+	protected int turn;
 	private Point lastMove;
 	protected int countValid;
 	public static int count1;
@@ -95,11 +95,11 @@ public class GameBoard {
 		}
 	}
 
-	public boolean isInsideBoard(int x, int y) {
+	private boolean isInsideBoard(int x, int y) {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-	public boolean isValidMove(int x, int y, boolean executeMove) {
+	protected boolean isValidMove(int x, int y, boolean executeMove) {
 		if (!(board[x][y] == EMPTY || board[x][y] < 0)){
 			return false;
 		} else if (checkFlip(x, y, executeMove) > 0){
@@ -110,7 +110,7 @@ public class GameBoard {
 		return false;
 	}
 
-	public boolean checkForValidMoves(){
+	private boolean checkForValidMoves(){
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++) {
 				if ((board[i][j] == EMPTY || board[i][j] < 0) && (checkFlip(i, j, false) > 0)){
@@ -120,7 +120,7 @@ public class GameBoard {
 		}
 		return false;
 	}
-	public boolean checkForNeighbours(int x, int y){
+	private boolean checkForNeighbours(int x, int y){
 		for(int i = -1; i <= 1; i++){
 			for(int j = -1; j <= 1; j++) {
 				if (isInsideBoard(x+i, y+j)){
@@ -135,7 +135,7 @@ public class GameBoard {
 
 	// returns -1 if no flips from that position that direction, otherwise return
 	// the number of flips from that position
-	public int countFlips(int x, int y) {
+	private int countFlips(int x, int y) {
 		if (board[x][y] == EMPTY || board[x][y] < 0) {
 			return checkFlip(x, y, SIMULATE);
 		} else {
@@ -186,7 +186,7 @@ public class GameBoard {
 		}
 	}
 
-	public void changeTurn() {
+	private void changeTurn() {
 		swapPlayers();
 		showValidMoves();
 	}
@@ -214,7 +214,7 @@ public class GameBoard {
 	/**
 	 * Recalculates the list of possible moves
 	 */
-	public void showValidMoves() {
+	private void showValidMoves() {
 		validMoves.clear();
 		// Reset possible moves
 		countValid = 0;
@@ -457,9 +457,7 @@ public class GameBoard {
 		return board[x][y];
 	}
 
-	public int[][] getboard() {
-		return board;
-	}
+	public int[][] getboard() { return board; }
 
 	public int getHeight() {
 		return height;
