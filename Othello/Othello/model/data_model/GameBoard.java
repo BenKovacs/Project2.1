@@ -13,13 +13,13 @@ public class GameBoard {
 	private static final boolean SIMULATE = false;
 
 	private int width;
-    protected int height;
-	protected int[][] board;
+	private int height;
+	private int[][] board;
 
 	// Game staten
 	public static int turn;
 	private Point lastMove;
-	protected int countValid;
+	private int countValid;
 	public static int count1;
 	public static int count2;
 	public static int count3;
@@ -27,9 +27,10 @@ public class GameBoard {
 	public static String result;
 	public static String result2;
 
-	protected Player[] playerList;
+
+	private Player[] playerList;
 	private Player player;
-	protected ArrayList<Point3D> validMoves = new ArrayList<>();
+	private ArrayList<Point3D> validMoves = new ArrayList<>();
 	private ArrayList<Point3D> previousMoves = new ArrayList<>();
 
 	public GameBoard(int width, int height) {
@@ -49,7 +50,14 @@ public class GameBoard {
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
-
+//		board[0][0] = WHITE;
+//		board[1][0] = WHITE;
+//		board[2][0] = WHITE;
+//		board[3][0] = WHITE;
+//		board[0][1] = BLACK;
+//		board[1][1] = BLACK;
+//		board[2][1] = BLACK;
+//		board[3][1] = BLACK;
 	}
 
 	/**
@@ -95,11 +103,11 @@ public class GameBoard {
 		}
 	}
 
-	private boolean isInsideBoard(int x, int y) {
+	public boolean isInsideBoard(int x, int y) {
 		return x >= 0 && x < width && y >= 0 && y < height;
 	}
 
-	protected boolean isValidMove(int x, int y, boolean executeMove) {
+	public boolean isValidMove(int x, int y, boolean executeMove) {
 		if (!(board[x][y] == EMPTY || board[x][y] < 0)){
 			return false;
 		} else if (checkFlip(x, y, executeMove) > 0){
@@ -110,7 +118,7 @@ public class GameBoard {
 		return false;
 	}
 
-	private boolean checkForValidMoves(){
+	public boolean checkForValidMoves(){
 		for(int i = 0; i < width; i++){
 			for(int j = 0; j < height; j++) {
 				if ((board[i][j] == EMPTY || board[i][j] < 0) && (checkFlip(i, j, false) > 0)){
@@ -120,7 +128,7 @@ public class GameBoard {
 		}
 		return false;
 	}
-	private boolean checkForNeighbours(int x, int y){
+	public boolean checkForNeighbours(int x, int y){
 		for(int i = -1; i <= 1; i++){
 			for(int j = -1; j <= 1; j++) {
 				if (isInsideBoard(x+i, y+j)){
@@ -135,7 +143,7 @@ public class GameBoard {
 
 	// returns -1 if no flips from that position that direction, otherwise return
 	// the number of flips from that position
-	private int countFlips(int x, int y) {
+	public int countFlips(int x, int y) {
 		if (board[x][y] == EMPTY || board[x][y] < 0) {
 			return checkFlip(x, y, SIMULATE);
 		} else {
@@ -186,7 +194,7 @@ public class GameBoard {
 		}
 	}
 
-	private void changeTurn() {
+	public void changeTurn() {
 		swapPlayers();
 		showValidMoves();
 	}
@@ -214,7 +222,7 @@ public class GameBoard {
 	/**
 	 * Recalculates the list of possible moves
 	 */
-	private void showValidMoves() {
+	public void showValidMoves() {
 		validMoves.clear();
 		// Reset possible moves
 		countValid = 0;
@@ -257,135 +265,136 @@ public class GameBoard {
 	 * @return true or false
 	 */
 	public boolean isGameFinished() {
-	//	Settings settings = new Settings();
+		//	Settings settings = new Settings();
 		int highestScorePositionOne =0;
 		int highestScorePositionTwo =0;
 		//RightPanel rightpanel = new RightPanel();
 		int[] scores = new int[playerList.length];
-		String[] players = {"WHITE", "BLACK", "RED", "GREEN", "BLUE", "YELLOW"};
-		if (count1 + count2 + count3 + count4 == 64) {
-//						if (playerList.length == 2) {
-//							scores[0] = count1;
-//							scores[1] = count2;
-//
-//							if (scores[0] > scores[1])
-//							{
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 1;
-//							}
-//							else
-//							{
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 0;
-//
-//							}
-//
-//							System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
-//						}
-//						if(playerList.length == 3) {
-//							scores[0] =count1;
-//							scores[1] =count2;
-//							scores[2] =count3;
-//							System.out.println(count1 +" "+ count2 + " "+ count3);
-//							// score 0 wins
-//							if (scores[0] > scores[1] && scores[1] > scores[2]) {
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 1;
-//							} else if (scores[0] > scores[2] && scores[2] > scores[1]) {
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 2;
-//
-//
-//								// score 1 wins
-//							} else if (scores[1] > scores[0] && scores[0] > scores[2]) {
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 0;
-//
-//							} else if (scores[1] > scores[2] && scores[2] > scores[0]) {
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 2;
-//
-//
-//								//score 2 wins
-//							} else if (scores[2] > scores[1] && scores[1] > scores[0]) {
-//								highestScorePositionOne = 2;
-//								highestScorePositionTwo = 1;
-//
-//							} else if(scores[2] > scores[0] && scores[0] > scores[1]){
-//								highestScorePositionOne = 2;
-//								highestScorePositionTwo = 0;
-//
-//							}
-//							System.out.println(" Highest score one :  "+highestScorePositionOne +"  highest score two : "+ highestScorePositionTwo);
-//						}
-//						if(playerList.length == 4)
-//                        {
-//                            scores[0] =count1;
-//                            scores[1] =count2;
-//                            scores[2] =count3;
-//                            scores[3] =count4;
-//
-//							//score 0 wins
-//							if (scores[0] > scores[1] && scores[1] > scores[2] && scores[1] > scores[3]) {
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 1;
-//							} else if (scores[0] > scores[2] && scores[2] > scores[1] && scores[2] > scores[3]) {
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 2;
-//							} else if (scores[0] > scores[3] && scores[3] > scores[1] && scores[3] > scores[2]) {
-//								highestScorePositionOne = 0;
-//								highestScorePositionTwo = 3;
-//							}
-//							//scores 1 wins
-//							else if (scores[1] > scores[0] && scores[0] > scores[2] && scores[0] > scores[3]) {
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 0;
-//							} else if (scores[1] > scores[2] && scores[2] > scores[0] && scores[2] > scores[3]) {
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 2;
-//							}else if (scores[1] > scores[3] && scores[3] > scores[0] && scores[3] > scores[2]) {
-//								highestScorePositionOne = 1;
-//								highestScorePositionTwo = 3;
-//							}
-//							// scores 2 wins
-//							else if (scores[2] > scores[1] && scores[1] > scores[0] && scores[1] > scores[3]) {
-//								highestScorePositionOne = 2;
-//								highestScorePositionTwo = 1;
-//							} else  if(scores[2] > scores[0] && scores[0] > scores[1] && scores[0] > scores[3]){
-//								highestScorePositionOne = 2;
-//								highestScorePositionTwo = 0;
-//							}else if (scores[2] > scores[3] && scores[3] > scores[0] && scores[3] > scores[1]) {
-//								highestScorePositionOne = 2;
-//								highestScorePositionTwo = 3;
-//							}
-//
-//							// score 3 wins
-//							else if (scores[3] > scores[1] && scores[1] > scores[2]&& scores[1] > scores[0]) {
-//								highestScorePositionOne = 3;
-//								highestScorePositionTwo = 1;
-//							} else  if(scores[3] > scores[0] && scores[0] > scores[1] && scores[0] > scores[2]){
-//								highestScorePositionOne = 3;
-//								highestScorePositionTwo = 0;
-//							}else if (scores[3] > scores[2] && scores[2] > scores[0] && scores[2] > scores[1] ) {
-//								highestScorePositionOne = 3;
-//								highestScorePositionTwo = 2;
-//							}
-//							System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
-//                        }
-//
-//			if (playerList.length == 2) {
-//				result = players[highestScorePositionOne];
-//				result2 = players[highestScorePositionTwo];
-//			}
-//			else if (playerList.length == 3) {
-//				result = players[highestScorePositionOne+2];
-//				result2 = players[highestScorePositionTwo+2];
-//				System.out.println(result + " " + result2);
-//			}
-//			else if(playerList.length == 4) {
-//				result = players[highestScorePositionOne+2];
-//				result2 = players[highestScorePositionTwo+2];
-//			}
+		String[] players = {"WHITE", "BLACK","RED", "GREEN","BLUE", "YELLOW"};
+		if (count1 + count2 + count3 + count4 == 64)
+		{
+			if (playerList.length == 2) {
+				scores[0] = count1;
+				scores[1] = count2;
+
+				if (scores[0] > scores[1])
+				{
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 1;
+				}
+				else
+				{
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 0;
+				}
+				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
+			}
+			if(playerList.length == 3) {
+				scores[0] =count1;
+				scores[1] =count2;
+				scores[2] =count3;
+				System.out.println(count1 +" "+ count2 + " "+ count3);
+				// score 0 wins
+				if (scores[0] > scores[1] && scores[1] > scores[2]) {
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 1;
+				} else if (scores[0] > scores[2] && scores[2] > scores[1]) {
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 2;
+
+
+					// score 1 wins
+				} else if (scores[1] > scores[0] && scores[0] > scores[2]) {
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 0;
+
+				} else if (scores[1] > scores[2] && scores[2] > scores[0]) {
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 2;
+
+
+					//score 2 wins
+				} else if (scores[2] > scores[1] && scores[1] > scores[0]) {
+					highestScorePositionOne = 2;
+					highestScorePositionTwo = 1;
+
+				} else if(scores[2] > scores[0] && scores[0] > scores[1]){
+					highestScorePositionOne = 2;
+					highestScorePositionTwo = 0;
+				}
+				System.out.println(" Highest score one :  "+highestScorePositionOne +"  highest score two : "+ highestScorePositionTwo);
+			}
+			if(playerList.length == 4)
+			{
+				scores[0] =count1;
+				scores[1] =count2;
+				scores[2] =count3;
+				scores[3] =count4;
+
+				//score 0 wins
+				if (scores[0] > scores[1] && scores[1] > scores[2] && scores[1] > scores[3]) {
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 1;
+				} else if (scores[0] > scores[2] && scores[2] > scores[1] && scores[2] > scores[3]) {
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 2;
+				} else if (scores[0] > scores[3] && scores[3] > scores[1] && scores[3] > scores[2]) {
+					highestScorePositionOne = 0;
+					highestScorePositionTwo = 3;
+				}
+				//scores 1 wins
+				else if (scores[1] > scores[0] && scores[0] > scores[2] && scores[0] > scores[3]) {
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 0;
+				} else if (scores[1] > scores[2] && scores[2] > scores[0] && scores[2] > scores[3]) {
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 2;
+				}else if (scores[1] > scores[3] && scores[3] > scores[0] && scores[3] > scores[2]) {
+					highestScorePositionOne = 1;
+					highestScorePositionTwo = 3;
+				}
+				// scores 2 wins
+				else if (scores[2] > scores[1] && scores[1] > scores[0] && scores[1] > scores[3]) {
+					highestScorePositionOne = 2;
+					highestScorePositionTwo = 1;
+				} else  if(scores[2] > scores[0] && scores[0] > scores[1] && scores[0] > scores[3]){
+					highestScorePositionOne = 2;
+					highestScorePositionTwo = 0;
+				}else if (scores[2] > scores[3] && scores[3] > scores[0] && scores[3] > scores[1]) {
+					highestScorePositionOne = 2;
+					highestScorePositionTwo = 3;
+				}
+
+				// score 3 wins
+				else if (scores[3] > scores[1] && scores[1] > scores[2]&& scores[1] > scores[0]) {
+					highestScorePositionOne = 3;
+					highestScorePositionTwo = 1;
+				} else  if(scores[3] > scores[0] && scores[0] > scores[1] && scores[0] > scores[2]){
+					highestScorePositionOne = 3;
+					highestScorePositionTwo = 0;
+				}else if (scores[3] > scores[2] && scores[2] > scores[0] && scores[2] > scores[1] ) {
+					highestScorePositionOne = 3;
+					highestScorePositionTwo = 2;
+				}
+				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
+			}
+
+
+
+
+
+			if (playerList.length == 2) {
+				result = players[highestScorePositionOne];
+				result2 = players[highestScorePositionTwo];
+
+
+			}
+			if (playerList.length > 2) {
+				result = players[highestScorePositionOne+2];
+				result2 = players[highestScorePositionTwo+2];
+				System.out.println(result + result2);
+
+			}
 			return true;
 		}
 		if(playerList.length == 2){
@@ -400,6 +409,7 @@ public class GameBoard {
 		}
 		return false;
 	}
+
 
 	public void setPlayerList(Player[] playerList) {
 		this.playerList = playerList;
@@ -417,14 +427,13 @@ public class GameBoard {
 	}
 
 	public ArrayList<Point3D> getValidMoves() {
-		//showValidMoves();
+		// showValidMoves();
 		return validMoves;
 	}
 
 	public Player[] getPlayerList() {
 		return playerList;
 	}
-
 	public Player getPlayer() {
 		return player;
 	}
@@ -457,7 +466,9 @@ public class GameBoard {
 		return board[x][y];
 	}
 
-	int[][] getboard() { return board; }
+	public int[][] getboard() {
+		return board;
+	}
 
 	public int getHeight() {
 		return height;
