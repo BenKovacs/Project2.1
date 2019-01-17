@@ -13,7 +13,7 @@ public class TestApp {
     private RightPanel rPanel;
 
     private String p1 = "minmax";
-    private String p2 = "greedy";
+    private String p2 = "minmax";
     private String p3;
     private String p4;
     private int numPlayers = 2;

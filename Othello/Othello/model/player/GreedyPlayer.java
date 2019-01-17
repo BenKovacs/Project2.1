@@ -29,6 +29,14 @@ public class GreedyPlayer extends Thread implements Player{
         	for(int i = 0; i < validMoves.size(); i++) {
         		Point3D p = validMoves.get(i);
         		int type = boardPanel.getGameBoard().getSquareType((int)p.getX(), (int)p.getY());
+
+        		int x =(int) p.getX();
+        		int y =(int) p.getY();
+
+        		if((x==0 && y == 0)||(x==0 && y == 7)||(x==7 && y == 0)||(x==7 && y == 7))
+        		{
+                    boardPanel.play(x , y);
+                }
         		if(type < 0) {
         			int flips = -type;
         			if(flips > maxFlips || max == null) {
@@ -37,8 +45,8 @@ public class GreedyPlayer extends Thread implements Player{
         			}
         		}
         	}
-
             boardPanel.play((int)max.getX() , (int)max.getY());
+
         }
     }
 

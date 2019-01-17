@@ -9,7 +9,7 @@ import static model.data_model.GameBoard.result2;
 
 public class TestingPanel extends BoardPanel {
 	private static int gamesPlayed = 0;
-	private int maxGames = 3;
+	private int maxGames = 10;
 
 	public TestingPanel(GameBoard gameB, RightPanel rPanel) {
 		super(gameB, rPanel);
@@ -22,12 +22,12 @@ public class TestingPanel extends BoardPanel {
 			rightPanel.changeTurn(gameBoard);
 			if (gameBoard.isGameFinished()) {
 				gamesPlayed++;
-				System.out.println(gamesPlayed +  "/" + maxGames + " games played");
-				if(gamesPlayed < maxGames){
+				if(gamesPlayed <= maxGames){
 					TestAppV2.getSingleton().reset();
 				} else {
 					System.exit(-1);
 				}
+				System.out.println(gamesPlayed +  "/" + maxGames + " games played");
 			}
 		}
 	}
