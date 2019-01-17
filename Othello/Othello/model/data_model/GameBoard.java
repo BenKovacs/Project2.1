@@ -45,19 +45,22 @@ public class GameBoard {
 			}
 		}
 		lastMove = null;
+
 		turn = WHITE;
 		board[3][3] = WHITE;
 		board[3][4] = BLACK;
 		board[4][3] = BLACK;
 		board[4][4] = WHITE;
-//		board[0][0] = WHITE;
-//		board[1][0] = WHITE;
-//		board[2][0] = WHITE;
-//		board[3][0] = WHITE;
-//		board[0][1] = BLACK;
-//		board[1][1] = BLACK;
-//		board[2][1] = BLACK;
-//		board[3][1] = BLACK;
+
+//		turn = BLACK;
+//		board[3][3] = WHITE;
+//		board[4][2] = WHITE;
+//		board[4][3] = WHITE;
+//		board[5][4] = WHITE;
+//		board[6][5] = WHITE;
+//		board[3][4] = BLACK;
+//		board[4][4] = BLACK;
+
 	}
 
 	/**

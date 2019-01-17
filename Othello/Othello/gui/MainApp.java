@@ -103,28 +103,34 @@ public class MainApp{
 		} else if (settings.getPlayer1().equalsIgnoreCase("minmax")) {
 			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 			playerList[0] = ai;
-			//ai.start();
+			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("greedy")) {
 			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
-			//ai.start();
+			ai.start();
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("random")) {
 			RandomPlayer ai = new RandomPlayer(boardPanel, turn);
-			//ai.start();
+			ai.start();
 			playerList[0] = ai;
 		} else if (settings.getPlayer1().equalsIgnoreCase("mcts")) {
 			int runtime = 2000; //min runtime in millisecs
 			int iterations = 0; //min iterations
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			playerList[0] = ai;
-			//ai.start();
+			ai.start();
 		} else if (settings.getPlayer1().equalsIgnoreCase("smcts")) {
             int runtime = 3000; //min runtime in millisecs
             int iterations = 0; //min iterations
             SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
             playerList[0] = ai;
-            //ai.start();
-        }
+            ai.start();
+        } else if (settings.getPlayer1().equalsIgnoreCase("smcts2")) {
+			int runtime = 3000; //min runtime in millisecs
+			int iterations = 0; //min iterations
+			SuperMonteCarloTreeSearch2 ai = new SuperMonteCarloTreeSearch2(boardPanel, turn, runtime, iterations);
+			playerList[0] = ai;
+			ai.start();
+		}
 
 		if (playerCount == 2){
 			turn = Constants.BLACK;
@@ -136,28 +142,34 @@ public class MainApp{
 		} else if (settings.getPlayer2().equalsIgnoreCase("minmax")) {
 			MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 			playerList[1] = ai;
-			//ai.start();
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("greedy")) {
 			GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
 			playerList[1]  = ai;
-			//ai.start();
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("random")) {
 			RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 			playerList[1] = ai;
-			//ai.start();
+			ai.start();
 		} else if (settings.getPlayer2().equalsIgnoreCase("mcts")) {
 			int runtime = 2000; //min runtime in millisecs
 			int iterations = 0; //min iterations
 			MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
-			//ai.start();
+			ai.start();
 			playerList[1] = ai;
 		} else if (settings.getPlayer2().equalsIgnoreCase("smcts")) {
             int runtime = 3000; //min runtime in millisecs
             int iterations = 0; //min iterations
             SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
             playerList[1] = ai;
-            //ai.start();
-        }
+            ai.start();
+        } else if (settings.getPlayer2().equalsIgnoreCase("smcts2")) {
+			int runtime = 3000; //min runtime in millisecs
+			int iterations = 0; //min iterations
+			SuperMonteCarloTreeSearch2 ai = new SuperMonteCarloTreeSearch2(boardPanel, turn, runtime, iterations);
+			playerList[1] = ai;
+			ai.start();
+		}
 
 		if (playerCount > 2){
 			turn = Constants.BLUE;
@@ -166,28 +178,34 @@ public class MainApp{
 			} else if (settings.getPlayer3().equalsIgnoreCase("minmax")) {
 				MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 				playerList[2] = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("greedy")) {
 				GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
 				playerList[2]  = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("random")) {
 				RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 				playerList[2] = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer3().equalsIgnoreCase("mcts")) {
 				int runtime = 2000; //min runtime in millisecs
 				int iterations = 0; //min iterations
 				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
-				//ai.start();
+				ai.start();
 				playerList[2] = ai;
 			} else if (settings.getPlayer3().equalsIgnoreCase("smcts")) {
                 int runtime = 3000; //min runtime in millisecs
                 int iterations = 0; //min iterations
                 SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
                 playerList[2] = ai;
-                //ai.start();
-            }
+                ai.start();
+            } else if (settings.getPlayer3().equalsIgnoreCase("smcts2")) {
+				int runtime = 3000; //min runtime in millisecs
+				int iterations = 0; //min iterations
+				SuperMonteCarloTreeSearch2 ai = new SuperMonteCarloTreeSearch2(boardPanel, turn, runtime, iterations);
+				playerList[2] = ai;
+				ai.start();
+			}
 		}
 
 		if (playerCount > 3){
@@ -197,28 +215,34 @@ public class MainApp{
 			} else if (settings.getPlayer4().equalsIgnoreCase("minmax")) {
 				MinMaxPlayer ai = new MinMaxPlayer(boardPanel, turn, settings.getDepthLevel());
 				playerList[3] = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("greedy")) {
 				GreedyPlayer ai = new GreedyPlayer(boardPanel, turn);
 				playerList[3]  = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("random")) {
 				RandomPlayer ai = new RandomPlayer(boardPanel, turn);
 				playerList[3] = ai;
-				//ai.start();
+				ai.start();
 			} else if (settings.getPlayer4().equalsIgnoreCase("mcts")) {
 				int runtime = 2000; //min runtime in millisecs
 				int iterations = 0; //min iterations
 				MonteCarloTreeSearch ai = new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
-				//ai.start();
+				ai.start();
 				playerList[3] = ai;
 			} else if (settings.getPlayer4().equalsIgnoreCase("smcts")) {
                 int runtime = 3000; //min runtime in millisecs
                 int iterations = 0; //min iterations
                 SuperMonteCarloTreeSearch ai = new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
                 playerList[3] = ai;
-                //ai.start();
-            }
+                ai.start();
+            } else if (settings.getPlayer4().equalsIgnoreCase("smcts2")) {
+				int runtime = 3000; //min runtime in millisecs
+				int iterations = 0; //min iterations
+				SuperMonteCarloTreeSearch2 ai = new SuperMonteCarloTreeSearch2(boardPanel, turn, runtime, iterations);
+				playerList[3] = ai;
+				ai.start();
+			}
 		}
 
 
@@ -230,9 +254,5 @@ public class MainApp{
 		boardPanel.setGameBoard(gameBoard);
 		rPanel.setPreferredSize(new Dimension(10, 30));
 		frame.getContentPane().add(rPanel, 0, 1);
-
-        for(Player ai: playerList){
-            ai.start();
-        }
 	}
 }

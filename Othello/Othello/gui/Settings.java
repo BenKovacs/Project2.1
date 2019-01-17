@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 public class Settings extends JDialog {
 
 		private final JPanel contentPanel = new JPanel();
-		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "SMCTS", "Random"};
+		private String[] playersList = {"Human", "Greedy", "MinMax", "MCTS", "SMCTS", "SMCTS2", "Random"};
 		protected boolean okSelected;
 		protected boolean cancelSelected;
 		private JTextField tfDepth;
