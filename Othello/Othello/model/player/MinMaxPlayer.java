@@ -41,20 +41,20 @@ public class MinMaxPlayer extends Thread implements Player {
 		//System.out.println("Elapsed time " + elapsedTime);
 
 		//get the minimax move + little tweak ;)
-		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		/*if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);*/
+		Node<Point3D> bestmove;// = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
 
 		//set true to Maximize the result for the first player
 		//System.out.println(bestmove.getData().toString());
 
 		//select the move and play
 		try{
-			AIBoard instanceBoard =  new AIBoard(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), boardPanel.getGameBoard().getPlayerList());
-			if(instanceBoard.flipDisc((int)bestmove.getData().getX(), (int)bestmove.getData().getY()));
+			//AIBoard instanceBoard =  new AIBoard(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), boardPanel.getGameBoard().getPlayerList());
+			//if(instanceBoard.flipDisc((int)bestmove.getData().getX(), (int)bestmove.getData().getY()));
 			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
 		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
-		catch (NullPointerException e){}
+		//catch (NullPointerException e){}
 	}
 
 
@@ -108,6 +108,8 @@ public class MinMaxPlayer extends Thread implements Player {
 		//condition of end
 		if(depth == 0) return node;
 
+		if(node.getChildren().size()==0) return node;
+
 		//act for the MAX
 		if(maxPlayer){
 			Node<Point3D> maxEval = new Node(new Point3D(0,0,-999));
@@ -118,9 +120,10 @@ public class MinMaxPlayer extends Thread implements Player {
 					maxEval = new Node(new Point3D( n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
-				alpha = Math.max(alpha, (int)eval);
+				alpha = Math.max(alpha, (int)maxEval.getData().getZ());
 				if(beta <= alpha)break;
 			}
+			
 			return maxEval;
 
 		}else{ // act for the MIN
@@ -132,7 +135,7 @@ public class MinMaxPlayer extends Thread implements Player {
 					minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
-				beta = Math.min(beta, (int)eval);
+				beta = Math.min(beta, (int)minEval.getData().getZ());
 				if(beta <= alpha)break;
 			}
 			return minEval;
