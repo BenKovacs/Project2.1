@@ -3,6 +3,7 @@ package model.data_model;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Class that compute the tree of possibilities from the current board status
@@ -47,6 +48,8 @@ public class BoardTree {
 
 
         //for each valid moves create a branch with a recursive algorithm
+        //testing Threads!!!!
+        ArrayList<Thread> threads = new ArrayList<>();
 
         for(Point3D p: validMoves){
             if(debug)System.out.println(p.toString());
@@ -54,7 +57,23 @@ public class BoardTree {
             Node<Point3D> child = new Node<>(new Point3D(p.getX(), p.getY(), p.getZ()));
             child.setDepth(rootT.getDepth()+1);
 
-            rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getBoard(), tmpBoard.getTurn(), tmpBoard.getPlayerList())));
+
+            Thread t = new Thread(() -> rootT.addChild(buildTree(child, depth, new AIBoard(tmpBoard.getBoard(), tmpBoard.getTurn(), tmpBoard.getPlayerList()))));
+
+            t.start();
+
+            threads.add(t);
+        }
+
+        boolean going = true;
+        while(going){
+
+            int a = 0;
+            for(Thread t: threads){
+                if(t.isAlive())a++;
+            }
+
+            if(a==0)going = false;
         }
 
         //at the end build the tree

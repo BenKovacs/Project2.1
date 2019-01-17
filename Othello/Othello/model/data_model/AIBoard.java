@@ -146,7 +146,7 @@ public class AIBoard{
 				int flips = countFlips(x, y);
 				if (flips > 0) {
 					//add here the evaluation function
-					validMoves.add(new Point3D(x, y, Evaluation.staticWeightsHeuristic(x,y , this.board, this.turn)));
+					validMoves.add(new Point3D(x, y, Evaluation.staticWeightsHeuristic(x,y , this.board, this.turn) + flips));
 
 				} else if (isValidMove(x, y, false)){
 					board[x][y] = VALID;

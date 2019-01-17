@@ -2,7 +2,6 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
-import gui.TestApp;
 import gui.TestAppV2;
 import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
@@ -33,12 +32,17 @@ public class MinMaxPlayer extends Thread implements Player {
 
 		nPlayers = boardPanel.getGameBoard().getPlayerList().length;
 
+		long start = System.nanoTime();
 		//construct the tree
 		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth);
 
-		//get the minimax move
-		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		//Node<Point3D> bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
+		double elapsedTime = ((double)(System.nanoTime() - start)/ 1_000_000_000.0);
+		//System.out.println("Elapsed time " + elapsedTime);
+
+		//get the minimax move + little tweak ;)
+		Node<Point3D> bestmove;
+		if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
 
 		//set true to Maximize the result for the first player
 		//System.out.println(bestmove.getData().toString());
@@ -47,6 +51,7 @@ public class MinMaxPlayer extends Thread implements Player {
 		try{
 			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
 		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
+		catch (NullPointerException e){}
 	}
 
 
@@ -94,9 +99,9 @@ public class MinMaxPlayer extends Thread implements Player {
 
 
 	/**
-	 *AlphaBeta ALGORITHM not FIXED
+	 *AlphaBeta ALGORITHM valid for 2 players
 	 */
-	/*private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer){
+	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer){
 		//condition of end
 		if(depth == 0) return node;
 
@@ -104,8 +109,10 @@ public class MinMaxPlayer extends Thread implements Player {
 		if(maxPlayer){
 			Node<Point3D> maxEval = new Node(new Point3D(0,0,-999));
 			for(Node<Point3D> n: node.getChildren()){
-				double eval = minimax(n, depth-1, false).getData().getZ();
-				maxEval = new Node(new Point3D( n.getData().getX(),n.getData().getY(), Math.max(maxEval.getData().getZ(), eval)));
+				double eval = alphaBeta(n, depth-1,alpha, beta, false).getData().getZ();
+
+				if(maxEval.getData().getZ()< eval)
+					maxEval = new Node(new Point3D( n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
 				alpha = Math.max(alpha, (int)eval);
@@ -116,8 +123,10 @@ public class MinMaxPlayer extends Thread implements Player {
 		}else{ // act for the MIN
 			Node<Point3D>  minEval = new Node(new Point3D(0,0,999));
 			for(Node<Point3D> n: node.getChildren()){
-				double eval =minimax(n, depth-1, true).getData().getZ();
-				minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), Math.min(minEval.getData().getZ(), eval)));
+				double eval = alphaBeta(n, depth-1,alpha, beta, true).getData().getZ();
+
+				if(minEval.getData().getZ()> eval)
+					minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
 				beta = Math.min(beta, (int)eval);
@@ -125,7 +134,7 @@ public class MinMaxPlayer extends Thread implements Player {
 			}
 			return minEval;
 		}
-	}*/
+	}
 
 	public void run() {
 		while(true) {
