@@ -39,11 +39,15 @@ public class AIBoard{
 	/**
 	 * Flips a disc at square x,y
 	 */
-	public void flipDisc(int x, int y) {
+	public boolean flipDisc(int x, int y) {
 		if (isValidMove(x, y, true)) {
 			board[x][y] = turn;
 			changeTurn();
-		} else System.out.println("AIBOARD " + x + "," + y + " is invalid move");
+			return true;
+		} else {
+			System.out.println("AIBOARD " + x + "," + y + " is invalid move");
+			return false;
+		}
 	}
 
 	protected boolean isValidMove(int x, int y, boolean executeMove) {

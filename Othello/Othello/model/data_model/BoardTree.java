@@ -3,7 +3,6 @@ package model.data_model;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Class that compute the tree of possibilities from the current board status
