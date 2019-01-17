@@ -4,6 +4,7 @@ import gui.BoardPanel;
 import gui.MainApp;
 import gui.TestAppV2;
 import javafx.geometry.Point3D;
+import model.data_model.AIBoard;
 import model.data_model.BoardTree;
 import model.data_model.Node;
 
@@ -49,6 +50,8 @@ public class MinMaxPlayer extends Thread implements Player {
 
 		//select the move and play
 		try{
+			AIBoard instanceBoard =  new AIBoard(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), boardPanel.getGameBoard().getPlayerList());
+			if(instanceBoard.flipDisc((int)bestmove.getData().getX(), (int)bestmove.getData().getY()));
 			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
 		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
 		catch (NullPointerException e){}
