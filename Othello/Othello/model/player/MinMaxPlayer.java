@@ -40,9 +40,9 @@ public class MinMaxPlayer extends Thread implements Player {
 		//System.out.println("Elapsed time " + elapsedTime);
 
 		//get the minimax move + little tweak ;)
-		Node<Point3D> bestmove;
-		if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);
+		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		/*if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);*/
 
 		//set true to Maximize the result for the first player
 		//System.out.println(bestmove.getData().toString());
