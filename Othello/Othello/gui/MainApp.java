@@ -232,7 +232,7 @@ public class MainApp{
 		frame.getContentPane().add(rPanel, 0, 1);
 
         for(Player ai: playerList){
-            //ai.start();
+            ai.start();
         }
 	}
 }
