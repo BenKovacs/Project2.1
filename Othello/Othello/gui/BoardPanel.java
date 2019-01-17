@@ -1,7 +1,6 @@
 package gui;
 
 import model.data_model.GameBoard;
-import model.data_model.AIBoard;
 import model.player.Player;
 
 import javax.swing.*;
@@ -96,7 +95,7 @@ public class BoardPanel extends JPanel {
 			//WTF is this !?!?!?!?!
 			/*for (int i = 0; i < 8; i++) {
 				for (int j = 0; j < 8; j++) {
-					AIBoard.isStable(i, j, gameBoard.getboard());
+					BoardManager.isStable(i, j, gameBoard.getboard());
 				}
 			}*/
 		}
