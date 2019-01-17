@@ -2,7 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
-import gui.TestAppV2;
+import gui.TestApp;
 import model.data_model.MCTSBoard;
 import model.data_model.Node;
 
@@ -269,7 +269,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
                 e.printStackTrace();
             }
             //System.out.println("AI Tick");
-            if(MainApp.getSingleton() == null && TestAppV2.getSingleton() == null)
+            if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
                 continue;
             //System.out.println("Check 2");
             //System.out.println("GB:" + boardPanel.getGameBoard());

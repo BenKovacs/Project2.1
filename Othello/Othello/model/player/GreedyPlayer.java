@@ -3,7 +3,6 @@ package model.player;
 import gui.BoardPanel;
 import gui.MainApp;
 import gui.TestApp;
-import gui.TestAppV2;
 import javafx.geometry.Point3D;
 import java.util.ArrayList;
 
@@ -59,7 +58,7 @@ public class GreedyPlayer extends Thread implements Player{
                 e.printStackTrace();
             }
 
-           if(MainApp.getSingleton() == null && TestAppV2.getSingleton() == null)
+           if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
                 continue;
 
             if(boardPanel.getGameBoard() == null)
@@ -67,7 +66,7 @@ public class GreedyPlayer extends Thread implements Player{
 
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
                 try {
-                    sleep(100);
+                    sleep(200);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

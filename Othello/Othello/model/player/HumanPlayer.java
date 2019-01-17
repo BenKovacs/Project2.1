@@ -24,6 +24,8 @@ public class HumanPlayer implements Player{
 
     public void run(){}
 
+    public void start(){}
+
     @Override
     public String toString() {
         return "Human Player";

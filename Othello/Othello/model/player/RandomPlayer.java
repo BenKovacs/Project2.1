@@ -2,7 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
-import gui.TestAppV2;
+import gui.TestApp;
 import javafx.geometry.Point3D;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class RandomPlayer  extends Thread implements Player {
     			e.printStackTrace();
     		}
     		//System.out.println("AI Tick");
-			if(MainApp.getSingleton() == null && TestAppV2.getSingleton() == null)
+			if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
 				continue;
         	//System.out.println("Check 2");
         	//System.out.println("GB:" + boardPanel.getGameBoard());
@@ -54,7 +54,7 @@ public class RandomPlayer  extends Thread implements Player {
         	//System.out.println("vs "  + boardPanel.getGameBoard().getPlayer().getPlayerType());
         	if(getColor() == boardPanel.getGameBoard().getTurn()) {
         		try {
-        			sleep(100);
+        			sleep(200);
         		} catch (InterruptedException e) {
         			// TODO Auto-generated catch block
         			e.printStackTrace();

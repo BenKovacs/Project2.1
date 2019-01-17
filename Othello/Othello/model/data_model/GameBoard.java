@@ -30,8 +30,8 @@ public class GameBoard {
 
 	private Player[] playerList;
 	private Player player;
-	private ArrayList<Point3D> validMoves = new ArrayList<>();
-	private ArrayList<Point3D> previousMoves = new ArrayList<>();
+	private ArrayList<Point3D> validMoves = new ArrayList<>(64);
+	private ArrayList<Point3D> previousMoves = new ArrayList<>(64);
 
 	public GameBoard(int width, int height) {
 		this.width = width;
@@ -293,7 +293,7 @@ public class GameBoard {
 				scores[0] =count1;
 				scores[1] =count2;
 				scores[2] =count3;
-				System.out.println(count1 +" "+ count2 + " "+ count3);
+				//System.out.println(count1 +" "+ count2 + " "+ count3);
 				// score 0 wins
 				if (scores[0] > scores[1] && scores[1] > scores[2]) {
 					highestScorePositionOne = 0;
@@ -322,7 +322,7 @@ public class GameBoard {
 					highestScorePositionOne = 2;
 					highestScorePositionTwo = 0;
 				}
-				System.out.println(" Highest score one :  "+highestScorePositionOne +"  highest score two : "+ highestScorePositionTwo);
+				//System.out.println(" Highest score one :  "+highestScorePositionOne +"  highest score two : "+ highestScorePositionTwo);
 			}
 			if(playerList.length == 4)
 			{
@@ -378,16 +378,9 @@ public class GameBoard {
 				}
 				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
 			}
-
-
-
-
-
 			if (playerList.length == 2) {
 				result = players[highestScorePositionOne];
 				result2 = players[highestScorePositionTwo];
-
-
 			}
 			if (playerList.length > 2) {
 				result = players[highestScorePositionOne+2];

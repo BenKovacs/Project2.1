@@ -2,7 +2,7 @@ package model.player;
 
 import gui.BoardPanel;
 import gui.MainApp;
-import gui.TestAppV2;
+import gui.TestApp;
 import javafx.geometry.Point3D;
 import model.data_model.BoardTree;
 import model.data_model.Node;
@@ -145,7 +145,7 @@ public class MinMaxPlayer extends Thread implements Player {
 				e.printStackTrace();
 			}
 
-			if(MainApp.getSingleton() == null && TestAppV2.getSingleton() == null)
+			if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
 				continue;
 
 			if(boardPanel.getGameBoard() == null)

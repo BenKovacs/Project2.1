@@ -1,11 +1,6 @@
-package model.data_model;
+package gui;
 
-import gui.BoardPanel;
-import gui.RightPanel;
-import gui.TestAppV2;
-
-import static model.data_model.GameBoard.result;
-import static model.data_model.GameBoard.result2;
+import model.data_model.GameBoard;
 
 public class TestingPanel extends BoardPanel {
 	private static int gamesPlayed = 0;
@@ -18,12 +13,12 @@ public class TestingPanel extends BoardPanel {
 	@Override
 	public void play(int x, int y) {
 		if (gameBoard.flipDisc(x, y)) {
-			setGameBoard(gameBoard);
-			rightPanel.changeTurn(gameBoard);
+			//setGameBoard(gameBoard);
+			//rightPanel.changeTurn(gameBoard);
 			if (gameBoard.isGameFinished()) {
 				gamesPlayed++;
 				if(gamesPlayed <= maxGames){
-					TestAppV2.getSingleton().reset();
+					TestApp.getSingleton().reset();
 				} else {
 					System.exit(-1);
 				}

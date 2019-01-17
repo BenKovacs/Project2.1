@@ -11,5 +11,6 @@ public interface Player{
     int getColor();
 
     void run();
+    void start();
     
 }
