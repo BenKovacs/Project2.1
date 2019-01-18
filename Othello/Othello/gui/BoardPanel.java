@@ -91,18 +91,7 @@ public class BoardPanel extends JPanel {
 					System.exit(-1);
 				}
 			}
-			//System.out.println("About to check if stable");
-			//WTF is this !?!?!?!?!
-			/*for (int i = 0; i < 8; i++) {
-				for (int j = 0; j < 8; j++) {
-					BoardManager.isStable(i, j, gameBoard.getboard());
-				}
-			}*/
 		}
-	}
-
-	public boolean gameInProgress() {
-		return this.gameInProgress;
 	}
 
 

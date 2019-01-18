@@ -133,19 +133,14 @@ public class AIBoard{
 
 	private void showValidMoves() {
 		validMoves.clear();
-		// Reset possible moves
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				int current = board[x][y];
-				if (current < 0) {
-					board[x][y] = EMPTY;
-				}
-			}
-		}
 
 		// Find possible moves for new player turn
 		for (int x = 0; x < 8; x++) {
 			for (int y = 0; y < 8; y++) {
+
+                // Reset possible moves
+                if(board[x][y]<0) board[x][y] = EMPTY;
+
 
 				int flips = countFlips(x, y);
 				if (flips > 0) {

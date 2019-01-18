@@ -388,6 +388,8 @@ public class GameBoard {
 				System.out.println(result + result2);
 
 			}
+			//check ELA class
+			if(playerList.length==2)ela();
 			return true;
 		}
 		if(playerList.length == 2){
@@ -481,5 +483,11 @@ public class GameBoard {
 
 	public ArrayList<Point3D> getPreviousMoves() {
 		return previousMoves;
+	}
+
+	//testing purposes ... see ELA class
+	private void ela(){
+		ELA algo = new ELA();
+		algo.saveData(this.getboard());
 	}
 }
