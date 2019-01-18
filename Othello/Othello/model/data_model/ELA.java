@@ -40,7 +40,6 @@ public class ELA {
         //needed for the board of the txt file
         int[][] oldBoard = new int[board.length][board[0].length];
 
-
         //read the file if there is one
         File file = new File(name +".txt");
         boolean old = false;
@@ -62,17 +61,17 @@ public class ELA {
                     System.out.println();
                 }
 
+                old = true;
 
             }catch (FileNotFoundException e) {
             } catch (IOException e) { }
+            catch (NullPointerException e){}
             finally {
                 try {
                     // Close the writer regardless of what happens...
                     reader.close();
                 } catch (IOException e) { }
             }
-
-            old = true;
         }
 
 
@@ -86,18 +85,18 @@ public class ELA {
                 for(int j=0;j<board[0].length; j++){
                     if( board[i][j]==0){
                         if(p1>32){
-                            if(!old)newBoard += newBoard + "1,";
+                            if(!old)newBoard +="1,";
                             else newBoard += (oldBoard[i][j] + 1) +",";
                         } else{
-                            if(!old)newBoard += newBoard + "-1,";
+                            if(!old)newBoard += "-1,";
                             else newBoard += (oldBoard[i][j] - 1) +",";
                         }
                     }else{
                         if(p1<32){
-                            if(!old)newBoard += newBoard + "1,";
+                            if(!old)newBoard += "1,";
                             else newBoard += (oldBoard[i][j] + 1) +",";
                         } else{
-                            if(!old)newBoard += newBoard + "-1,";
+                            if(!old)newBoard +="-1,";
                             else newBoard += (oldBoard[i][j] - 1) +",";
                         }
                     }
