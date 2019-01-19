@@ -51,14 +51,10 @@ public class ELA {
                 String boardText = reader.readLine();
                 String[] squares = boardText.split(",");
 
-                System.out.println("Old board");
-
                 for(int i=0;i<board.length; i++){
                     for(int j=0;j<board[0].length; j++){
                         oldBoard[i][j] = Integer.parseInt(squares[i+j*board.length]);
-                        System.out.print(oldBoard[i][j]);
                     }
-                    System.out.println();
                 }
 
                 old = true;
@@ -105,6 +101,8 @@ public class ELA {
 
             writer = new BufferedWriter(new FileWriter(file));
             writer.write(newBoard);
+
+            System.out.println("Ela updated");
 
         } catch (IOException e) { System.out.println("error writing file");}
         finally {
