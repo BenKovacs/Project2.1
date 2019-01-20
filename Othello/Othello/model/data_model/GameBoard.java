@@ -389,7 +389,7 @@ public class GameBoard {
 
 			}
 			//check ELA class
-			if(playerList.length==2)ela();
+			//if(playerList.length==2)ela();
 			return true;
 		}
 		if(playerList.length == 2){

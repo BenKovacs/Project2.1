@@ -102,7 +102,13 @@ public class ELA {
             writer = new BufferedWriter(new FileWriter(file));
             writer.write(newBoard);
 
-            System.out.println("Ela updated");
+            final String ANSI_PURPLE = "\u001B[35m";
+            final String ANSI_RESET = "\u001B[0m";
+
+            System.out.println(ANSI_PURPLE + "* * * * * * * * * *" + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + "* * Ela updated * *" + ANSI_RESET);
+            System.out.println(ANSI_PURPLE + "* * * * * * * * * *" + ANSI_RESET);
+
 
         } catch (IOException e) { System.out.println("error writing file");}
         finally {
