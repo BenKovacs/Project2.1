@@ -295,7 +295,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         Point bestMove = getMove(board);
         if (bestMove != null) {
             board.printBoard();
-            printData();
+            //printData();
             boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
         }
     }

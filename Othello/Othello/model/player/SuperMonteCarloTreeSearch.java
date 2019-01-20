@@ -314,7 +314,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                 }
             }
             getBoard(rootNode).printBoard();
-            printData();
+            //printData();
             boardPanel.play((int) getBoard(bestMove).getLastMove().getX(), (int) getBoard(bestMove).getLastMove().getY());
         }
     }

@@ -29,10 +29,10 @@ public class RightPanel extends JPanel {
 		//System.out.print(colorArray[gameBoard.getTurn()] + "'s Turn");
 		playerTurn.setText(colorArray[gameBoard.getTurn()] + "'s Turn\n");
 
-		discs1.setText(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
-		discs2.setText(playerList[1] + " " + colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
-		if (playerList.length >= 3) {discs3.setText(playerList[2] + " " + colorArray[playerList[2].getColor()] + " = " + GameBoard.count3);}
-		if (playerList.length >= 4) {discs4.setText(playerList[3] + " " + colorArray[playerList[3].getColor()] + " = " + GameBoard.count4);}
+		discs1.setText(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + gameBoard.count1);
+		discs2.setText(playerList[1] + " " + colorArray[playerList[1].getColor()] + " = " + gameBoard.count2);
+		if (playerList.length >= 3) {discs3.setText(playerList[2] + " " + colorArray[playerList[2].getColor()] + " = " + gameBoard.count3);}
+		if (playerList.length >= 4) {discs4.setText(playerList[3] + " " + colorArray[playerList[3].getColor()] + " = " + gameBoard.count4);}
 		double used = Runtime.getRuntime().totalMemory() - Runtime.getRuntime().freeMemory();
 		double kb = used/1024.0;
 		double mb = kb/1024.0;
@@ -51,9 +51,9 @@ public class RightPanel extends JPanel {
 
 
 		this.add(playerTurn);
-		discs1 = new JLabel(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = " + GameBoard.count1);
+		discs1 = new JLabel(playerList[0] + " " + colorArray[playerList[0].getColor()] + " = ");
 		this.add(discs1);
-		discs2 = new JLabel(playerList[1] + " " +colorArray[playerList[1].getColor()] + " = " + GameBoard.count2);
+		discs2 = new JLabel(playerList[1] + " " +colorArray[playerList[1].getColor()] + " = ");
 		this.add(discs2);
 		if (playerList.length > 2) {
 			discs3 = new JLabel(playerList[2] + " " +colorArray[playerList[2].getColor()] + " = 1");
