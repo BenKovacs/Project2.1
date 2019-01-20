@@ -17,13 +17,13 @@ public class GameBoard {
 	private int[][] board;
 
 	// Game staten
-	public static int turn;
+	public int turn;
 	private Point lastMove;
 	private int countValid;
-	public static int count1;
-	public static int count2;
-	public static int count3;
-	public static int count4;
+	public int count1;
+	public int count2;
+	public int count3;
+	public int count4;
 	public static String result;
 	public static String result2;
 
@@ -266,8 +266,8 @@ public class GameBoard {
 	 */
 	public boolean isGameFinished() {
 		//	Settings settings = new Settings();
-		int highestScorePositionOne =0;
-		int highestScorePositionTwo =0;
+		int highestScorePositionOne = 0;
+		int highestScorePositionTwo = 0;
 		//RightPanel rightpanel = new RightPanel();
 		int[] scores = new int[playerList.length];
 		String[] players = {"WHITE", "BLACK","RED", "GREEN","BLUE", "YELLOW"};
@@ -287,7 +287,7 @@ public class GameBoard {
 					highestScorePositionOne = 1;
 					highestScorePositionTwo = 0;
 				}
-				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
+//				System.out.println(" Highest score on : " + highestScorePositionOne + " highest score 2 : " + highestScorePositionTwo);
 			}
 			if(playerList.length == 3) {
 				scores[0] =count1;
@@ -376,7 +376,7 @@ public class GameBoard {
 					highestScorePositionOne = 3;
 					highestScorePositionTwo = 2;
 				}
-				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
+//				System.out.println(" Highest score on : "+highestScorePositionOne +"highest score 2 :"+ highestScorePositionTwo);
 			}
 			if (playerList.length == 2) {
 				result = players[highestScorePositionOne];
@@ -441,19 +441,19 @@ public class GameBoard {
 		return count2;
 	}
 
-	public static int getCount1() {
+	public int getCount1() {
 		return count1;
 	}
 
-	public static int getCount2() {
+	public int getCount2() {
 		return count2;
 	}
 
-	public static int getCount3() {
+	public int getCount3() {
 		return count3;
 	}
 
-	public static int getCount4() {
+	public int getCount4() {
 		return count4;
 	}
 
