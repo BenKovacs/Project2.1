@@ -25,17 +25,15 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private long startTime;
     private long timer;
 
-    private boolean won;
-
     public SuperMonteCarloTreeSearch() {
         this.runtime = 3000;
         this.iterations = 10000;
-        this.exploreParam = 2;
+        this.exploreParam = 0.5;
     }
 
     public SuperMonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
-        this.runtime = runtime;
-        this.iterations = iterations;
+        this.runtime = 3000;
+        this.iterations = 0;
         this.exploreParam = 0.5;
         this.boardPanel = boardPanel;
         this.color = color;
@@ -214,16 +212,6 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         return total;
     }
 
-    private boolean hadWon() {
-        ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
-        for (Node<HashMap<String,Object>> move : validMoves) {
-            if (winRate(move) < 1) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     public void printData() {
         MCTSBoard board = getBoard(rootNode);
         System.out.println("SUPER MCTS PLAYER: " + board.toColor(board.getTurn()));
@@ -254,16 +242,13 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                     initialization(board);
                     startTime = System.currentTimeMillis();
                     timer = runtime;
-                    won = false;
                 }
             } else {
                 while (getBoard(rootNode).getPreviousMoves().size() < boardPanel.getGameBoard().getPreviousMoves().size()) {
+                    Point3D rootNextMove = getBoard(rootNode).convertPreviousMove(boardPanel.getGameBoard().getPreviousMoves().get(getBoard(rootNode).getPreviousMoves().size()));
                     ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
                     for (Node<HashMap<String,Object>> child : children) {
-                        Point3D childPreviousMove = getBoard(child).getLastMove();
-                        Point3D boardPreviousMove = boardPanel.getGameBoard().getPreviousMoves().get(getBoard(rootNode).getPreviousMoves().size());
-                        Point3D convertedPreviousMove = getBoard(rootNode).convertPreviousMove(boardPreviousMove);
-                        if (childPreviousMove.equals(convertedPreviousMove)) {
+                        if (getBoard(child).getLastMove().equals(rootNextMove)) {
                             rootNode = child;
                             rootNode.getParent().setChildren(null);
                             rootNode.setParent(null);
@@ -279,10 +264,8 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                 if(getColor() == boardPanel.getGameBoard().getTurn()) {
                     long endTime = System.currentTimeMillis();
                     long deltaTime = endTime - startTime;
-//                    System.out.println("SMCTS delta time is: " + deltaTime);
                     timer = timer - deltaTime;
                     if (timer < 0) {
-                        won = hadWon();
                         play();
                         timer = runtime;
                     }
@@ -297,47 +280,16 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
         ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
         if (!validMoves.isEmpty()) {
             Node<HashMap<String, Object>> bestMove = validMoves.get(0);
-            if (!won) {
-                for (Node<HashMap<String, Object>> move : validMoves) {
-                    if (winRate(move) > winRate(bestMove)) {
-                        bestMove = move;
-                    }
-                }
-            } else {
-                for (Node<HashMap<String, Object>> move : validMoves) {
-                    if (avgScore(move) > avgScore(bestMove)) {
-                        bestMove = move;
-                    }
+            for (Node<HashMap<String, Object>> move : validMoves) {
+                if (winRate(move) > winRate(bestMove) || (winRate(move) == winRate(bestMove) && avgScore(move) > avgScore(bestMove))) {
+                    bestMove = move;
                 }
             }
             getBoard(rootNode).printBoard();
-            //printData();
+            printData();
             boardPanel.play((int) getBoard(bestMove).getLastMove().getX(), (int) getBoard(bestMove).getLastMove().getY());
         }
     }
-
-    private void destroyTree(Node<HashMap<String, Object>> node) {
-        for (Node<HashMap<String, Object>> child : node.getChildren()) {
-            destroyTree(child);
-            node.setParent(null);
-            node.setChildren(null);
-            node.setData(null);
-        }
-    }
-
-//    private Node<HashMap<String, Object>> bestMove() {
-//        double winrate = 0;
-//        if (!rootNode.getChildren().isEmpty()) {
-//            Node<HashMap<String, Object>> bestMove = rootNode.getChildren().get(0);
-//            ArrayList<Node<HashMap<String,Object>>> validMoves = (ArrayList<Node<HashMap<String,Object>>>) rootNode.getChildren();
-//            for (Node<HashMap<String,Object>> move : validMoves) {
-//                while (move)
-//            }
-//        }
-//
-//
-//
-//    }
 
     public int getPlayerType() {
         return Player.TYPE_BOT;

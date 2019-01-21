@@ -3,6 +3,7 @@ package model.player;
 import gui.BoardPanel;
 import gui.MainApp;
 import gui.TestApp;
+import model.data_model.GameBoard;
 import model.data_model.MCTSBoard;
 import model.data_model.Node;
 
@@ -292,10 +293,14 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         board.useGameBoard(boardPanel.getGameBoard());
         Point bestMove = getMove(board);
         if (bestMove != null) {
-            //board.printBoard();
-            //printData();
+            board.printBoard();
+            printData();
             boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
         }
+//        board.play((int) bestMove.getX(), (int) bestMove.getY());
+//        System.out.println("GameBoard turn: " + board.toColor(board.convertCell(boardPanel.getGameBoard().getTurn())));
+//        System.out.println("MCTSBoard: " + board.toColor(board.getTurn()));
+//        System.out.println();
     }
 
     public int getPlayerType() {
