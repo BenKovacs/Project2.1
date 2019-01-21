@@ -305,5 +305,9 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     public int getColor() {
     	return color;
     }
+
+    public String toString() {
+        return "MCTS Player";
+    }
     
 }

@@ -17,12 +17,12 @@ public class MainApp{
 		case 2:
 			return new RandomPlayer(boardPanel, turn);
 		case 3:
-			int runtime = 2000; //min runtime in millisecs
-			int iterations = 0; //min iterations
+			int runtime = 0; //min runtime in millisecs
+			int iterations = 10000; //min iterations
 			return new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 		case 4:
-			runtime = 3000; //min runtime in millisecs
-			iterations = 0; //min iterations
+			runtime = 0; //min runtime in millisecs
+			iterations = 10000; //min iterations
 			return new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			
 		}
@@ -128,8 +128,8 @@ public class MainApp{
 			
 			frame.getContentPane().add(boardPanel, 1, 0);
 			int depth = 4;
-			Player first = getBot(i,boardPanel,Constants.WHITE,depth);
-			Player second = getBot(j,boardPanel,Constants.BLACK,depth);
+			Player first = getBot(i, boardPanel, Constants.WHITE, depth);
+			Player second = getBot(j, boardPanel, Constants.BLACK, depth);
 			playerList = new Player[2];
 			playerList[0] = first;
 			playerList[1] = second;

@@ -1,4 +1,4 @@
-Thread[Greedy Bot,6,main] vs Thread[Greedy Bot,6,main]result: 40 24
+Thread[Greedy Bot,6,main] vs Thread[Random Bot,6,main]result: 33 31
 ==============================
-Thread[Random Bot,6,main] vs Thread[Random Bot,6,main]result: 15 49
+Greedy Player vs Random Playerresult: 50 14
 ==============================

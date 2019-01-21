@@ -99,4 +99,8 @@ public class GreedyPlayer extends Thread implements Player{
     public int getColor() {
     	return color;
     }
+
+    public String toString() {
+        return "Greedy Player";
+    }
 }
