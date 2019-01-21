@@ -152,6 +152,9 @@ public class MinMaxPlayer extends Thread implements Player {
 
 	public void run() {
 		while(true) {
+			if (boardPanel.getGameBoard().isGameFinished()){
+				break;
+			}
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
@@ -167,9 +170,6 @@ public class MinMaxPlayer extends Thread implements Player {
 
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				this.play();
-			}
-			if (boardPanel.getGameBoard().isGameFinished()){
-				break;
 			}
 		}
 

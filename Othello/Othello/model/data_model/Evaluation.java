@@ -20,7 +20,7 @@ public class Evaluation {
         return 1;
     }
 
-    public static int staticWeightsHeuristic(int x, int y, int[][] board, int turn){
+    public static double staticWeightsHeuristic(int x, int y, int[][] board, int turn){
         int[][] weights ={{200 , -100, 100,  50,  50, 100, -100,  200},
                         {-100, -200, -50, -50, -50, -50, -200, -100},
                         {100 ,  -50, 100,   0,   0, 100,  -50,  100},
@@ -79,6 +79,6 @@ public class Evaluation {
 
         }
         Random random = new Random();
-        return total/* * (1 - random.nextDouble())*/;
+        return total * (random.nextDouble() / 50 + 0.98);
     }
 }
