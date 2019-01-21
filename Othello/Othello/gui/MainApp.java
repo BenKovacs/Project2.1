@@ -7,6 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainApp{
+	//MCTS vs MinMax both ways
+	//depth 5 to depth 7
+	//10K iterations
+	
+	//MCTS vs itself, exploration param in 0.5, 1, 1.5 , 2
 	
 	public static Player getBot(int index, BoardPanel boardPanel, int turn, int depth) {
 		switch(index) {
@@ -25,6 +30,13 @@ public class MainApp{
 			iterations = 10000; //min iterations
 			return new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			
+		}
+		if(index >= 5 && index <= 8) {
+			int runtime = 0; //min runtime in millisecs
+			int iterations = 10000; //min iterations
+			MonteCarloTreeSearch mcts =  new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			mcts.setExploreParam((index - 4)*0.5);
+			return mcts;
 		}
 		return new HumanPlayer(boardPanel, turn);
 	}
