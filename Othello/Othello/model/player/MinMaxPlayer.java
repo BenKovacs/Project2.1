@@ -106,7 +106,7 @@ public class MinMaxPlayer extends Thread implements Player {
 	 */
 	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer, int toMinimize){
 		//condition of end
-		if(depth == 0) return node;
+		if(depth == 1) return node;
 
 		if(node.getChildren().size()==0) return node;
 
