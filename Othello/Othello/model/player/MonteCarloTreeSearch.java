@@ -307,7 +307,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     public String toString() {
-        return "MCTS Player";
+        return "MCTS Player, Iterations: " + iterations;
     }
     
 }
