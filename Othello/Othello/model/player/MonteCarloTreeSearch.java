@@ -18,7 +18,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
 
     private int runtime;
     private int iterations;
-    private int exploreParam;
+    private double exploreParam;
 
     private BoardPanel boardPanel;
     private int color;
@@ -227,11 +227,11 @@ public class MonteCarloTreeSearch extends Thread implements Player {
 
     public int getRuntime() { return runtime; }
     public int getIterations() { return iterations; }
-    public int getExploreParam() { return this.exploreParam; }
+    public double getExploreParam() { return this.exploreParam; }
 
     public void setRuntime(int runtime) { this.runtime = runtime; }
     public void setIterations(int iterations) { this.iterations = iterations; }
-    public void setExploreParam(int exploreParam) { this.exploreParam = exploreParam; }
+    public void setExploreParam(double exploreParam) { this.exploreParam = exploreParam; }
 
     private int countChildren(Node<HashMap<String,Object>> node) {
         ArrayList<Node<HashMap<String,Object>>> children = (ArrayList<Node<HashMap<String,Object>>>) node.getChildren();
@@ -304,6 +304,10 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     
     public int getColor() {
     	return color;
+    }
+
+    public String toString() {
+        return "MCTS Player, Iterations: " + iterations + ", Exploration: " + this.exploreParam;
     }
     
 }

@@ -106,7 +106,7 @@ public class MinMaxPlayer extends Thread implements Player {
 	 */
 	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer, int toMinimize){
 		//condition of end
-		if(depth == 0) return node;
+		if(depth == 1) return node;
 
 		if(node.getChildren().size()==0) return node;
 
@@ -151,16 +151,12 @@ public class MinMaxPlayer extends Thread implements Player {
 
 	public void run() {
 		while(true) {
-			if (boardPanel.getGameBoard().isGameFinished()){
-				break;
-			}
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-
 			if(MainApp.getSingleton() == null && TestApp.getSingleton() == null)
 				continue;
 
@@ -170,8 +166,15 @@ public class MinMaxPlayer extends Thread implements Player {
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				this.play();
 			}
+			if (boardPanel.getGameBoard().isGameFinished()){
+				break;
+			}
 		}
 
+	}
+
+	public String toString() {
+		return "Alpha/Beta Player, depth: " + depth;
 	}
 
 	public int getPlayerType() {

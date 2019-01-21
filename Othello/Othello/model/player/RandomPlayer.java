@@ -74,4 +74,8 @@ public class RandomPlayer  extends Thread implements Player {
     public int getColor() {
     	return color;
     }
+
+    public String toString() {
+        return "Random Player";
+    }
 }

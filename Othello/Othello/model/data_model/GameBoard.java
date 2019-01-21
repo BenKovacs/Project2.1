@@ -210,7 +210,7 @@ public class GameBoard {
 		int i = 0;
 		while (oldturn == turn){
 			if (playerList[i].getColor() == turn){
-				if( i < playerList.length-1){
+				if( i < playerList.length - 1){
 					turn = playerList[i+1].getColor();
 					player = playerList[i+1];
 				} else {

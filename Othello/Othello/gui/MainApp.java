@@ -7,6 +7,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MainApp{
+	//MCTS vs MinMax both ways
+	//depth 5 to depth 7
+	//10K iterations
+	
+	//MCTS vs itself, exploration param in 0.5, 1, 1.5 , 2
 	
 	public static Player getBot(int index, BoardPanel boardPanel, int turn, int depth) {
 		switch(index) {
@@ -17,14 +22,21 @@ public class MainApp{
 		case 2:
 			return new RandomPlayer(boardPanel, turn);
 		case 3:
-			int runtime = 2000; //min runtime in millisecs
-			int iterations = 0; //min iterations
+			int runtime = 0; //min runtime in millisecs
+			int iterations = 10000; //min iterations
 			return new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 		case 4:
-			runtime = 3000; //min runtime in millisecs
-			iterations = 0; //min iterations
+			runtime = 0; //min runtime in millisecs
+			iterations = 10000; //min iterations
 			return new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			
+		}
+		if(index >= 5 && index <= 8) {
+			int runtime = 0; //min runtime in millisecs
+			int iterations = 10000; //min iterations
+			MonteCarloTreeSearch mcts =  new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
+			mcts.setExploreParam((index - 4)*0.5);
+			return mcts;
 		}
 		return new HumanPlayer(boardPanel, turn);
 	}
@@ -119,7 +131,7 @@ public class MainApp{
 		Player[] playerList;
 		rPanel = new RightPanel();
 		boardPanel = new BoardPanel(gameBoard, rPanel);
-		if(i > 0 && j > 0) {
+		if(i >= 0 && j >= 0) {
 			
 			// set the layout
 			frame.getContentPane().setLayout(new GridLayout(1, 2));
@@ -128,8 +140,8 @@ public class MainApp{
 			
 			frame.getContentPane().add(boardPanel, 1, 0);
 			int depth = 4;
-			Player first = getBot(i,boardPanel,Constants.WHITE,depth);
-			Player second = getBot(j,boardPanel,Constants.BLACK,depth);
+			Player first = getBot(i, boardPanel, Constants.WHITE, depth);
+			Player second = getBot(j, boardPanel, Constants.BLACK, depth);
 			playerList = new Player[2];
 			playerList[0] = first;
 			playerList[1] = second;
