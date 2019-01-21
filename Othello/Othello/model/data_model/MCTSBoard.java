@@ -234,16 +234,34 @@ public class MCTSBoard implements Cloneable {
         }
     }
 
+    private void swapTurn() {
+        if (turn == playerList[0]) {
+            turn = playerList[1];
+        } else {
+            turn = playerList[0];
+        }
+    }
+
     //switch player turn
     public void nextTurn() {
-        for (int i = 0; i < playerList.length; i++) {
-            if (playerList[i] == turn) {
-                if (i < playerList.length - 1) {
-                    turn = playerList[i+1];
-                    break;
-                } else {
-                    turn = playerList[0];
-                    break;
+        if (playerList.length == 2) {
+            swapTurn();
+            if (getValidMoves().isEmpty()) {
+                swapTurn();
+                if (getValidMoves().isEmpty()) {
+                    swapTurn();
+                }
+            }
+        } else {
+            for (int i = 0; i < playerList.length; i++) {
+                if (playerList[i] == turn) {
+                    if (i < playerList.length - 1) {
+                        turn = playerList[i+1];
+                        break;
+                    } else {
+                        turn = playerList[0];
+                        break;
+                    }
                 }
             }
         }
@@ -359,11 +377,11 @@ public class MCTSBoard implements Cloneable {
         }
         for (int row = 0; row < height; row++) {
             for (int column = 0; column < width; column++) {
-                //System.out.print(toChar(showBoard[row][column]) + " ");
+                System.out.print(toChar(showBoard[row][column]) + " ");
             }
-            //System.out.println();
+            System.out.println();
         }
-        //System.out.println();
+        System.out.println();
     }
 
     public int getWidth() { return width; }
