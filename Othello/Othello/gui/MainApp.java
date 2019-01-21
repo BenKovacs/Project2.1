@@ -1,5 +1,6 @@
 package gui;
 
+import model.data_model.Evaluation;
 import model.data_model.GameBoard;
 import model.data_model.Constants;
 import model.player.*;
@@ -16,7 +17,7 @@ public class MainApp{
 	public static Player getBot(int index, BoardPanel boardPanel, int turn, int depth) {
 		switch(index) {
 		case 0:
-			 return new MinMaxPlayer(boardPanel, turn, depth);
+			return new MinMaxPlayer(boardPanel, turn, depth);
 		case 1:
 			return new GreedyPlayer(boardPanel, turn);
 		case 2:
@@ -29,7 +30,13 @@ public class MainApp{
 			runtime = 0; //min runtime in millisecs
 			iterations = 10000; //min iterations
 			return new SuperMonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
-			
+		case 9:
+			Evaluation.Heuristic1 = 0;
+			Evaluation.Heuristic2 = 1;
+			return new MinMaxPlayer(boardPanel, turn, depth);
+		case 10:
+			Evaluation.Heuristic2 = 0.5;
+			return new MinMaxPlayer(boardPanel, turn, depth);
 		}
 		if(index >= 5 && index <= 8) {
 			int runtime = 0; //min runtime in millisecs

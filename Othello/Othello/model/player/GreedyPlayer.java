@@ -55,7 +55,7 @@ public class GreedyPlayer extends Thread implements Player{
 //        		}
 
                 if(type < 0) {
-                    double score = Evaluation.staticWeightsHeuristic(x, y, boardPanel.getGameBoard().getboard(), color);
+                    double score = Evaluation.getEvaluation(x, y, boardPanel.getGameBoard().getboard(), color);
         			if(score > maxScore || max == null) {
                         maxScore = score;
         				max = p;
@@ -69,9 +69,6 @@ public class GreedyPlayer extends Thread implements Player{
 
     public void run() {
         while(true) {
-            if (boardPanel.getGameBoard().isGameFinished()){
-                break;
-            }
             try {
                 sleep(200);
             } catch (InterruptedException e) {
@@ -87,6 +84,9 @@ public class GreedyPlayer extends Thread implements Player{
 
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
                 this.play();
+            }
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
             }
         }
 

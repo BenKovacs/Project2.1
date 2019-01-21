@@ -24,3 +24,7 @@ Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result
 ==============================
 Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 29 35
 ==============================
+Alpha/Beta Player, depth: 4 vs MCTS Player, Iterations: 10000result: 38 26
+==============================
+Greedy Player|MCTS Player|10000|2.0|10|54
+Greedy Player|MCTS Player|10000|2.0|22|42
