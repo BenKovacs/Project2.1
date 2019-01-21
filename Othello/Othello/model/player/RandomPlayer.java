@@ -35,6 +35,9 @@ public class RandomPlayer  extends Thread implements Player {
     
     public void run() {
     	while(true) {
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
+            }
     		try {
         		
     			sleep(200);
@@ -61,10 +64,6 @@ public class RandomPlayer  extends Thread implements Player {
         		}
         		play();
         	}
-            if (boardPanel.getGameBoard().isGameFinished()){
-                break;
-            }
-        	
     	}
     }
 
