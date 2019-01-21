@@ -8,8 +8,6 @@ import model.data_model.AIBoard;
 import model.data_model.BoardTree;
 import model.data_model.Node;
 
-import java.util.ArrayList;
-
 
 /**
  * This class need to be reviewed but the tree building works
@@ -45,6 +43,7 @@ public class MinMaxPlayer extends Thread implements Player {
 		Node<Point3D> bestmove;// = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
 		//if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers); else
 		bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true, nPlayers);
+		//bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
 
 		//set true to Maximize the result for the first player
 		//System.out.println(bestmove.getData().toString());
@@ -65,7 +64,7 @@ public class MinMaxPlayer extends Thread implements Player {
 	 */
 	private Node<Point3D> minimax(Node<Point3D> node, int depth, boolean maxPlayer, int toMinimize){
 		//end condition
-		if(depth == 0) return node;
+		if(depth == 1) return node;
 
 		if(node.getChildren().size()==0) return node;
 
