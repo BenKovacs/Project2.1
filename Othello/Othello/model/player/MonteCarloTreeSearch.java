@@ -262,6 +262,9 @@ public class MonteCarloTreeSearch extends Thread implements Player {
 
     public void run() {
         while(true) {
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
+            }
             try {
                 sleep(200);
             } catch (InterruptedException e) {
@@ -281,12 +284,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
             if(getColor() == boardPanel.getGameBoard().getTurn()) {
                 play();
             }
-            if (boardPanel.getGameBoard().isGameFinished()){
-                break;
-            }
-
         }
-
     }
 
     public void play() {
@@ -295,7 +293,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         Point bestMove = getMove(board);
         if (bestMove != null) {
             board.printBoard();
-            printData();
+            //printData();
             boardPanel.play((int)bestMove.getX(),(int)bestMove.getY());
         }
     }

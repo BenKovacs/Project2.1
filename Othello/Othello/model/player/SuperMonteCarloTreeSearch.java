@@ -244,6 +244,9 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
 
     public void run() {
         while(true) {
+            if (boardPanel.getGameBoard().isGameFinished()){
+                break;
+            }
             if (rootNode == null) {
                 if (boardPanel.getGameBoard() != null) {
                     MCTSBoard board = new MCTSBoard(8,8);
@@ -287,11 +290,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                 startTime = System.currentTimeMillis();
                 selection();
             }
-            if (boardPanel.getGameBoard().isGameFinished()){
-                break;
-            }
         }
-
     }
 
     public void play() {
@@ -312,7 +311,7 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
                 }
             }
             getBoard(rootNode).printBoard();
-            printData();
+            //printData();
             boardPanel.play((int) getBoard(bestMove).getLastMove().getX(), (int) getBoard(bestMove).getLastMove().getY());
         }
     }

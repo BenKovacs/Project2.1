@@ -20,7 +20,7 @@ public class Evaluation {
         return 1;
     }
 
-    public static int staticWeightsHeuristic(int x, int y, int[][] board, int turn){
+    public static double staticWeightsHeuristic(int x, int y, int[][] board, int turn){
         int[][] weights ={{200 , -100, 100,  50,  50, 100, -100,  200},
                         {-100, -200, -50, -50, -50, -50, -200, -100},
                         {100 ,  -50, 100,   0,   0, 100,  -50,  100},
@@ -30,6 +30,9 @@ public class Evaluation {
                         {-100, -200, -50, -50, -50, -50, -200, -100},
                         {200 , -100, 100,  50,  50, 100, -100,  200}};
         int total = 0;
+
+        //COMMENTED OUT BECAUSE RESULTED IN POOR MINIMAX PERFORMING VS GREEDY
+/*
         //if corners are taken, that corner of the board looses all value.
         if(board[0][0] != 0){
             for (int i = 0; i < 3; i++) {
@@ -61,8 +64,7 @@ public class Evaluation {
                     weights[i][j] = 0;
                 }
             }
-        }
-
+        }*/
 
         //int turn = board[x][y];
         //if(turn == BLACK){turn=WHITE;}else{turn=BLACK;}
@@ -77,6 +79,6 @@ public class Evaluation {
 
         }
         Random random = new Random();
-        return total/* * (1 - random.nextDouble())*/;
+        return total * (random.nextDouble() / 50 + 0.98);
     }
 }

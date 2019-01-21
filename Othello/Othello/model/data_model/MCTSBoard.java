@@ -359,11 +359,11 @@ public class MCTSBoard implements Cloneable {
         }
         for (int row = 0; row < height; row++) {
             for (int column = 0; column < width; column++) {
-                System.out.print(toChar(showBoard[row][column]) + " ");
+                //System.out.print(toChar(showBoard[row][column]) + " ");
             }
-            System.out.println();
+            //System.out.println();
         }
-        System.out.println();
+        //System.out.println();
     }
 
     public int getWidth() { return width; }
@@ -381,5 +381,4 @@ public class MCTSBoard implements Cloneable {
     public void setPreviousMoves(ArrayList<Point3D> previousMoves) { this.previousMoves = previousMoves; }
 //    public void setLastMove(Point lastMove) { this.lastMove = lastMove; }
     public void setPlayerList(int[] playerList) { this.playerList = playerList; }
-
 }

@@ -64,13 +64,12 @@ public class BoardTree {
             threads.add(t);
         }
 
+        //check whether the thread are finished
         boolean going = true;
         while(going){
 
             int a = 0;
-            for(Thread t: threads){
-                if(t.isAlive())a++;
-            }
+            for(Thread t: threads) if(t.isAlive())a++;
 
             if(a==0)going = false;
         }

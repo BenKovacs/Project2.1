@@ -33,26 +33,26 @@ public class MinMaxPlayer extends Thread implements Player {
 
 		nPlayers = boardPanel.getGameBoard().getPlayerList().length;
 
-		long start = System.nanoTime();
+		//greedy approach:
+		AIBoard instanceBoard =  new AIBoard(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), boardPanel.getGameBoard().getPlayerList());
+
 		//construct the tree
 		bTree = new BoardTree(boardPanel.getGameBoard(), boardPanel.getGameBoard().getTurn(), depth);
 
-		double elapsedTime = ((double)(System.nanoTime() - start)/ 1_000_000_000.0);
-		//System.out.println("Elapsed time " + elapsedTime);
-
 		//get the minimax move + little tweak ;)
-		Node<Point3D> bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		/*if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
-		else bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true);*/
+		Node<Point3D> bestmove;// = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
+		//if(nPlayers>2)bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers); else
+		bestmove = alphaBeta(bTree.getRootT(), bTree.getDepth(),-999, 999, true, nPlayers);
+		//bestmove = minimax(bTree.getRootT(), bTree.getDepth(), true, nPlayers);
 
 		//set true to Maximize the result for the first player
 		//System.out.println(bestmove.getData().toString());
 
 		//select the move and play
 		try{
-			AIBoard instanceBoard =  new AIBoard(boardPanel.getGameBoard().getboard(), boardPanel.getGameBoard().getTurn(), boardPanel.getGameBoard().getPlayerList());
-			if(instanceBoard.flipDisc((int)bestmove.getData().getX(), (int)bestmove.getData().getY()));
-			boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+			if(instanceBoard.flipDisc((int)bestmove.getData().getX(), (int)bestmove.getData().getY()))
+				boardPanel.play((int)bestmove.getData().getX(), (int)bestmove.getData().getY());
+
 		}catch (ArrayIndexOutOfBoundsException e){ } //To avoid the final OUTOFBOUNDS
 		catch (NullPointerException e){}
 	}
@@ -64,7 +64,7 @@ public class MinMaxPlayer extends Thread implements Player {
 	 */
 	private Node<Point3D> minimax(Node<Point3D> node, int depth, boolean maxPlayer, int toMinimize){
 		//end condition
-		if(depth == 0) return node;
+		if(depth == 1) return node;
 
 		if(node.getChildren().size()==0) return node;
 
@@ -104,35 +104,45 @@ public class MinMaxPlayer extends Thread implements Player {
 	/**
 	 *AlphaBeta ALGORITHM valid for 2 players
 	 */
-	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer){
+	private Node<Point3D> alphaBeta(Node<Point3D> node, int depth, int alpha, int beta, boolean maxPlayer, int toMinimize){
 		//condition of end
 		if(depth == 0) return node;
+
+		if(node.getChildren().size()==0) return node;
 
 		//act for the MAX
 		if(maxPlayer){
 			Node<Point3D> maxEval = new Node(new Point3D(0,0,-999));
 			for(Node<Point3D> n: node.getChildren()){
-				double eval = alphaBeta(n, depth-1,alpha, beta, false).getData().getZ();
+				double eval = alphaBeta(n, depth-1,alpha, beta, false, toMinimize).getData().getZ();
 
 				if(maxEval.getData().getZ()< eval)
 					maxEval = new Node(new Point3D( n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
-				alpha = Math.max(alpha, (int)eval);
+				alpha = Math.max(alpha, (int)maxEval.getData().getZ());
 				if(beta <= alpha)break;
 			}
+			
 			return maxEval;
 
 		}else{ // act for the MIN
 			Node<Point3D>  minEval = new Node(new Point3D(0,0,999));
 			for(Node<Point3D> n: node.getChildren()){
-				double eval = alphaBeta(n, depth-1,alpha, beta, true).getData().getZ();
+
+				double eval;
+
+
+				if(toMinimize >=2)
+					eval = alphaBeta(n, depth-1, alpha, beta,false, toMinimize-1).getData().getZ();
+				else
+					eval = alphaBeta(n, depth-1, alpha, beta, true, nPlayers).getData().getZ();
 
 				if(minEval.getData().getZ()> eval)
 					minEval = new Node(new Point3D(n.getData().getX(),n.getData().getY(), eval));
 
 				//alphabeta implementation
-				beta = Math.min(beta, (int)eval);
+				beta = Math.min(beta, (int)minEval.getData().getZ());
 				if(beta <= alpha)break;
 			}
 			return minEval;
@@ -141,6 +151,9 @@ public class MinMaxPlayer extends Thread implements Player {
 
 	public void run() {
 		while(true) {
+			if (boardPanel.getGameBoard().isGameFinished()){
+				break;
+			}
 			try {
 				sleep(100);
 			} catch (InterruptedException e) {
@@ -156,9 +169,6 @@ public class MinMaxPlayer extends Thread implements Player {
 
 			if(getColor() == boardPanel.getGameBoard().getTurn()) {
 				this.play();
-			}
-			if (boardPanel.getGameBoard().isGameFinished()){
-				break;
 			}
 		}
 
