@@ -35,7 +35,7 @@ public class MainApp{
 			Evaluation.Heuristic2 = 1;
 			return new MinMaxPlayer(boardPanel, turn, depth);
 		case 10:
-			Evaluation.Heuristic2 = 0.5;
+			Evaluation.Heuristic2 = 1;
 			return new MinMaxPlayer(boardPanel, turn, depth);
 		}
 		if(index >= 5 && index <= 8) {
