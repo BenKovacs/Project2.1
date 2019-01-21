@@ -1,4 +1,26 @@
-Thread[Greedy Bot,6,main] vs Thread[Random Bot,6,main]result: 33 31
+
 ==============================
-Greedy Player vs Random Playerresult: 50 14
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 31 33
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 33 31
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 37 27
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 30 34
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 39 25
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 34 30
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 17 47
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 32 32
+==============================
+Thread[MinMax/AlphaBeta Bot,6,] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 19 45
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 20 44
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 29 35
+==============================
+Thread[MinMax/AlphaBeta Bot,6,main] vs Thread[MinMax/AlphaBeta Bot,6,main]result: 29 35
 ==============================
