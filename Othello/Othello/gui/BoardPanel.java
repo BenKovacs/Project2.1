@@ -72,7 +72,7 @@ public class BoardPanel extends JPanel {
 		showBoard();
 	}
 
-	public void play(int x, int y) {
+	public synchronized void play(int x, int y) {
 		//System.out.println(" " + x + "," + y);
 		if (gameBoard.flipDisc(x, y)) {
 			setGameBoard(gameBoard);
