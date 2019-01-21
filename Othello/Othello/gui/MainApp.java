@@ -36,6 +36,7 @@ public class MainApp{
 			int iterations = 10000; //min iterations
 			MonteCarloTreeSearch mcts =  new MonteCarloTreeSearch(boardPanel, turn, runtime, iterations);
 			mcts.setExploreParam((index - 4)*0.5);
+			
 			return mcts;
 		}
 		return new HumanPlayer(boardPanel, turn);

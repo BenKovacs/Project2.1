@@ -307,7 +307,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     }
 
     public String toString() {
-        return "MCTS Player, Iterations: " + iterations + ", Exploration: " + this.exploreParam;
+        return "MCTS Player|"+iterations + "|"+ this.exploreParam;
     }
     
 }

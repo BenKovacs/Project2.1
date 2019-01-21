@@ -88,12 +88,13 @@ public class BoardPanel extends JPanel {
 				}
 				try {
 					BufferedWriter out = new BufferedWriter(new FileWriter("./results.txt", true));
-					out.write(this.getGameBoard().getPlayerList()[0] + " vs " + this.getGameBoard().getPlayerList()[1]);
-					out.write("result: " + this.getGameBoard().getCount1() + " " + this.getGameBoard().getCount2());
+					
+					out.write(this.getGameBoard().getPlayerList()[0] + "|" + this.getGameBoard().getPlayerList()[1]);
+					out.write("|" + this.getGameBoard().getCount1() + "|" + this.getGameBoard().getCount2());
 				
 					out.newLine();
-					out.write("==============================");
-					out.newLine();
+					//out.write("==============================");
+					//out.newLine();
 					out.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
