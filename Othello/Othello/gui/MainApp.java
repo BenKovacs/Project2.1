@@ -119,7 +119,7 @@ public class MainApp{
 		Player[] playerList;
 		rPanel = new RightPanel();
 		boardPanel = new BoardPanel(gameBoard, rPanel);
-		if(i > 0 && j > 0) {
+		if(i >= 0 && j >= 0) {
 			
 			// set the layout
 			frame.getContentPane().setLayout(new GridLayout(1, 2));
