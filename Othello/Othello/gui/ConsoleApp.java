@@ -40,12 +40,15 @@ public class ConsoleApp {
 	public static void main(String[] args) {
 		
 		/*
+		 * i and j are the indices of the bots we are testing against each other
+		 * 
+		 */
+		/*
 		for(int i = 0; i < 5; i++) {
 			for(int j = 0; j < 5; j++) {
 				*/
-				Random rand = new Random();
-				int i = 1; //rand.nextInt(5);
-				int j = 2;//rand.nextInt(5);
+				int i = Integer.parseInt(args[0]);
+				int j = Integer.parseInt(args[1]);
 				GameBoard gameBoard = new GameBoard(8, 8);
 				RightPanel rPanel = new RightPanel();
 				BoardPanel boardPanel = new TestingPanel(gameBoard, rPanel);

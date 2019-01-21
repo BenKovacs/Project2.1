@@ -8,6 +8,9 @@ import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import static model.data_model.Constants.*;
 import static model.data_model.GameBoard.result;
@@ -83,6 +86,20 @@ public class BoardPanel extends JPanel {
 				} else {
 					message = "The winner is the " + result + " player. " ;
 				}
+				try {
+					BufferedWriter out = new BufferedWriter(new FileWriter("./results.txt", true));
+					out.write(this.getGameBoard().getPlayerList()[0] + " vs " + this.getGameBoard().getPlayerList()[1]);
+					out.write("result: " + this.getGameBoard().getCount1() + " " + this.getGameBoard().getCount2());
+				
+					out.newLine();
+					out.write("==============================");
+					out.newLine();
+					out.close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.exit(-1);
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
 				if (dialogResult == 0) {
