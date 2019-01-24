@@ -38,3 +38,25 @@ MCTS Player, Iterations: 10000, Exploration: 2.0 vs MCTS Player, Iterations: 100
 ==============================
 MCTS Player, Iterations: 10000, Exploration: 2.0 vs MCTS Player, Iterations: 10000, Exploration: 2.0result: 26 38
 ==============================
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|34|30
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|35|29
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|48|16
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,]|10|26
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|23|41
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|10|54
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|44|20
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|32|32
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|39|25
+MCTS Player|0|0.7|MCTS Player|0|0.7|33|31
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,]|17|22
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|24|40
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|25|39
+Greedy Player|Alpha/Beta Player, depth: 4|10|4
+Thread[SMCTS Bot,6,main]|Thread[SMCTS Bot,6,]|32|32
+Thread[SMCTS Bot,6,main]|Thread[SMCTS Bot,6,main]|34|30
+Greedy Player|Alpha/Beta Player, depth: 4|17|47
+Greedy Player|Alpha/Beta Player, depth: 4|23|41
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|20|44
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|18|46
+Greedy Player|Alpha/Beta Player, depth: 4|8|8
+Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,]|35|13

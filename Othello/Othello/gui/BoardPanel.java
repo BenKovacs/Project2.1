@@ -100,7 +100,7 @@ public class BoardPanel extends JPanel {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				System.exit(-1);
+//				System.exit(-1);
 				int dialogButton = JOptionPane.YES_NO_OPTION;
 				int dialogResult = JOptionPane.showConfirmDialog(this, message + " Would you like to play again?", "Game Ended", dialogButton);
 				if (dialogResult == 0) {
