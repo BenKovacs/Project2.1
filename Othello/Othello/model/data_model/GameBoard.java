@@ -200,6 +200,10 @@ public class GameBoard {
 	public void changeTurn() {
 		swapPlayers();
 		showValidMoves();
+		if (playerList.length == 2 && getValidMoves().isEmpty()) {
+			swapPlayers();
+			showValidMoves();
+		}
 	}
 
 	/**
@@ -394,16 +398,6 @@ public class GameBoard {
 			//check ELA class
 			if(playerList.length==2)ela();
 			return true;
-		}
-		if(playerList.length == 2){
-			// Check for the current player valid moves
-			if (countValid == 0) {
-				changeTurn();
-				// check for the other player...
-				if (countValid == 0) {
-					return true;
-				}
-			}
 		}
 		return false;
 	}

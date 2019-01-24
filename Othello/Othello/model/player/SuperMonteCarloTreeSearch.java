@@ -26,17 +26,17 @@ public class SuperMonteCarloTreeSearch extends Thread implements Player {
     private long timer;
 
     public SuperMonteCarloTreeSearch() {
-        this.runtime = 3000;
-        this.iterations = 10000;
-        this.exploreParam = 0.5;
+        this.runtime = 500;
+        this.iterations = 0;
+        this.exploreParam = 0.7;
     }
 
     public SuperMonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
         this.boardPanel = boardPanel;
         this.color = color;
         this.runtime = runtime;
-        this.iterations = iterations;
-        this.exploreParam = 0.5;
+        this.iterations = 0;
+        this.exploreParam = 0.7;
         setName("SMCTS Bot");
     }
 

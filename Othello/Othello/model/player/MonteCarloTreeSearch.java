@@ -27,7 +27,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
     public MonteCarloTreeSearch() {
         this.runtime = 3000;
         this.iterations = 10000;
-        this.exploreParam = 2;
+        this.exploreParam = 0.7;
     }
 
     public MonteCarloTreeSearch(BoardPanel boardPanel, int color, int runtime, int iterations) {
@@ -35,7 +35,7 @@ public class MonteCarloTreeSearch extends Thread implements Player {
         this.color = color;
         this.runtime = runtime;
         this.iterations = iterations;
-        this.exploreParam = 2;
+        this.exploreParam = 0.7;
         setName("MCTS Bot");
     }
 
