@@ -9,7 +9,7 @@ import java.io.*;
  *
  * It will work passively at the end of each game without problems.
  * REMEMBER TO PUSH YOUR FILE .TXT THAT IT WILL BE CREATED
- * If the table will work, we will implement it with success otherwise fck
+ * If the table will work, we can implement it with success
  *
  */
 public class ELA {

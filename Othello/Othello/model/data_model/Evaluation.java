@@ -109,7 +109,8 @@ public class Evaluation {
                 }
             }
         }
-        return counter/64.0;
+        Random random = new Random();
+        return counter/64.0 * (random.nextDouble() / 50 + 0.98);
     }
 
     public static boolean isStable(final int x, final int y, int[][] board) {

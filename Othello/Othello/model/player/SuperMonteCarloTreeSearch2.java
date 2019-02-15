@@ -29,7 +29,7 @@ public class SuperMonteCarloTreeSearch2 extends Thread implements Player {
     public SuperMonteCarloTreeSearch2() {
         this.runtime = 3000;
         this.iterations = 10000;
-        this.exploreParam = 0.5;
+        this.exploreParam = 0.7;
         this.simulations = 1;
     }
 

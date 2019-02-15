@@ -60,3 +60,6 @@ Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|20|44
 Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,main]|18|46
 Greedy Player|Alpha/Beta Player, depth: 4|8|8
 Thread[SMCTS Bot,6,]|Thread[SMCTS Bot,6,]|35|13
+MCTS Player|10000|0.7|MCTS Player|10000|0.7|5|20
+MCTS Player|10000|0.7|MCTS Player|10000|0.7|25|12
+Human Player|MCTS Player|10000|0.7|22|42
